@@ -1,0 +1,27 @@
+﻿﻿<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>注册界面</title>
+    <link rel="stylesheet" href="/static/css/log.css">
+</head>
+
+<body>
+<div id="logcontainer">
+    <div id="logheader">
+        注册
+    </div>
+    <form id="logblock" method="post" action="">
+        {% csrf_token %}
+        <span class="inputname">用户名:</span><input type="text" name="username"/><span class="tag" id="tap1" style="display: {{show1}}">用户名已存在或用户名为空！</span></br></br>
+        <span class="inputname">密码:</span><input type="password" name="password"/><span class="tag" id="tap2" style="display: {{show2}}">密码为空！</span></br></br>
+        <span class="inputname">重复密码:</span><input type="password" name="repassword"/><span class="tag" id="tap3" style="display: {{show3}}">两次输入的密码不一致！</span></br></br>
+        <span class="inputname">昵称:</span><input type="text" name="nickname"/></br><span class="tag" id="tap4" style="display: {{show4}}">昵称格式错误或为空！</span></br>
+        <span class="inputname">邮箱:</span><input type="text" name="email"/></br><span class="tag" id="tap5" style="display: {{show5}}">邮箱格式错误或为空！</span></br>
+        <div id="buttons">
+            <input type="submit" value="注册" onclick="register()"/>
+        </div>
+    </form>
+</body>
+</html>
