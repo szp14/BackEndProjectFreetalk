@@ -5,7 +5,7 @@ body{
 }
 #logcontainer{
 	background:#ffffff;
-    width:450px;
+    width:800px;
     margin:50px auto;
 	padding:50px 0 20px 0;
 	border-style:solid;
@@ -21,7 +21,7 @@ body{
 }
 #logblock{
 	margin:0 auto;
-	text-align:center;
+	padding-left:280px;
 }
 .inputname{
 	display:-moz-inline-box;

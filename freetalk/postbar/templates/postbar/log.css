@@ -5,8 +5,8 @@ body{
 }
 #logcontainer{
 	background:#ffffff;
-    width:450px;
-    margin:100px auto;
+    width:800px;
+    margin:50px auto;
 	padding:50px 0 20px 0;
 	border-style:solid;
 	border-width:3px;
@@ -21,14 +21,18 @@ body{
 }
 #logblock{
 	margin:0 auto;
-	text-align:center;
+	padding-left:280px;
 }
 .inputname{
 	display:-moz-inline-box;
 	display:inline-block;
-	width:70px;
+	width:75px;
 	text-align:left;
 }
 #buttons{
 	margin:40px;
+}
+.tag {
+	font-size: 12px;
+    color: red;
 }
