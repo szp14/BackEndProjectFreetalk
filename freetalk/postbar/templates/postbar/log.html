@@ -1,0 +1,28 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<title>登陆界面</title>
+	<link rel="stylesheet" href="log.css">
+</head>
+
+<body>
+<div id="logcontainer">
+	<div id="logheader">
+		登录
+	</div>
+	<div id="logblock">
+		<span class="inputname">用户名：</span><input type="text" name="username"/></br></br>
+		<span class="inputname">密码：</span><input type="password" name="password"/></br></br>
+		<div id="buttons">
+			<input type="button" value="登录" onclick="login()"/>
+			<input type="button" value="忘记密码" onclick="findbackPW()"/>
+			<input type="button" value="注册" onclick="register()"/>
+		<!--<div>登录</div>
+		<div>忘记密码</div>
+		<div>注册</div>-->
+		</div>
+	</div>
+</body>
+</html>

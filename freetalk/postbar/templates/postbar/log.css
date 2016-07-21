@@ -1,0 +1,34 @@
+body{
+	background:#dddddd;
+	font-family:"Microsoft YaHei";
+	font-size:16px;
+}
+#logcontainer{
+	background:#ffffff;
+    width:450px;
+    margin:100px auto;
+	padding:50px 0 20px 0;
+	border-style:solid;
+	border-width:3px;
+	border-radius:20px;
+	border-color:#666666;
+}
+#logheader{
+	margin:0 auto;
+	height:170px;
+	text-align:center;
+	font-size:40px;
+}
+#logblock{
+	margin:0 auto;
+	text-align:center;
+}
+.inputname{
+	display:-moz-inline-box;
+	display:inline-block;
+	width:70px;
+	text-align:left;
+}
+#buttons{
+	margin:40px;
+}
