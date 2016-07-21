@@ -42,7 +42,7 @@ class TKuser(models.Model):
 	def getPost(self):
 		return TKpost.objects.filter(user = self.user)
 
-	def newPost():
+	def newPost(self):
 		pass
 
 	def deletePost():
@@ -107,32 +107,32 @@ class TKclassTag(models.Model):
 	classTagName = models.CharField(max_length = 100)
 
 class TKhomepage:
-	def newUser(username, password, email, nickname, img):
-		q = User(username = username, password = password, email = email)
+	def newUser(username, password, email, nickname):
+		q = User.objects.create_user(username, email, password)
 		q.save()
-		u = TKuser(nickname = nickname, img = img, user = q)
+		u = TKuser(nickname = nickname, user = q)
 		u.save()
 	def createUserClass():
 		pass
-	def searchUsrByNickname():
+	def searchUsrByNickname(nickname):
 		pass
-	def searchUsrById():
+	def searchUsrById(usrId):
 		pass
-	def searchPostByUsrId():
+	def searchPostByUsrId(usrId):
+		return TKpost.objects.filter(user = User.objects.filter(id = usrId)[0])
+	def searchPostByKeyword(keyword):
 		pass
-	def searchPostByKeyword():
+	def searchPostByClassTag(classTag):
+		return TKpost.objects.filter(classTag = classTag)
+	def searchPostByScore(score):
+		return TKpost.objects.filter(score >= score).order_by('-score')
+	def searchPostByTime(time):
+		return TKpost.objects.filter(time >= time).order_by('-time')
+	def searchPostByTitle(title):
+		return TKpost.objects.filter(title = title)
+	def searchPostByContent(content):
 		pass
-	def searchPostByClassTag():
-		pass
-	def searchPostByScore():
-		pass
-	def searchPostByTime():
-		pass
-	def searchPostByTitle():
-		pass
-	def searchPostByContent():
-		pass
-	def searchRespByUsrId():
-		pass
-	def searchRespByPostId():
-		pass
+	def searchRespByUsrId(usrId):
+		return TKresponse.objects.filter(user = User.objects.filter(id = usrId)[0])
+	def searchRespByPostId(postId):
+		return TKresponse.objects.filter(post = TKpost.objects.filter(id = postId)[0])
