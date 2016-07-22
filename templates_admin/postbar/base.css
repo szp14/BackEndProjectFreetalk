@@ -180,3 +180,7 @@ body{
 .clear{
     clear:both;
 }
+.tag {
+	font-size: 12px;
+    color: red;
+}

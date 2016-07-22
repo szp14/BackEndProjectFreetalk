@@ -4,25 +4,65 @@
 <head>
 	<meta charset="utf-8">
 	<title>个人中心</title>
-	<link rel="stylesheet" href="/static/css/base.css">
+	<link rel="stylesheet" href="/static/css/base.css"><!--路径/static/css/-->
 </head>
 
 <body>
 <div id="container">
 	<div id="account_header">
-		<img class="acnt_head_img" src="/static/images/mengbi.jpg">
+		<img class="acnt_head_img" src="{{ img }}"><!--路径/static/images/-->
 		<div class="acnt_header_content">
-			帐号</br>
-			昵称</br>
+			{{ username }}</br>
+			{{ name }}</br>
 		</div>
 	</div>
 	<div class="clear"></div>
 	<div id="account_block">
-		<h2>修改昵称</h2>
-		<h2>修改头像</h2>
-		<h2>填写密保问题</h2>
-		<span class="inputname">密保问题:</span><input type="text" name="nickname"/></br></br>
-		<span class="inputname">密保答案:</span><input type="text" name="email"/></br></br>
+		<div class="acnt_block_item">
+			<h2>发过的帖子</h2>
+			<div class="acnt_block_post">
+				发帖 <a href="http://tieba.baidu.com/">帖子名</a> 发帖内容
+			</div>
+			<div class="acnt_block_post">
+				回复 <a href="http://tieba.baidu.com/">帖子名</a> 回复内容
+			</div>
+		</div>
+		<form class="acnt_block_item" method="post" action="" enctype="multipart/form-data">
+			{% csrf_token %}
+			<h2>修改信息</h2>
+			<span class="acnt_block_name">头像:</span><input type="file" name="headimg"/>
+			</br></br>
+			<span class="acnt_block_name">昵称:</span><input type="text" value="{{ name }}" name="nickname"/>
+			<span class="tag" id="tap1" style="display: {{ show1 }}">昵称不能为空！</span>
+			</br></br>
+			<span class="acnt_block_name">邮箱:</span><input type="text" value="{{ email }}" name="email"/>
+			<span class="tag" id="tap5" style="display: {{ show5 }}">新密保答案不能为空！</span>
+			</br></br>
+			<span class="acnt_block_name">密保问题:</span><input type="text" name="question" value="{{ question }}" disabled="true"/>
+			</br></br>
+			<a class="tag">如果不需要修改密保，请不要回答密保问题！</a>
+			</br></br>
+			<span class="acnt_block_name">密保答案:</span><input type="text" name="answer"/>
+			<span class="tag" id="tap2" style="display: {{ show2 }}">密保答案错误！</span>
+			</br></br>
+			<span class="acnt_block_name">新密保问题:</span><input type="text" name="newquestion"/>
+			<span class="tag" id="tap3" style="display: {{ show3 }}">新密保问题不能为空！</span>
+			</br></br>
+			<span class="acnt_block_name">新密保答案:</span><input type="text" name="newanswer"/>
+			<span class="tag" id="tap4" style="display: {{ show4 }}">新密保答案不能为空！</span>
+			</br></br>
+			<input type="submit" value="保存修改" onclick=""/>
+		</form>
+		<!--<h2>修改密码？</h2>
+		<form class="acnt_block_item" method="post" action="">
+			<span class="acnt_block_name">原密码:</span><input type="password" name="password"/>
+			</br></br>
+			<span class="acnt_block_name">新密码:</span><input type="password" name="newpassword"/>
+			</br></br>
+			<span class="acnt_block_name">重复新密码:</span><input type="password" name="renewpassword"/>
+			</br></br>
+			<input type="submit" value="保存修改" onclick=""/>
+		</form>-->
 	</div>
 </body>
 </html>

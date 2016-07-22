@@ -103,6 +103,48 @@ def findback(request):
 
 def account(request):
 	if request.user.is_authenticated():
-		return render(request, 'postbar/account.html', {'non':'none'})
+		dic = {'username': request.user.username, 'name': request.user.tkuser.nickname, 'email': request.user.email, 
+			'question': request.user.tkuser.pwdQuestion, 'img': '/static/images/mengbi.jpg',
+			'show1': 'none', 'show2': 'none', 'show3': 'none', 'show4': 'none', 'show5': 'none'
+		}
+		if request.user.tkuser.img:
+			dic['img'] = request.user.tkuser.img.url 
+		if request.POST:
+			pic = request.FILES.get('headimg')
+			name = request.POST['nickname']
+			email = request.POST['email']
+			answer = request.POST['answer']
+			newques = request.POST['newquestion']
+			newans = request.POST['newanswer']
+			success = 0
+			if pic != '':
+				request.user.tkuser.modifyImg(pic)
+			if name == '':
+				dic['show1'] = 'inline'
+				success = -1
+			if email == '':
+				success = -1
+				dic['show5'] = 'inline'
+			if answer != '':
+				if answer != request.user.tkuser.pwdAnswer:
+					dic['show2'] = 'inline'
+					success = -1
+				if newques == '':
+					dic['show3'] = 'inline'
+					success = -1
+				if newans == '':
+					success = -1
+					dic['show4'] = 'inline'
+				if success != -1:
+					success = 1
+			if success == 0:
+				request.user.tkuser.modifyNickname(name)
+				request.user.email = email
+				request.user.save()
+			elif success == 1:
+				request.user.tkuser.pwdQuestion = newques
+				request.user.tkuser.pwdAnswer = newans
+				request.user.tkuser.save()
+		return render(request, 'postbar/account.html', dic)
 	else:
 		return HttpResponse("需要登录，请您进行登录操作！")
