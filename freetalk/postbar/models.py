@@ -1,14 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+import os
 # Create your models here.
 # type     0: normal user|1: admin |2: superadmin
 # status   0: normal     |1: forbid|2: hidden
 # resptype 0: normal     |1: the resp of resp
+def user_directory_path(instance, filename):
+	if os.path.isfile('E:/Works/github/BackEndProjectFreetalk/freetalk/media/upload/' + str(instance.user.id)) == True:
+		os.remove('E:/Works/github/BackEndProjectFreetalk/freetalk/media/upload/' + str(instance.user.id))
+	return 'upload/' + str(instance.user.id)
+
 class TKuser(models.Model):
 	user        = models.OneToOneField(User, on_delete = models.CASCADE)
 	nickname    = models.CharField(max_length = 100)
-	img         = models.ImageField(upload_to = 'upload')
+	img         = models.ImageField(upload_to = user_directory_path)
 	pwdQuestion = models.CharField(max_length = 100)
 	pwdAnswer   = models.CharField(max_length = 100)
 	numPost     = models.IntegerField(default = 0)

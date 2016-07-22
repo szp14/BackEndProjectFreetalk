@@ -148,3 +148,9 @@ def account(request):
 		return render(request, 'postbar/account.html', dic)
 	else:
 		return HttpResponse("需要登录，请您进行登录操作！")
+
+def admin(request):
+	users = User.objects.all()
+	dic = {'users': users}
+	return render(request, 'postbar/admin.html', dic)
+	

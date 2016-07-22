@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^log/', views.index, name = 'index'),
     url(r'^register/', views.register, name = 'register'),
     url(r'^findback/', views.findback, name = 'findback'),
-    url(r'^$', views.account, name = 'account'),
+    url(r'^account/', views.account, name = 'account'),
+    url(r'^admin/', views.admin, name = 'admin')
 ]

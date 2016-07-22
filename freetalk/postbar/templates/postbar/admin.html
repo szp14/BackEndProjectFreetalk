@@ -1,0 +1,55 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<title>管理界面</title>
+	<link rel="stylesheet" href="/static/css/base.css"><!--路径/static/css/-->
+</head>
+
+<body>
+<div id="container">
+	<div id="admin_header">
+		用户管理
+	</div>
+	<div id="user_list">
+	{% for user in users %}
+	    {% if user.tkuser.usrType == 0 %}
+		<div class="user_item" id="use + {{ forloop.counter }}">
+			{% if user.tkuser.img %}
+				<img class="user_item_img" src="{{ user.tkuser.img.url }}">
+			{% else %}
+				<img class="user_item_img" src="/static/images/mengbi.jpg">
+			{% endif %}
+			<div class="user_item_content">
+				<div class="user_item_name">{{ user.username }}（{{ user.tkuser.nickname }}）</div>
+			{% if user.tkuser.usrStatus == 0 %}
+					<div class="user_item_state">正常</div>
+					</div>
+				<div class="user_item_ctrl">
+					<input type="button" value="禁言用户" onclick=""/>
+					<input type="button" value="屏蔽用户" onclick=""/></br>
+			{% elif user.tkuser.usrStatus == 1 %}
+				<div class="user_item_state">禁言</div>
+					</div>
+				<div class="user_item_ctrl">
+					<input type="button" value="解除禁言" onclick=""/>
+					<input type="button" value="屏蔽用户" onclick=""/></br>
+			{% else %}
+				<div class="user_item_state">屏蔽</div>
+					</div>
+				<div class="user_item_ctrl">
+					<input type="button" value="解除禁言" disabled="true" />
+					<input type="button" value="解除屏蔽" onclick=""/></br>
+			{% endif %}
+				<input type="button" value="删除用户" onclick=""/>
+			{% if user.tkuser.usrType == 2 %}
+				<input type="button" value="提升管理员" onclick=""/>
+			{% endif %}
+			</div>
+		</div>
+		{% endif %}
+	{% endfor %}
+	</div>
+</body>
+</html>
