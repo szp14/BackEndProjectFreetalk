@@ -12,7 +12,7 @@
 	<div id="logheader">
 		登录
 	</div>
-	<form class="logblock" method="post" action="">
+	<form id="logblock" method="post" action="">
 	    {% csrf_token %}
 		<span class="inputname">账号：</span><input type="text" name="name1" />
 		<span class="tag" id="tap1" style="display: {{show1}}">账号不存在！</span>
@@ -22,7 +22,7 @@
 		</br></br>
 		<div id="buttons">
 			<input type="submit" value="登录" />
-			<input type="button" value="找回密码" onclick="window.location.href='../findback/'"/>
+			<input type="button" value="忘记密码" onclick=""/>
 			<input type="button" value="注册" onclick="window.location.href='../register/'"/>
 		</div>
 	</form>

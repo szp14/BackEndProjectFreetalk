@@ -1,0 +1,133 @@
+body{
+	background:#f5f5f5;
+	font-family:"Microsoft YaHei";
+	font-size:16px;
+}
+#container{
+    width:1000px;
+    margin:0px auto;
+}
+#index_header{
+	background:#ffffff;
+	margin-bottom:20px;
+	height:160px;
+	padding-left:50px;
+	line-height:160px;
+	font-size:50px;
+}
+#post_list{
+	background:#ffffff;
+	margin:0 auto;
+	border-style:solid solid none solid;
+	border-width:1px;
+	border-color:#666666;
+}
+.post_item{
+	height:70px;
+	padding:30px;
+	border-bottom-style:dotted;
+	border-width:1px;
+	border-color:#666666;
+}
+.title_inlist{
+	font-size:25px;
+}
+.brief_inlist{
+	padding:10px 0px 10px 20px;
+}
+#new_post{
+	width:940px;
+	background:#ffffff;
+	padding:30px;
+	margin:20px 0px;
+}
+#new_post_title{
+	width:800px;
+}
+#new_post_content{
+	width:800px;
+	height:200px;
+}
+.post_block{
+	border-style:solid;
+	border-width:2px;
+	border-color:#dddddd;
+}
+.post_title{
+	background:#ffffff;
+	height:80px;
+	padding-left:20px;
+	line-height:80px;
+	font-size:30px;
+	border-bottom-style:solid;
+	border-width:2px;
+	border-color:#666666;
+}
+.respond{
+	background:#ffffff;
+	border-bottom-style:dotted;
+	border-width:1px;
+	border-color:#666666;
+}
+.resp_user{
+	padding:20px 0px;
+	width:100px;
+	float:left;
+	text-align:center;
+	font-size:14px;
+}
+.resp_user_img{
+	width:60px;
+	height:60px;
+	border-style:solid;
+	border-width:1px;
+	border-color:#888888;
+	border-radius:5px;
+}
+.resp_content{
+	width:870px;
+	padding:20px 0px;
+	float:left;
+}
+#new_respond{
+	width:940px;
+	background:#ffffff;
+	padding:30px;
+	margin:20px 0px;
+}
+#new_resp_content{
+	width:800px;
+	height:200px;
+}
+#account_header{
+	background:#ffffff;
+	height:160px;
+}
+.acnt_head_img{
+	margin:20px 0px 20px 20px;
+	width:120px;
+	height:120px;
+	float:left;
+	border-style:solid;
+	border-width:1px;
+	border-color:#888888;
+	border-radius:5px;
+}
+.acnt_header_content{
+	padding:20px;
+	float:left;
+	font-size:30px;
+}
+#account_block{
+	background:#ffffff;
+	padding:30px;
+}
+.inputname{
+	display:-moz-inline-box;
+	display:inline-block;
+	width:75px;
+	text-align:left;
+}
+.clear{
+    clear:both;
+}

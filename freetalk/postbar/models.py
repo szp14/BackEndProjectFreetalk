@@ -18,7 +18,7 @@ class TKuser(models.Model):
 	usrType     = models.SmallIntegerField(default = 0)
 
 	def modifyPwd(self, newPwd):
-		self.user.password = newPwd
+		self.user.set_password(newPwd)
 		self.user.save()
 
 	def modifyNickname(self, newNickname):

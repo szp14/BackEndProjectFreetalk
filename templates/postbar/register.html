@@ -12,7 +12,7 @@
     <div id="logheader">
         注册
     </div>
-    <form class="logblock" method="post" action="">
+    <form id="logblock" method="post" action="">
         {% csrf_token %}
         <span class="inputname">用户名:</span><input type="text" name="username"/>
 		<span class="tag" id="tap1" style="display: {{show1}}">用户名已存在或用户名为空！</span>
@@ -30,10 +30,8 @@
 		<span class="tag" id="tap5" style="display: {{show5}}">邮箱格式错误或为空！</span>
 		</br></br>
 		<span class="inputname">密保问题:</span><input type="text" name="question"/>
-		<span class="tag" id="tap6" style="display: {{show6}}">密保问题不能为空！</span>
 		</br></br>
 		<span class="inputname">密保答案:</span><input type="text" name="answer"/>
-		<span class="tag" id="tap7" style="display: {{show7}}">密保答案不能为空！</span>
 		</br></br>
         <div id="buttons">
             <input type="submit" value="注册" onclick="register()"/>
