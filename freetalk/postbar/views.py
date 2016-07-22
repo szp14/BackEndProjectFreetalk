@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse, HttpResponseRedirect
 from postbar.models import TKhomepage
 
 @csrf_exempt
 def index(request):
+	logout(request)
 	dic = {'show1': 'none', 'show2': 'none'}
 	if request.POST:
 		name = request.POST['name1']
@@ -18,7 +19,7 @@ def index(request):
 				dic['show2'] = 'inline'
 			else:
 				login(request, user)
-				return HttpResponse("登录成功")
+				return HttpResponseRedirect('../account/')
 		else:
 			dic['show1'] = 'inline'
 	return render(request, 'postbar/index.html', dic)
@@ -49,3 +50,12 @@ def register(request):
 				return render(request, 'postbar/register.html', dic)
 			TKhomepage.newUser(name, password, email, nickname)
 	return render(request, 'postbar/register.html', dic)
+
+def findback(request):
+	return render(request, 'postbar/findback.html', {'non':'none'})
+
+def account(request):
+	if request.user.is_authenticated():
+		return render(request, 'postbar/account.html', {'non':'none'})
+	else:
+		return HttpResponse("需要登录，请您进行登录操作！")
