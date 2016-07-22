@@ -12,17 +12,25 @@
 	<div id="logheader">
 		找回密码
 	</div>
-	<form id="logblock" method="post" action="">
-		<span class="inputname">用户名:</span><input type="text" name="question"/>
-		<input type="button" value="确认" onclick="check()"/>
+	<form class="logblock" method="get" action="">
+		{% csrf_token %}
+		<span class="inputname">用户名:</span><input type="text" name="username" value="{{ content1 }}" />
+		<span class="tag" id="tap1" style="display: {{ show1 }}">用户名不存在，请检查是否按下确认按钮！</span>
+		<input type="submit" value="确认" onclick="check()"/>
 		</br></br>
-		<span class="inputname">密保问题:</span><input type="text" name="question" value="问题" disabled="true"/>
+	</form>
+	<form class="logblock" method="post" action="">
+		{% csrf_token %}
+		<span class="inputname">密保问题:</span><input type="text" name="question" value="{{ content2 }}" disabled="true"/>
 		</br></br>
 		<span class="inputname">密保答案:</span><input type="text" name="answer"/>
+		<span class="tag" id="tap2" style="display: {{ show2 }}">密保答案错误，请重新输入！</span>
 		</br></br>
 		<span class="inputname">新密码:</span><input type="password" name="password"/>
+		<span class="tag" id="tap3" style="display: {{ show3 }}">密码不能为空！</span>
 		</br></br>
 		<span class="inputname">重复密码:</span><input type="password" name="repassword"/>
+		<span class="tag" id="tap4" style="display: {{ show4 }}">两次输入的密码不一致，请重新输入！</span>
 		</br></br>
 		<div id="buttons">
 			<input type="submit" value="修改密码" onclick="findback()"/>

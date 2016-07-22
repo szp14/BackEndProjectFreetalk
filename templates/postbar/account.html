@@ -4,13 +4,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>个人中心</title>
-	<link rel="stylesheet" href="/static/css/base.css"><!--路径-->
+	<link rel="stylesheet" href="base.css"><!--路径/static/css/-->
 </head>
 
 <body>
 <div id="container">
 	<div id="account_header">
-		<img class="acnt_head_img" src="/static/images/mengbi.jpg"><!--路径-->
+		<img class="acnt_head_img" src="mengbi.jpg"><!--路径/static/images/-->
 		<div class="acnt_header_content">
 			用户名</br>
 			昵称</br>
@@ -18,9 +18,46 @@
 	</div>
 	<div class="clear"></div>
 	<div id="account_block">
-		<h2>修改昵称</h2>
-		<h2>修改头像</h2>
-		<h2>填写密保问题</h2>
+		<div class="acnt_block_item">
+			<h2>发过的帖子</h2>
+			<div class="acnt_block_post">
+				发帖 <a href="http://tieba.baidu.com/">帖子名</a> 发帖内容
+			</div>
+			<div class="acnt_block_post">
+				回复 <a href="http://tieba.baidu.com/">帖子名</a> 回复内容
+			</div>
+		</div>
+		<form class="acnt_block_item" method="post" action="">
+			<h2>修改信息</h2>
+			<span class="acnt_block_name">头像:</span><input type="file" name="headimg"/>
+			</br></br>
+			<span class="acnt_block_name">用户名:</span><input type="text" value="现在的用户名" name="username"/>
+			</br></br>
+			<span class="acnt_block_name">昵称:</span><input type="text" value="现在的昵称" name="nickname"/>
+			</br></br>
+			<input type="submit" value="保存修改" onclick=""/>
+			//这里是一个表单两个按钮，两个按钮都是提交按钮，不行再改
+			<h2>修改密保问题</h2>
+			<span class="acnt_block_name">密保问题:</span><input type="text" name="question" value="问题" disabled="true"/>
+			</br></br>
+			<span class="acnt_block_name">密保答案:</span><input type="text" name="answer"/>
+			</br></br>
+			<span class="acnt_block_name">新密保问题:</span><input type="password" name="newquestion"/>
+			</br></br>
+			<span class="acnt_block_name">新密保答案:</span><input type="password" name="newanswer"/>
+			</br></br>
+			<input type="submit" value="保存修改" onclick=""/>
+		</form>
+		<!--<h2>修改密码？</h2>
+		<form class="acnt_block_item" method="post" action="">
+			<span class="acnt_block_name">原密码:</span><input type="password" name="password"/>
+			</br></br>
+			<span class="acnt_block_name">新密码:</span><input type="password" name="newpassword"/>
+			</br></br>
+			<span class="acnt_block_name">重复新密码:</span><input type="password" name="renewpassword"/>
+			</br></br>
+			<input type="submit" value="保存修改" onclick=""/>
+		</form>-->
 	</div>
 </body>
 </html>
