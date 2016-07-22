@@ -8,7 +8,7 @@ from django.utils import timezone
 class TKuser(models.Model):
 	user        = models.OneToOneField(User, on_delete = models.CASCADE)
 	nickname    = models.CharField(max_length = 100)
-	img         = models.FileField()
+	img         = models.ImageField(upload_to = 'upload')
 	pwdQuestion = models.CharField(max_length = 100)
 	pwdAnswer   = models.CharField(max_length = 100)
 	numPost     = models.IntegerField(default = 0)
@@ -73,7 +73,7 @@ class TKuser(models.Model):
 class TKpost(models.Model):
 	title       = models.CharField(max_length = 100)
 	content     = models.CharField(max_length = 1000)
-	img         = models.FileField()
+	img         = models.ImageField(upload_to = 'upload')
 	attachment  = models.FileField()
 	user        = models.ForeignKey(User, on_delete = models.CASCADE)
 	time        = models.DateTimeField(default = timezone.now)
@@ -107,13 +107,14 @@ class TKclassTag(models.Model):
 	classTagName = models.CharField(max_length = 100)
 
 class TKhomepage:
-	def newUser(username, password, email, nickname):
+	def newUser(username, password, email, nickname, pwdQuestion, pwdAnswer):
 		q = User.objects.create_user(username, email, password)
 		q.save()
-		u = TKuser(nickname = nickname, user = q)
+		u = TKuser(nickname = nickname, pwdQuestion = pwdQuestion, pwdAnswer = pwdAnswer, user = q)
 		u.save()
-	def createUserClass():
-		pass
+	def deleteUser(usrId):
+		q = User.objects.filter(id = usrId)[0]
+		q.delete()
 	def searchUsrByNickname(nickname):
 		pass
 	def searchUsrById(usrId):
