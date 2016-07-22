@@ -1,0 +1,32 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<title>找回界面</title>
+	<link rel="stylesheet" href="/static/css/log.css"><!--路径-->
+</head>
+
+<body>
+<div id="logcontainer">
+	<div id="logheader">
+		找回密码
+	</div>
+	<form id="logblock" method="post" action="">
+		<span class="inputname">用户名:</span><input type="text" name="question"/>
+		<input type="button" value="确认" onclick="check()"/>
+		</br></br>
+		<span class="inputname">密保问题:</span><input type="text" name="question" value="问题" disabled="true"/>
+		</br></br>
+		<span class="inputname">密保答案:</span><input type="text" name="answer"/>
+		</br></br>
+		<span class="inputname">新密码:</span><input type="password" name="password"/>
+		</br></br>
+		<span class="inputname">重复密码:</span><input type="password" name="repassword"/>
+		</br></br>
+		<div id="buttons">
+			<input type="submit" value="修改密码" onclick="findback()"/>
+		</div>
+	</form>
+</body>
+</html>
