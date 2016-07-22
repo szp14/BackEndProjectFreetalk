@@ -87,8 +87,8 @@ class TKpost(models.Model):
 	def downloadAttach():
 		pass
 
-	def getResp():
-		pass
+	def getResp(self):
+		return TKresponse.objects.filter(post = self.post)
 
 
 class TKresponse(models.Model):
@@ -96,12 +96,14 @@ class TKresponse(models.Model):
 	content     = models.CharField(max_length = 400)
 	user        = models.ForeignKey(User, on_delete = models.CASCADE)
 	post        = models.ForeignKey(TKpost, on_delete = models.CASCADE)
+	respId      = models.IntegerField()
 	hostId      = models.IntegerField()
 	time        = models.DateTimeField(default = timezone.now)
 	score       = models.IntegerField(default = 0)
 
-	def getResp():
-		pass
+	def getResp(self):
+		if respType == 0:
+			return TKresponse.objects.filter(respId = self.id)
 
 class TKclassTag(models.Model):
 	classTagName = models.CharField(max_length = 100)
@@ -112,28 +114,40 @@ class TKhomepage:
 		q.save()
 		u = TKuser(nickname = nickname, pwdQuestion = pwdQuestion, pwdAnswer = pwdAnswer, user = q)
 		u.save()
+
 	def deleteUser(usrId):
 		q = User.objects.filter(id = usrId)[0]
 		q.delete()
+
 	def searchUsrByNickname(nickname):
 		pass
+
 	def searchUsrById(usrId):
 		pass
+		
 	def searchPostByUsrId(usrId):
 		return TKpost.objects.filter(user = User.objects.filter(id = usrId)[0])
+
 	def searchPostByKeyword(keyword):
-		pass
+		return TKpost.objects.filter(keyword__contains = keyword)
+
 	def searchPostByClassTag(classTag):
 		return TKpost.objects.filter(classTag = classTag)
+
 	def searchPostByScore(score):
 		return TKpost.objects.filter(score >= score).order_by('-score')
+
 	def searchPostByTime(time):
 		return TKpost.objects.filter(time >= time).order_by('-time')
+
 	def searchPostByTitle(title):
 		return TKpost.objects.filter(title = title)
+
 	def searchPostByContent(content):
-		pass
+		return TKpost.objects.filter(content__contains = content)
+
 	def searchRespByUsrId(usrId):
 		return TKresponse.objects.filter(user = User.objects.filter(id = usrId)[0])
+
 	def searchRespByPostId(postId):
 		return TKresponse.objects.filter(post = TKpost.objects.filter(id = postId)[0])
