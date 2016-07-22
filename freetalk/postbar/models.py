@@ -37,14 +37,16 @@ class TKuser(models.Model):
 		self.save()
 
 	def modifyStatus(self, usrId, newStatus):
-		q = User.objects.filter(id = usrId)[0]
-		q.tkuser.usrStatus = newStatus
-		q.tkuser.save()
+		if User.objects.filter(id = usrId):
+			q = User.objects.filter(id = usrId)[0]
+			q.tkuser.usrStatus = newStatus
+			q.tkuser.save()
 
 	def modifyPermission(self, usrId, newPermission):
-		q = User.objects.filter(id = usrId)[0]
-		q.tkuser.usrType = newPermission
-		q.tkuser.save()
+		if User.objects.filter(id = usrId):
+			q = User.objects.filter(id = usrId)[0]
+			q.tkuser.usrType = newPermission
+			q.tkuser.save()
 
 	def getPost(self):
 		return TKpost.objects.filter(user = self.user)
@@ -116,6 +118,17 @@ class TKclassTag(models.Model):
 	classTagName = models.CharField(max_length = 100)
 
 class TKhomepage:
+	def newAdmin():
+		if User.objects.filter(username = 'admin'):
+			return
+		q = User.objects.create_user('admin', '', 'abcdefgh')
+		q.is_staff = True
+		q.is_superuser = True
+		q.save()
+		u = TKuser(nickname = 'admin', pwdQuestion = 'Are you admin?', pwdAnswer = 'Maybe', user = q)
+		u.usrType = 2
+		u.save()
+
 	def newUser(username, password, email, nickname, pwdQuestion, pwdAnswer):
 		q = User.objects.create_user(username, email, password)
 		q.save()
@@ -123,8 +136,9 @@ class TKhomepage:
 		u.save()
 
 	def deleteUser(usrId):
-		q = User.objects.filter(id = usrId)[0]
-		q.delete()
+		if User.objects.filter(id = usrId):
+			q = User.objects.filter(id = usrId)[0]
+			q.delete()
 
 	def searchUsrByNickname(nickname):
 		pass
