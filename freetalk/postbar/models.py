@@ -2,13 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 import os
+from freetalk.settings import MEDIA_ROOT
 # Create your models here.
 # type     0: normal user|1: admin |2: superadmin
 # status   0: normal     |1: forbid|2: hidden
 # resptype 0: normal     |1: the resp of resp
 def user_directory_path(instance, filename):
-	if os.path.isfile('E:/Works/github/BackEndProjectFreetalk/freetalk/media/upload/' + str(instance.user.id)) == True:
-		os.remove('E:/Works/github/BackEndProjectFreetalk/freetalk/media/upload/' + str(instance.user.id))
+	if os.path.isfile(MEDIA_ROOT + '/upload/' + str(instance.user.id)) == True:
+		os.remove(MEDIA_ROOT + '/upload/' + str(instance.user.id))
 	return 'upload/' + str(instance.user.id)
 
 class TKuser(models.Model):
