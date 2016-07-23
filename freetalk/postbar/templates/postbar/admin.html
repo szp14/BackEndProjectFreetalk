@@ -13,9 +13,10 @@
 		用户管理
 	</div>
 	<div id="user_list">
+	{% csrf_token %}
 	{% for user in users %}
-	    {% if user.tkuser.usrType == 0 %}
-		<div class="user_item" id="use + {{ forloop.counter }}">
+	    {% if user.tkuser.usrType == 0 or type == 2 %}
+		<div class="user_item">
 			{% if user.tkuser.img %}
 				<img class="user_item_img" src="{{ user.tkuser.img.url }}">
 			{% else %}
@@ -27,29 +28,35 @@
 					<div class="user_item_state">正常</div>
 					</div>
 				<div class="user_item_ctrl">
-					<input type="button" value="禁言用户" onclick=""/>
-					<input type="button" value="屏蔽用户" onclick=""/></br>
+					<input type="button" value="禁言用户" class="silence {{ user.username }} op"  />
+					<input type="button" value="屏蔽用户" class="hide {{ user.username }} op"/></br>
 			{% elif user.tkuser.usrStatus == 1 %}
 				<div class="user_item_state">禁言</div>
 					</div>
 				<div class="user_item_ctrl">
-					<input type="button" value="解除禁言" onclick=""/>
-					<input type="button" value="屏蔽用户" onclick=""/></br>
+					<input type="button" value="解除禁言" class="silence {{ user.username }} op"/>
+					<input type="button" value="屏蔽用户" class="hide {{ user.username }} op"/></br>
 			{% else %}
 				<div class="user_item_state">屏蔽</div>
 					</div>
 				<div class="user_item_ctrl">
-					<input type="button" value="解除禁言" disabled="true" />
-					<input type="button" value="解除屏蔽" onclick=""/></br>
+					<input type="button" value="解除禁言" class="silence {{ user.username }} op" />
+					<input type="button" value="解除屏蔽" class="hide {{ user.username }} op"/></br>
 			{% endif %}
-				<input type="button" value="删除用户" onclick=""/>
-			{% if user.tkuser.usrType == 2 %}
-				<input type="button" value="提升管理员" onclick=""/>
+				<input type="button" value="删除用户" class="del {{ user.username }} op"/>
+			{% if type == 2 %}
+				{% if user.tkuser.usrType == 0 %}
+				<input type="button" value="提升管理员" class="change {{ user.username }} op"/>
+				{% elif user.tkuser.usrType == 1 %}
+				<input type="button" value="降为普通用户" class="change {{ user.username }} op"/>
+				{% endif %}
 			{% endif %}
 			</div>
 		</div>
 		{% endif %}
 	{% endfor %}
 	</div>
+	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="/static/js/admin.js"></script>
 </body>
 </html>

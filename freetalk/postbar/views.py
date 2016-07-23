@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from postbar.models import TKhomepage, TKuser, TKpost, TKresponse
+import json
 
 @csrf_exempt
 def index(request):
@@ -24,6 +25,7 @@ def index(request):
 			dic['show1'] = 'inline'
 	return render(request, 'postbar/index.html', dic)
 
+@csrf_exempt
 def register(request):
 	dic = {'show1': 'none', 'show2': 'none', 'show3': 'none', 'show4': 'none', 'show5': 'none', 'show6': 'none', 'show7': 'none'}
 	if request.POST:
@@ -59,10 +61,11 @@ def register(request):
 				tip = True
 			if tip == False:
 				TKhomepage.newUser(name, password, email, nickname, question, answer)
-				return HttpResponseRedirect('../account/')
+				return HttpResponseRedirect('../log/')
 	return render(request, 'postbar/register.html', dic)
 
 PREUSER = ""
+@csrf_exempt
 def findback(request):
 	global PREUSER
 	dic = {'show1': 'none', 'show2': 'none', 'show3': 'none', 'show4': 'none', 'content1':'', 'content2':'密保问题'}
@@ -101,6 +104,7 @@ def findback(request):
 			return HttpResponseRedirect('../log/')
 	return render(request, 'postbar/findback.html', dic)
 
+@csrf_exempt
 def account(request):
 	if request.user.is_authenticated():
 		dic = {'username': request.user.username, 'name': request.user.tkuser.nickname, 'email': request.user.email, 
@@ -117,7 +121,7 @@ def account(request):
 			newques = request.POST['newquestion']
 			newans = request.POST['newanswer']
 			success = 0
-			if pic != '':
+			if pic:
 				request.user.tkuser.modifyImg(pic)
 			if name == '':
 				dic['show1'] = 'inline'
@@ -149,8 +153,39 @@ def account(request):
 	else:
 		return HttpResponse("需要登录，请您进行登录操作！")
 
+@csrf_exempt
 def admin(request):
+	if request.POST:
+		list1 = request.POST["op"].split()
+		user = TKhomepage.searchUsrByName(list1[1])
+		dic = {"res": "成功！"}
+		if list1[0] == 'silence':
+			if user.tkuser.usrStatus == 0:
+				user.tkuser.modifyStatus(1)
+				dic['res'] = '该用户已被禁言成功！'
+			elif user.tkuser.usrStatus == 1:
+				user.tkuser.modifyStatus(0)
+				dic['res'] = '该用户已被解除禁言！'
+			else:
+				dic['res'] = '该用户处于屏蔽阶段，无法解除禁言！'
+		elif list1[0] == 'hide':
+			if user.tkuser.usrStatus == 2:
+				user.tkuser.modifyStatus(1)
+				dic['res'] = '该用户已被解除屏蔽，但仍处于禁言阶段！'
+			else:
+				user.tkuser.modifyStatus(2)
+				dic['res'] = '该用户已被成功屏蔽！'
+		elif list1[0] == 'del':
+			TKhomepage.deleteUser(list1[1])
+			dic['res'] = '该用户已被成功删除！'
+		elif list1[0] == 'change':
+			if user.tkuser.usrType == 0:
+				dic['res'] = '该用户已成为管理员！'
+			else:
+				dic['res'] = '该用户已成为普通用户！'
+			user.tkuser.modifyPermission(1 - user.tkuser.usrType)
+		return HttpResponse(json.dumps(dic))
 	users = User.objects.all()
-	dic = {'users': users}
+	dic = {'users': users, "type": request.user.tkuser.usrType}
 	return render(request, 'postbar/admin.html', dic)
 	
