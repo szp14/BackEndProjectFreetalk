@@ -157,6 +157,7 @@ class TKhomepage:
 			q = q[0]
 			if os.path.isfile(MEDIA_ROOT + '/upload/' + str(q.id)) == True:
 				os.remove(MEDIA_ROOT + '/upload/' + str(q.id))
+			q.delete()
 
 	def addClassTag(newClassTag):
 		q = TKclassTag(classTagName = newClassTag)
