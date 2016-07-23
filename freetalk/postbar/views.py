@@ -150,6 +150,7 @@ def account(request):
 				request.user.email = email
 				request.user.tkuser.pwdQuestion = newques
 				request.user.tkuser.pwdAnswer = newans
+				request.user.save()
 				request.user.tkuser.save()
 				return HttpResponseRedirect(reverse('homepage'))
 		return render(request, 'postbar/account.html', dic)
