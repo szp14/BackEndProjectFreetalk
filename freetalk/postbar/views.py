@@ -61,7 +61,7 @@ def register(request):
 				tip = True
 			if tip == False:
 				TKhomepage.newUser(name, password, email, nickname, question, answer)
-				return HttpResponseRedirect('../log/')
+				return HttpResponseRedirect(reverse('index'))
 	return render(request, 'postbar/register.html', dic)
 
 PREUSER = ""

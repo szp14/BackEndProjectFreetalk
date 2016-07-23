@@ -9,7 +9,7 @@ function logout() {
 		success: function (data) {
 			data = JSON.parse(data);
 			alert(data['res']);
-			window.location.href = '../log/'
+			window.location.href = '../'
 		}
 	});
 }
