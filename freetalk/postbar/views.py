@@ -146,6 +146,8 @@ def account(request):
 				request.user.save()
 				return HttpResponseRedirect(reverse('homepage'))
 			elif success == 1:
+				request.user.tkuser.modifyNickname(name)
+				request.user.email = email
 				request.user.tkuser.pwdQuestion = newques
 				request.user.tkuser.pwdAnswer = newans
 				request.user.tkuser.save()
