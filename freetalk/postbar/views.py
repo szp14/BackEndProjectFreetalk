@@ -5,10 +5,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from postbar.models import TKhomepage, TKuser, TKpost, TKresponse
 import json
+from django.core.urlresolvers import reverse
 
 @csrf_exempt
 def index(request):
-	logout(request)
 	dic = {'show1': 'none', 'show2': 'none'}
 	if request.POST:
 		name = request.POST['name1']
@@ -20,7 +20,7 @@ def index(request):
 				dic['show2'] = 'inline'
 			else:
 				login(request, user)
-				return HttpResponseRedirect('../account/')
+				return HttpResponseRedirect(reverse('homepage'))
 		else:
 			dic['show1'] = 'inline'
 	return render(request, 'postbar/index.html', dic)
@@ -101,9 +101,8 @@ def findback(request):
 			success = False
 		if success:
 			PREUSER.tkuser.modifyPwd(password)
-			return HttpResponseRedirect('../log/')
+			return HttpResponseRedirect(reverse('index'))
 	return render(request, 'postbar/findback.html', dic)
-
 @csrf_exempt
 def account(request):
 	if request.user.is_authenticated():
@@ -145,10 +144,12 @@ def account(request):
 				request.user.tkuser.modifyNickname(name)
 				request.user.email = email
 				request.user.save()
+				return HttpResponseRedirect(reverse('homepage'))
 			elif success == 1:
 				request.user.tkuser.pwdQuestion = newques
 				request.user.tkuser.pwdAnswer = newans
 				request.user.tkuser.save()
+				return HttpResponseRedirect(reverse('homepage'))
 		return render(request, 'postbar/account.html', dic)
 	else:
 		return HttpResponse("需要登录，请您进行登录操作！")
@@ -190,5 +191,26 @@ def admin(request):
 		dic = {'users': users, "type": request.user.tkuser.usrType}
 		return render(request, 'postbar/admin.html', dic)
 	else:
-		return HttpResponse("您未登陆或者没有权限访问该网站！")
+		return HttpResponse("您未登陆或者没有权限访问该网页！")
 	
+
+@csrf_exempt
+def homepage(request):
+	if request.user.is_authenticated():
+		dic = {
+			'user': request.user,
+			'img' : '/static/images/mengbi.jpg',
+		}
+		if request.user.tkuser.img:
+			dic['img'] = request.user.tkuser.img.url
+		if request.POST:
+			if 'logout' in request.POST:
+				logout(request)
+				return HttpResponse(json.dumps({
+					'res': '注销登录成功，即将跳转到登录界面！'
+				}))
+			elif 'title' in request.POST:
+				return render(request, 'postbar/homepage.html', dic)
+		return render(request, 'postbar/homepage.html', dic)
+	else:
+		return HttpResponse("您未登陆，无法访问该网页！")

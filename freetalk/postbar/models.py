@@ -157,9 +157,6 @@ class TKhomepage:
 			q = q[0]
 			if os.path.isfile(MEDIA_ROOT + '/upload/' + str(q.id)) == True:
 				os.remove(MEDIA_ROOT + '/upload/' + str(q.id))
-			q = User.objects.filter(username = username)
-			q.delete()
-
 
 	def addClassTag(newClassTag):
 		q = TKclassTag(classTagName = newClassTag)
@@ -198,11 +195,11 @@ class TKhomepage:
 	def searchPostByClassTag(classTag):
 		return TKpost.objects.filter(classTag = classTag)
 
-	def searchPostByScore(score):
-		return TKpost.objects.filter(score >= score).order_by('-score')
+	def searchPostByScore():
+		return TKpost.objects.order_by('-score')
 
-	def searchPostByTime(time):
-		return TKpost.objects.filter(time >= time).order_by('-time')
+	def searchPostByTime():
+		return TKpost.objects.filter.order_by('-time')
 
 	def searchPostByTitle(title):
 		return TKpost.objects.filter(title = title)

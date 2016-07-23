@@ -43,7 +43,9 @@
 					<input type="button" value="解除禁言" class="silence {{ user.username }} op" />
 					<input type="button" value="解除屏蔽" class="hide {{ user.username }} op"/></br>
 			{% endif %}
+			{% if user.tkuser.usrType != 2 %}
 				<input type="button" value="删除用户" class="del {{ user.username }} op"/>
+			{% endif %}
 			{% if type == 2 %}
 				{% if user.tkuser.usrType == 0 %}
 				<input type="button" value="提升管理员" class="change {{ user.username }} op"/>
@@ -56,6 +58,7 @@
 		{% endif %}
 	{% endfor %}
 	</div>
+	<input type="button" value="返回主页" style="float:bottom;" onclick="window.location.href='../homepage/'"/></br></br>
 	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="/static/js/admin.js"></script>
 </body>

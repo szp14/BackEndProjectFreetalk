@@ -162,6 +162,9 @@ body{
 }
 .user_item_img{
 	float:left;
+	width: 70px;
+	height: 70px;
+	background-size: 100%, 100%;
 }
 .user_item_content{
 	float:left;

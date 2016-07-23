@@ -1,4 +1,4 @@
-﻿﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -36,8 +36,10 @@
 		<span class="tag" id="tap7" style="display: {{show7}}">密保答案不能为空！</span>
 		</br></br>
         <div id="buttons">
-            <input type="submit" value="注册" onclick="register()"/>
+            <input type="submit" value="注册" />
         </div>
     </form>
+    <button id="buttons2" onclick="window.location.href='{% url 'index' %}'">返回</button>
+</div>
 </body>
 </html>
