@@ -9,33 +9,62 @@
 
 <body>
 <div id="container">
-	<div id="index_header">
-		在线交流论坛
-	</div>
+	<div id="homepage_header" style="background-image:url(/static/images/hp_header.jpg)"></div>
+	<div id="menu_block">先写个菜单栏的框子，以后可以用做搜索什么的</div>
 	<div id="user_info">
-		<img class="user_info_img" src="{{ img }}"></br><!--路径/static/images/-->
-		昵称: {{ user.tkuser.nickname }}</br>
-		用户名: {{ user.username }}</br>
-		邮箱: {{ user.email }}</br></br>
-		<input type="button" value="注销登录" style="float:bottom;" onclick="logout()"/></br></br>
-		<input type="button" value="修改资料" style="float:bottom;" onclick="window.location.href='{% url 'account' %}'"/></br></br>
+		<h3>个人信息</h3>
+		<img class="user_info_img" src="{{ img }}"></br><!--路径/static/images/mengbi.jpg-->
+		<span class="user_info_name">昵称: {{ user.tkuser.nickname }}</span></br>
+		<span class="user_info_name">用户名: {{ user.username }}</span></br>
+		<span class="user_info_name">邮箱: {{ user.email }}</span></br>
+		<span class="user_info_name">金币数: 12450</span></br></br>
+		
+		<input class="user_info_btn" type="button" value="修改资料" onclick="window.location.href='{% url 'account' %}'"/></br>
+		<input class="user_info_btn" type="button" value="注销登录" onclick="logout()"/></br>
 		{% if user.tkuser.usrType != 0 %}
-			<input type="button" value="管理用户" style="float:bottom;" onclick="window.location.href='{% url 'admin' %}'"/></br></br>
+			<input class="user_info_btn" type="button" value="管理用户" sonclick="window.location.href='{% url 'admin' %}'"/></br>
 		{% endif %}
 	</div>
 	<div id="post_list">
 		<div class="post_item">
-			<div class="title_inlist">title1</div>
-			<div class="brief_inlist">范德萨发泥地女神发生你鼎飞丹砂说您的看法年历史的没看法撒旦神农大丰可能傻吊么放开手没地方说您的看法看什么独领风骚地方弄撒了闹洞房看sd卡烦恼撒旦什么的放开你水电费
-			发送到您付款就拿撒勒快递费上电脑开放那sd卡麻烦了肯定输流口水闹洞房抗衰老的开发你看撒了凌空摔女的开发的奶萨了开发</div>
+			<a class="post_item_title" href="">title1	</a>
+			<div class="post_item_brief"><p>这段话很长很长但是CSS里加了属性使得这句话后面替换为省略号了
+				这段话很长很长但是CSS里加了属性使得这句话后面替换为省略号了</p></div>
+			<div class="post_item_date">7-23</div>
 		</div>
+		<div class="clear"></div>
 		<div class="post_item">
-			<div class="title_inlist">title2</div>
-			<div class="brief_inlist">content2</div>
+			<a class="post_item_title" href="http://bloodcat.com/osu/?q=&c=o&s=&m=">测试测试</a>
+			<div class="post_item_brief"><p>反正是用来测试的随便写点什么吧</p></div>
+			<div class="post_item_date">8-4</div>
 		</div>
+		<div class="clear"></div>
 		<div class="post_item">
-			<div class="title_inlist">title3</div>
-			<div class="brief_inlist">content3</div>
+			<a class="post_item_title" href="">拜朋神</a>
+			<div class="post_item_brief"><p>疯狂拜朋神</p></div>
+			<div class="post_item_date">4-25</div>
+		</div>
+		<div class="clear"></div>
+		<div class="post_item">
+			<a class="post_item_title" href="http://www.pixiv.net/">曾访问过的帖子的标题会变暗</a>
+			<div class="post_item_brief"><p>content4</p></div>
+			<div class="post_item_date">12-31</div>
+		</div>
+		<div class="clear"></div>
+		<div class="post_item">
+			<a class="post_item_title" href="https://osu.ppy.sh/">辣鸡游戏</a>
+			<div class="post_item_brief"><p>这是个傻吊游戏不要玩，玩了就出不来了</p></div>
+			<div class="post_item_date">1-1</div>
+		</div>
+		<div class="clear"></div>
+		<div class="post_item">
+			<a class="post_item_title" href="http://tieba.baidu.com/">百度贴吧</a>
+			<div class="post_item_brief"><p>其实这个页面就是照着贴吧做的</p></div>
+			<div class="post_item_date">7-23</div>
+		</div>
+		<div class="clear"></div>
+		<div id="pagenum">
+			第1页 共1页  << 1 >>
 		</div>
 	</div>
 	<div class="clear"></div>
@@ -44,12 +73,10 @@
 		</br></br>
 		内容：</br><textarea id="new_post_content" name="content"></textarea></br>
 		添加图片/附件：
-		<input type="file"  name="headimg"/>
+		<input id="new_post_file" type="file" name="headimg"/>
 		</br></br>
-		<input type="submit" value="提交" />
+		<input id="new_post_submit" type="submit" value="提 交" />
 	</form>
-	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
-	<script type="text/javascript" src="/static/js/homepage.js"></script>
 </body>
 </body>
 </html>
