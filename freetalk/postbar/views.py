@@ -155,37 +155,40 @@ def account(request):
 
 @csrf_exempt
 def admin(request):
-	if request.POST:
-		list1 = request.POST["op"].split()
-		user = TKhomepage.searchUsrByName(list1[1])
-		dic = {"res": "成功！"}
-		if list1[0] == 'silence':
-			if user.tkuser.usrStatus == 0:
-				user.tkuser.modifyStatus(1)
-				dic['res'] = '该用户已被禁言成功！'
-			elif user.tkuser.usrStatus == 1:
-				user.tkuser.modifyStatus(0)
-				dic['res'] = '该用户已被解除禁言！'
-			else:
-				dic['res'] = '该用户处于屏蔽阶段，无法解除禁言！'
-		elif list1[0] == 'hide':
-			if user.tkuser.usrStatus == 2:
-				user.tkuser.modifyStatus(1)
-				dic['res'] = '该用户已被解除屏蔽，但仍处于禁言阶段！'
-			else:
-				user.tkuser.modifyStatus(2)
-				dic['res'] = '该用户已被成功屏蔽！'
-		elif list1[0] == 'del':
-			TKhomepage.deleteUser(list1[1])
-			dic['res'] = '该用户已被成功删除！'
-		elif list1[0] == 'change':
-			if user.tkuser.usrType == 0:
-				dic['res'] = '该用户已成为管理员！'
-			else:
-				dic['res'] = '该用户已成为普通用户！'
-			user.tkuser.modifyPermission(1 - user.tkuser.usrType)
-		return HttpResponse(json.dumps(dic))
-	users = User.objects.all()
-	dic = {'users': users, "type": request.user.tkuser.usrType}
-	return render(request, 'postbar/admin.html', dic)
+	if request.user.is_authenticated() and request.user.tkuser.usrType != 0:
+		if request.POST:
+			list1 = request.POST["op"].split()
+			user = TKhomepage.searchUsrByName(list1[1])
+			dic = {"res": "成功！"}
+			if list1[0] == 'silence':
+				if user.tkuser.usrStatus == 0:
+					user.tkuser.modifyStatus(1)
+					dic['res'] = '该用户已被禁言成功！'
+				elif user.tkuser.usrStatus == 1:
+					user.tkuser.modifyStatus(0)
+					dic['res'] = '该用户已被解除禁言！'
+				else:
+					dic['res'] = '该用户处于屏蔽阶段，无法解除禁言！'
+			elif list1[0] == 'hide':
+				if user.tkuser.usrStatus == 2:
+					user.tkuser.modifyStatus(1)
+					dic['res'] = '该用户已被解除屏蔽，但仍处于禁言阶段！'
+				else:
+					user.tkuser.modifyStatus(2)
+					dic['res'] = '该用户已被成功屏蔽！'
+			elif list1[0] == 'del':
+				TKhomepage.deleteUser(list1[1])
+				dic['res'] = '该用户已被成功删除！'
+			elif list1[0] == 'change':
+				if user.tkuser.usrType == 0:
+					dic['res'] = '该用户已成为管理员！'
+				else:
+					dic['res'] = '该用户已成为普通用户！'
+				user.tkuser.modifyPermission(1 - user.tkuser.usrType)
+			return HttpResponse(json.dumps(dic))
+		users = User.objects.all()
+		dic = {'users': users, "type": request.user.tkuser.usrType}
+		return render(request, 'postbar/admin.html', dic)
+	else:
+		return HttpResponse("您未登陆或者没有权限访问该网站！")
 	
