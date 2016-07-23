@@ -75,17 +75,16 @@ class TKuser(models.Model):
 
 	def newResp(self, respType, content, postId, respId, hostId):
 		q = None
-		p = TKpost.objects.filter(id = postId)[0]
-		if respType == 0:
-			q = TKresponse(respType = respType, content = content, user = self.user, post = p)
-		else:
-			q = TKresponse(respType = resptype, content = content, user = self.user, psot = None, respId = respId, hostId = hostId)
+		p = TKpost.objects.filter(id = postId)
+		p = p[0] if p else None
+		q = TKresponse(respType = respType, content = content, user = self.user, post = p, respId = respId, hostId = hostId)
 		q.save()
 
 	def deleteResp(self, respId):
-		q = TKpost.objects.filter(id = respId)
+		q = TKresponse.objects.filter(id = respId)
 		if q:
 			q = q[0]
+			TKresponse.objects.filter(respId = respId).delete()
 			q.delete()
 
 	def upvoteResp():
