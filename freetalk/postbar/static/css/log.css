@@ -29,16 +29,16 @@ body{
 	width:75px;
 	text-align:left;
 }
-#buttons {
+#buttons{
 	width:240px;
 	margin:20px 0px;
 	text-align:center;
 }
-#buttons2 {
-	position: absolute;
-	left: 1000px;
-	width:240px;
+#return_block{
+	margin:0 auto;
 	text-align:center;
+}
+#return_button{
 }
 .tag {
 	font-size: 12px;
