@@ -36,47 +36,64 @@ class TKuser(models.Model):
 		self.img = newImg
 		self.save()
 
-	def modifyStatus(self, usrId, newStatus):
-		if User.objects.filter(id = usrId):
-			q = User.objects.filter(id = usrId)[0]
-			q.tkuser.usrStatus = newStatus
-			q.tkuser.save()
+	def modifyStatus(self, newStatus):
+		self.usrStatus = newStatus
+		self.save()
 
-	def modifyPermission(self, usrId, newPermission):
-		if User.objects.filter(id = usrId):
-			q = User.objects.filter(id = usrId)[0]
-			q.tkuser.usrType = newPermission
-			q.tkuser.save()
+	def modifyPermission(self, newPermission):
+		self.usrType = newPermission
+		self.save()
 
 	def getPost(self):
 		return TKpost.objects.filter(user = self.user)
 
-	def newPost(self):
-		pass
+	def newPost(self, title, content, img, attachment, classTag, keyword):
+		q = TKpost(title = title, content = content, img = img, attachment = attachment, classTag = classTag, keyword = keyword, user = self.user)
+		q.save()
+		self.numPost = self.numPost + 1
 
-	def deletePost():
-		pass
+	def deletePost(self, postId):
+		q = TKpost.objects.filter(id = postId)
+		if q:
+			q = q[0]
+			q.delete()
+			q.user.tkuser.numPost = q.user.tkuser.numPost - 1
 
-	def upvotePost():
-		pass
+	def upvotePost(self, postId):
+		q = TKpost.objects.filter(id = postId)
+		if q:
+			q = q[0]
+			q.score = q.score + 1
+			q.user.tkuser.numScore = q.user.tkuser.numScore + 1
 
-	def giveCoinPost():
-		pass
+	def giveCoinPost(self, postId):
+		q = TKpost.objects.filter(id = postId)
+		if q:
+			q = q[0]
+			q.coin = q.coin + 1
+			q.user.tkuser.numCoin = q.user.tkuser.numCoin + 1
 
-	def newResp():
-		pass
+	def newResp(self, respType, content, postId, respId, hostId):
+		q = None
+		p = TKpost.objects.filter(id = postId)[0]
+		if respType == 0:
+			q = TKresponse(respType = respType, content = content, user = self.user, post = p)
+		else:
+			q = TKresponse(respType = resptype, content = content, user = self.user, psot = None, respId = respId, hostId = hostId)
+		q.save()
 
-	def deleteResp():
-		pass
+	def deleteResp(self, respId):
+		q = TKpost.objects.filter(id = respId)
+		if q:
+			q = q[0]
+			q.delete()
 
 	def upvoteResp():
-		pass
-
-	def addClassTag(newClassTag):
-		pass
-
-	def delClassTag(classTag):
-		pass
+		q = TKpost.objects.filter(id = postId)
+		if q:
+			q = q[0]
+			q.score = q.score + 1
+			q.user.tkuser.numScore = q.user.tkuser.numScore + 1
 
 
 class TKpost(models.Model):
@@ -135,17 +152,42 @@ class TKhomepage:
 		u = TKuser(nickname = nickname, pwdQuestion = pwdQuestion, pwdAnswer = pwdAnswer, user = q)
 		u.save()
 
-	def deleteUser(usrId):
-		if User.objects.filter(id = usrId):
-			q = User.objects.filter(id = usrId)[0]
+	def deleteUser(username):
+		if os.path.isfile(MEDIA_ROOT + '/upload/' + str(usrId)) == True:
+			os.remove(MEDIA_ROOT + '/upload/' + str(usrId))
+		q = User.objects.filter(username = username)
+		if q:
+			q = q[0]
+			q.delete()
+
+	def addClassTag(newClassTag):
+		q = TKclassTag(classTagName = newClassTag)
+		q.save()
+
+	def delClassTag(classTag):
+		q = TKclassTag.objects.filter(classTagName = classTag)
+		if q:
+			q = q[0]
 			q.delete()
 
 	def searchUsrByNickname(nickname):
-		pass
+		q = tkuser.objects.filter(nickname = nickname)
+		return [p.user for p in q]
 
 	def searchUsrById(usrId):
-		pass
-		
+		q = User.objects.filter(id = usrId)
+		if q:
+			return q[0]
+		else:
+			return None
+	
+	def searchUsrByName(name):
+		q = User.objects.filter(username = name)
+		if q:
+			return q[0]
+		else:
+			return None
+
 	def searchPostByUsrId(usrId):
 		return TKpost.objects.filter(user = User.objects.filter(id = usrId)[0])
 
