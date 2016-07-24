@@ -237,6 +237,7 @@ def showpost(request, postid):
 		dic = {
 			'img': post.user.tkuser.getImgUrl(),
 			'post': post,
+			'reposts': post.getResp(),
 		}
 		return render(request, 'postbar/post.html', dic)
 	else:

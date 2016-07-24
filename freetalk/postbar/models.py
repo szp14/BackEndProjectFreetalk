@@ -122,7 +122,7 @@ class TKpost(models.Model):
 		pass
 
 	def getResp(self):
-		return TKresponse.objects.filter(post = self.post)
+		return TKresponse.objects.filter(post = self)
 
 	def getPostById(postId):
 		return TKpost.objects.filter(id = postId)[0]
