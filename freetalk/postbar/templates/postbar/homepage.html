@@ -9,33 +9,33 @@
 
 <body>
 <div id="container">
-	<div id="index_header">
-		在线交流论坛
-	</div>
+	<div id="homepage_header" style="background-image:url(/static/images/hp_header.jpg)"></div>
+	<div id="menu_block">先写个菜单栏的框子，以后可以用做搜索什么的</div>
 	<div id="user_info">
-		<img class="user_info_img" src="{{ img }}"></br><!--路径/static/images/-->
-		昵称: {{ user.tkuser.nickname }}</br>
-		用户名: {{ user.username }}</br>
-		邮箱: {{ user.email }}</br></br>
-		<input type="button" value="注销登录" style="float:bottom;" onclick="logout()"/></br></br>
-		<input type="button" value="修改资料" style="float:bottom;" onclick="window.location.href='{% url 'account' %}'"/></br></br>
+		<h3>个人信息</h3>
+		<img class="user_info_img" src="{{ img }}"></br><!--路径/static/images/mengbi.jpg-->
+		<span class="user_info_name">昵称: {{ user.tkuser.nickname }}</span></br>
+		<span class="user_info_name">用户名: {{ user.username }}</span></br>
+		<span class="user_info_name">邮箱: {{ user.email }}</span></br>
+		<span class="user_info_name">金币数: {{ user.tkuser.numCoin }}</span></br></br>
+		
+		<button class="user_info_btn" type="button" onclick="window.location.href='{% url 'account' %}'">修改资料</button></br>
+		<button class="user_info_btn" type="button" onclick="logout()">注销登录</button></br>
 		{% if user.tkuser.usrType != 0 %}
-			<input type="button" value="管理用户" style="float:bottom;" onclick="window.location.href='{% url 'admin' %}'"/></br></br>
+			<button class="user_info_btn" type="button" onclick="window.location.href='{% url 'admin' %}'">管理用户</button></br>
 		{% endif %}
 	</div>
 	<div id="post_list">
+		{% for post in posts %}
 		<div class="post_item">
-			<div class="title_inlist">title1</div>
-			<div class="brief_inlist">范德萨发泥地女神发生你鼎飞丹砂说您的看法年历史的没看法撒旦神农大丰可能傻吊么放开手没地方说您的看法看什么独领风骚地方弄撒了闹洞房看sd卡烦恼撒旦什么的放开你水电费
-			发送到您付款就拿撒勒快递费上电脑开放那sd卡麻烦了肯定输流口水闹洞房抗衰老的开发你看撒了凌空摔女的开发的奶萨了开发</div>
+			<a class="post_item_title" href="">{{ post.title }}</a>
+			<div class="post_item_brief"><p>{{ post.content }}</p></div>
+			<div class="post_item_date">{{ post.time|date:"Y-m-d H:i:s" }}</div>
 		</div>
-		<div class="post_item">
-			<div class="title_inlist">title2</div>
-			<div class="brief_inlist">content2</div>
-		</div>
-		<div class="post_item">
-			<div class="title_inlist">title3</div>
-			<div class="brief_inlist">content3</div>
+		<div class="clear"></div>
+		{% endfor %}
+		<div id="pagenum">
+			第1页 共1页  << 1 >>
 		</div>
 	</div>
 	<div class="clear"></div>
@@ -44,9 +44,9 @@
 		</br></br>
 		内容：</br><textarea id="new_post_content" name="content"></textarea></br>
 		添加图片/附件：
-		<input type="file"  name="headimg"/>
+		<input id="new_post_file" type="file" name="headimg"/>
 		</br></br>
-		<input type="submit" value="提交" />
+		<input id="new_post_submit" type="submit" value="提 交" />
 	</form>
 	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="/static/js/homepage.js"></script>

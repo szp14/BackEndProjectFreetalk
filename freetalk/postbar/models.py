@@ -24,6 +24,12 @@ class TKuser(models.Model):
 	usrStatus   = models.SmallIntegerField(default = 0)
 	usrType     = models.SmallIntegerField(default = 0)
 
+	def getImgUrl(self):
+		if self.img:
+			return self.img.url
+		else:
+			return '/static/images/mengbi.jpg'
+
 	def modifyPwd(self, newPwd):
 		self.user.set_password(newPwd)
 		self.user.save()
@@ -68,15 +74,18 @@ class TKuser(models.Model):
 
 	def giveCoinPost(self, postId):
 		q = TKpost.objects.filter(id = postId)
-		if q:
+		if q and self.tkuser.numCoin > 0:
 			q = q[0]
 			q.coin = q.coin + 1
 			q.user.tkuser.numCoin = q.user.tkuser.numCoin + 1
+			self.tkuser.numCoin = self.tkuser.numCoin - 1
 
-	def newResp(self, respType, content, postId, respId, hostId):
+	def newResp(self, respType, content, postId, respId):
 		q = None
 		p = TKpost.objects.filter(id = postId)
 		p = p[0] if p else None
+		r = TKresponse.objects.filter(id = respId)[0]
+		hostId = r.user.id
 		q = TKresponse(respType = respType, content = content, user = self.user, post = p, respId = respId, hostId = hostId)
 		q.save()
 
@@ -115,6 +124,8 @@ class TKpost(models.Model):
 	def getResp(self):
 		return TKresponse.objects.filter(post = self.post)
 
+	def getPostById(postId):
+		return TKpost.objects.filter(id = postId)[0]
 
 class TKresponse(models.Model):
 	respType    = models.SmallIntegerField(default = 0)
@@ -129,6 +140,13 @@ class TKresponse(models.Model):
 	def getResp(self):
 		if respType == 0:
 			return TKresponse.objects.filter(respId = self.id)
+
+	def getBothSides(self):
+		q = User.objects.filter(id = self.hostId)
+		return [self.user, q[0]] if q else None
+
+	def getTime(self):
+		return str(self.time).split('.')[0]
 
 class TKclassTag(models.Model):
 	classTagName = models.CharField(max_length = 100)
@@ -157,7 +175,6 @@ class TKhomepage:
 			q = q[0]
 			if os.path.isfile(MEDIA_ROOT + '/upload/' + str(q.id)) == True:
 				os.remove(MEDIA_ROOT + '/upload/' + str(q.id))
-			q.delete()
 
 	def addClassTag(newClassTag):
 		q = TKclassTag(classTagName = newClassTag)
@@ -194,7 +211,7 @@ class TKhomepage:
 		return TKpost.objects.filter(keyword__contains = keyword)
 
 	def searchPostByClassTag(classTag):
-		return TKpost.objects.filter(classTag = classTag)
+		return TKpost.objects.filter(classTag__contains = classTag)
 
 	def searchPostByScore():
 		return TKpost.objects.order_by('-score')

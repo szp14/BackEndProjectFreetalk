@@ -103,15 +103,14 @@ def findback(request):
 			PREUSER.tkuser.modifyPwd(password)
 			return HttpResponseRedirect(reverse('index'))
 	return render(request, 'postbar/findback.html', dic)
+
 @csrf_exempt
 def account(request):
 	if request.user.is_authenticated():
 		dic = {'username': request.user.username, 'name': request.user.tkuser.nickname, 'email': request.user.email, 
-			'question': request.user.tkuser.pwdQuestion, 'img': '/static/images/mengbi.jpg',
+			'question': request.user.tkuser.pwdQuestion, 'img': request.user.tkuser.getImgUrl(),
 			'show1': 'none', 'show2': 'none', 'show3': 'none', 'show4': 'none', 'show5': 'none'
 		}
-		if request.user.tkuser.img:
-			dic['img'] = request.user.tkuser.img.url 
 		if request.POST:
 			pic = request.FILES.get('headimg')
 			name = request.POST['nickname']
@@ -196,16 +195,14 @@ def admin(request):
 	else:
 		return HttpResponse("您未登陆或者没有权限访问该网页！")
 	
-
 @csrf_exempt
 def homepage(request):
 	if request.user.is_authenticated():
 		dic = {
 			'user': request.user,
-			'img' : '/static/images/mengbi.jpg',
+			'img' : request.user.tkuser.getImgUrl(),
+			'posts': TKpost.objects.all(),
 		}
-		if request.user.tkuser.img:
-			dic['img'] = request.user.tkuser.img.url
 		if request.POST:
 			if 'logout' in request.POST:
 				logout(request)
@@ -217,3 +214,15 @@ def homepage(request):
 		return render(request, 'postbar/homepage.html', dic)
 	else:
 		return HttpResponse("您未登陆，无法访问该网页！")
+
+@csrf_exempt
+def showpost(request, postid):
+	post = TKpost.getPostById(postid)
+	if post and request.user.is_authenticated():
+		dic = {
+			'img': post.user.tkuser.getImgUrl(),
+			'post': post,
+		}
+		return render(request, 'postbar/post.html', dic)
+	else:
+		return HttpResponse("您未登陆或该帖子不存在(可能已经被删除)！")

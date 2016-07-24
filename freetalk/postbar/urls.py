@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^account/', views.account, name = 'account'),
     url(r'^admin/', views.admin, name = 'admin'),
     url(r'^homepage/', views.homepage, name = 'homepage'),
+    url(r'^post/(\d+)/$', views.showpost, name='post'),
 ]
