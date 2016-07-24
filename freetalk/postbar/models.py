@@ -15,7 +15,7 @@ def user_directory_path(instance, filename):
 class TKuser(models.Model):
 	user        = models.OneToOneField(User, on_delete = models.CASCADE)
 	nickname    = models.CharField(max_length = 100)
-	img         = models.ImageField(upload_to = user_directory_path, default = os.path.join(STATIC_ROOT, 'images', 'mengbi.jpg'))
+	img         = models.ImageField(upload_to = user_directory_path)
 	pwdQuestion = models.CharField(max_length = 100)
 	pwdAnswer   = models.CharField(max_length = 100)
 	numPost     = models.IntegerField(default = 0)
