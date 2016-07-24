@@ -127,6 +127,9 @@ class TKpost(models.Model):
 	def getPostById(postId):
 		return TKpost.objects.filter(id = postId)[0]
 
+	def focusOnHost(self):
+		return TKresponse.objects.filter(user = self.user, post = self, respType = 0)
+
 
 class TKresponse(models.Model):
 	respType    = models.SmallIntegerField(default = 0)
