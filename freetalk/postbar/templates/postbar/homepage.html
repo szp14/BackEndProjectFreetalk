@@ -10,32 +10,78 @@
 <body>
 <div id="container">
 	<div id="homepage_header" style="background-image:url(/static/images/hp_header.jpg)"></div>
-	<div id="menu_block">先写个菜单栏的框子，以后可以用做搜索什么的</div>
+	<div id="menu_block">
+		按类标: 
+		<select class="menu_block_label" name="search_label">
+			<option value="label1">类标1</option>
+			<option value="label2">类标2</option>
+			<option value="label3">类标3</option>
+			<option value="label4">类标4</option>
+		</select>
+		按内容: 
+		<input id="menu_block_content" type="text" name="search_content"/>
+		<input id="menu_block_search" type="button" value="搜 索"/>
+	</div>
 	<div id="user_info">
 		<h3>个人信息</h3>
 		<img class="user_info_img" src="{{ img }}"></br><!--路径/static/images/mengbi.jpg-->
 		<span class="user_info_name">昵称: {{ user.tkuser.nickname }}</span></br>
 		<span class="user_info_name">用户名: {{ user.username }}</span></br>
 		<span class="user_info_name">邮箱: {{ user.email }}</span></br>
-		<span class="user_info_name">金币数: {{ user.tkuser.numCoin }}</span></br></br>
+		<span class="user_info_name">金币数: 12450</span></br></br>
 		
-		<button class="user_info_btn" type="button" onclick="window.location.href='{% url 'account' %}'">修改资料</button></br>
-		<button class="user_info_btn" type="button" onclick="logout()">注销登录</button></br>
+		<input class="user_info_btn" type="button" value="修改资料" onclick="window.location.href='{% url 'account' %}'"/></br>
+		<input class="user_info_btn" type="button" value="注销登录" onclick="logout()"/></br>
 		{% if user.tkuser.usrType != 0 %}
-			<button class="user_info_btn" type="button" onclick="window.location.href='{% url 'admin' %}'">管理用户</button></br>
+			<input class="user_info_btn" type="button" value="管理用户" sonclick="window.location.href='{% url 'admin' %}'"/></br>
 		{% endif %}
 	</div>
 	<div id="post_list">
-		{% for post in posts %}
 		<div class="post_item">
-			<a class="post_item_title" href="">{{ post.title }}</a>
-			<div class="post_item_brief"><p>{{ post.content }}</p></div>
-			<div class="post_item_date">{{ post.time|date:"Y-m-d H:i:s" }}</div>
+			<a class="post_item_title" href="">title1
+			<span class="post_item_label">[类标1] [类标2]</span></a>
+			<div class="post_item_brief"><p>这段话很长很长但是CSS里加了属性使得这句话后面替换为省略号了
+				这段话很长很长但是CSS里加了属性使得这句话后面替换为省略号了</p></div>
+			<div class="post_item_date">7-23</div>
 		</div>
 		<div class="clear"></div>
-		{% endfor %}
+		<div class="post_item">
+			<a class="post_item_title" href="http://bloodcat.com/osu/?q=&c=o&s=&m=">测试测试
+			<span class="post_item_label">[类标1] [测试]</span></a>
+			<div class="post_item_brief"><p>反正是用来测试的随便写点什么吧</p></div>
+			<div class="post_item_date">8-4</div>
+		</div>
+		<div class="clear"></div>
+		<div class="post_item">
+			<a class="post_item_title" href="">拜朋神
+			<span class="post_item_label">[朋神]</span></a>
+			<div class="post_item_brief"><p>疯狂拜朋神</p></div>
+			<div class="post_item_date">4-25</div>
+		</div>
+		<div class="clear"></div>
+		<div class="post_item">
+			<a class="post_item_title" href="http://www.pixiv.net/">曾访问过的帖子的标题会变暗
+			<span class="post_item_label">[类标1] [类标2]</span></a>
+			<div class="post_item_brief"><p>content4</p></div>
+			<div class="post_item_date">12-31</div>
+		</div>
+		<div class="clear"></div>
+		<div class="post_item">
+			<a class="post_item_title" href="https://osu.ppy.sh/">辣鸡游戏
+			<span class="post_item_label">[游戏]</span></a>
+			<div class="post_item_brief"><p>这是个傻吊游戏不要玩，玩了就出不来了</p></div>
+			<div class="post_item_date">1-1</div>
+		</div>
+		<div class="clear"></div>
+		<div class="post_item">
+			<a class="post_item_title" href="http://tieba.baidu.com/">百度贴吧
+			<span class="post_item_label">[贴吧] [类标2] [类标3]</span></a>
+			<div class="post_item_brief"><p>其实这个页面就是照着贴吧做的</p></div>
+			<div class="post_item_date">7-23</div>
+		</div>
+		<div class="clear"></div>
 		<div id="pagenum">
-			第1页 共1页  << 1 >>
+			第1页 共1页  <a href=""><<</a> 1 <a href="">>></a>
 		</div>
 	</div>
 	<div class="clear"></div>
@@ -44,8 +90,30 @@
 		</br></br>
 		内容：</br><textarea id="new_post_content" name="content"></textarea></br>
 		添加图片/附件：
-		<input id="new_post_file" type="file" name="headimg"/>
-		</br></br>
+		<input id="new_post_file" type="file" name="headimg"/></br>
+		<div id="new_post_labels">
+			添加类标：
+			<select class="new_post_label" name="search_label">
+				<option value="label1" selected="selected">类标1</option>
+				<option value="label2">类标2</option>
+				<option value="label3">类标3</option>
+				<option value="label4">类标4</option>
+			</select>
+			<select class="new_post_label" name="search_label">
+				<option value="volvo" selected="selected">无</option>
+				<option value="label1">类标1</option>
+				<option value="label2">类标2</option>
+				<option value="label3">类标3</option>
+				<option value="label4">类标4</option>
+			</select>
+			<select class="new_post_label" name="search_label">
+				<option value="volvo" selected="selected">无</option>
+				<option value="label1">类标1</option>
+				<option value="label2">类标2</option>
+				<option value="label3">类标3</option>
+				<option value="label4">类标4</option>
+			</select>
+		</div></br>
 		<input id="new_post_submit" type="submit" value="提 交" />
 	</form>
 	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>

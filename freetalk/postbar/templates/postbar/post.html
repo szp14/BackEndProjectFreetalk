@@ -4,27 +4,34 @@
 <head>
 	<meta charset="utf-8">
 	<title>帖子</title>
-	<link rel="stylesheet" href="/static/css/base.css"><!--路径/static/css/-->
+	<link rel="stylesheet" href="base.css"><!--路径/static/css/-->
 </head>
 
 <body>
 <div id="container">
 	<div class="post_block">
 		<div class="post_title">
-			{{ post.title }}
+			发帖名
 			<input class="post_titleo_btn" type="button" value="只看楼主" onclick=""/>
 			<input class="post_titleo_btn" type="button" value="打赏金币" onclick=""/>
 		</div>
 		<div class="clear"></div>
 		<div class="respond">
 			<div class="respond_user">
-				<img class="resp_user_img" src="{{ img }}"></br><!--路径/static/images/-->
-				{{ post.user.tkuser.nickname }}
+				<img class="resp_user_img" src="mengbi.jpg"></br><!--路径/static/images/-->
+				用户昵称
 			</div>
 			<div class="respond_content">
-				{{ post.content }}
+				一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神
+				一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神
+				一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神
+				一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神
+				一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神
+				一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神
+				一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神
+				一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神一楼朋神
 			</div>
-			<div class="respond_date">{{ post.time|date:"Y-m-d H:i:s" }}</div>
+			<div class="respond_date">2016-7-23</div>
 			<div class="clear"></div>
 		</div>
 		<div class="respond">

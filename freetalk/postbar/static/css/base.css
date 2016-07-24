@@ -39,11 +39,37 @@ a:hover{
 }
 #menu_block{
 	background:#f5f5f5;
-	height:30px;
-	padding:10px;
+	height:40px;
+	padding:5px 20px;
+	line-height:40px;
 	border-bottom-style:solid;
 	border-width:1px;
 	border-color:#dddddd;
+}
+.menu_block_label{
+	width:80px;
+	height:25px;
+	margin-right:20px;
+	font-size:15px;
+}
+#menu_block_content{
+	height:20px;
+	width:400px;
+	margin-top:5px;
+	font-size:15px;
+	font-family:"Microsoft YaHei";
+}
+#menu_block_search{
+	width:70px;
+	height:25px;
+	margin-left:20px;
+	color:#ffffff;
+	font-size:15px;
+	background:#3D89F9;
+	border-style:solid;
+	border-width:0px;
+	border-radius:5px;
+	cursor:pointer;
 }
 #user_info{
 	width:200px;
@@ -64,15 +90,16 @@ a:hover{
 	font-size:14px;
 }
 .user_info_btn{
-	width:80px;
-	height:35px;
+	width:60px;
+	height:25px;
 	margin:8px 0px;
-	font-size:15px;
+	font-size:12px;
 	background:#eeeeee;
 	border-style:solid;
 	border-width:1px;
 	border-color:#cccccc;
 	border-radius:5px;
+	cursor:pointer;
 }
 #post_list{
 	width:798px;
@@ -95,6 +122,10 @@ a:hover{
 	font-size:18px;
 	font-weight:bold;
 }
+.post_item_label{
+	font-size:14px;
+	font-weight:normal;
+}
 .post_item_brief{
 	width:700px;
 	float:left;
@@ -102,9 +133,8 @@ a:hover{
 }
 .post_item_date{
 	color:#888888;
-	width:200px;
+	width:50px;
 	padding-right:20px;
-	margin-top: -20px;
 	float:right;
 	font-size:14px;
 	text-align:right;
@@ -135,12 +165,21 @@ a:hover{
 #new_post_content{
 	width:800px;
 	height:200px;
-	margin-top:5px;
+	margin:5px 0px;
 	font-size:16px;
 	font-family:"Microsoft YaHei";
 }
 #new_post_file{
 	font-size:14px;
+}
+#new_post_labels{
+	margin-top:10px;
+}
+.new_post_label{
+	width:80px;
+	height:25px;
+	margin-right:10px;
+	font-size:15px;
 }
 #new_post_submit{
 	width:80px;
@@ -151,6 +190,7 @@ a:hover{
 	border-style:solid;
 	border-width:0px;
 	border-radius:5px;
+	cursor:pointer;
 }
 
 
@@ -166,8 +206,8 @@ a:hover{
 	border-color:#cccccc;
 }
 .post_titleo_btn{
-	width:80px;
-	height:30px;
+	width:60px;
+	height:25px;
 	margin:15px 5px 0px 5px;
 	font-size:12px;
 	background:#eeeeee;
@@ -314,7 +354,4 @@ a:hover{
 	display:inline-block;
 	padding-left:10px;
 	text-align:left;
-}
-button:hover{
-	cursor: pointer;
 }
