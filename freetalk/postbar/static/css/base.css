@@ -47,7 +47,7 @@ a:hover{
 	border-color:#dddddd;
 }
 .menu_block_label{
-	width:80px;
+	width:120px;
 	height:25px;
 	margin-right:20px;
 	font-size:15px;
@@ -127,13 +127,14 @@ a:hover{
 	font-weight:normal;
 }
 .post_item_brief{
-	width:700px;
+	width:600px;
 	float:left;
 	font-size:15px;
 }
 .post_item_date{
 	color:#888888;
-	width:50px;
+	width:200px;
+	margin-top: -35px;
 	padding-right:20px;
 	float:right;
 	font-size:14px;

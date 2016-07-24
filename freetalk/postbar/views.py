@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
-from postbar.models import TKhomepage, TKuser, TKpost, TKresponse
+from postbar.models import TKhomepage, TKuser, TKpost, TKresponse, TKclassTag
 import json
 from django.core.urlresolvers import reverse
 
@@ -202,6 +202,7 @@ def homepage(request):
 			'user': request.user,
 			'img' : request.user.tkuser.getImgUrl(),
 			'posts': TKpost.objects.all(),
+			'tags': TKclassTag.objects.all(),
 		}
 		if request.POST:
 			if 'logout' in request.POST:

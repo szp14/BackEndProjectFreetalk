@@ -11,14 +11,14 @@
 <div id="container">
 	<div id="homepage_header" style="background-image:url(/static/images/hp_header.jpg)"></div>
 	<div id="menu_block">
-		类标要求: 
+		按类标: 
 		<select class="menu_block_label" name="search_label">
-			<option value="无">无</option>
-			{% for tag in tags %}
-			<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
-			{% endfor %}
+			<option value="label1">类标1</option>
+			<option value="label2">类标2</option>
+			<option value="label3">类标3</option>
+			<option value="label4">类标4</option>
 		</select>
-		内容要求: 
+		按内容: 
 		<input id="menu_block_content" type="text" name="search_content"/>
 		<input id="menu_block_search" type="button" value="搜 索"/>
 	</div>
@@ -39,7 +39,8 @@
 	<div id="post_list">
 		{% for post in posts %}
 		<div class="post_item">
-			<a class="post_item_title" href="{% url 'post' post.id %}"><span class="post_item_label">【{{ post.classTag }}】</span>{{ post.title }}</a>
+			<span class="post_item_label">[类标1] [类标2]</span>
+			<a class="post_item_title" href="{% url 'post' post.id %}">{{ post.title }}</a>
 			<div class="post_item_brief"><p>{{ post.content }}</p></div>
 			<div class="post_item_date">{{ post.time|date:"Y-m-d H:i:s" }}</div>
 		</div>
