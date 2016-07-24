@@ -220,9 +220,9 @@ def homepage(request):
 				if tag3 != "无" and tag1 != tag3:
 					if tag2 != "无":
 						if tag3 != tag2:
-							tags += tag3
+							tags += " " + tag3
 					else:
-						tags += tag3
+						tags += " " + tag3
 				request.user.tkuser.newPost(request.POST['title'], request.POST['content'], None, None, tags, "")
 				dic['posts'] = TKhomepage.searchPostByTime()
 				return render(request, 'postbar/homepage.html', dic)
