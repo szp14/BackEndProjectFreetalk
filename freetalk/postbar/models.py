@@ -127,6 +127,7 @@ class TKpost(models.Model):
 	def getPostById(postId):
 		return TKpost.objects.filter(id = postId)[0]
 
+
 class TKresponse(models.Model):
 	respType    = models.SmallIntegerField(default = 0)
 	content     = models.CharField(max_length = 400)
@@ -144,9 +145,6 @@ class TKresponse(models.Model):
 	def getBothSides(self):
 		q = User.objects.filter(id = self.hostId)
 		return [self.user, q[0]] if q else None
-
-	def getTime(self):
-		return str(self.time).split('.')[0]
 
 class TKclassTag(models.Model):
 	classTagName = models.CharField(max_length = 100)
