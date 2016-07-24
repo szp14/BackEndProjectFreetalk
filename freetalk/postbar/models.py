@@ -110,7 +110,7 @@ class TKpost(models.Model):
 	img         = models.ImageField(upload_to = 'upload')
 	attachment  = models.FileField()
 	user        = models.ForeignKey(User, on_delete = models.CASCADE)
-	time        = models.DateTimeField(default = timezone.now, input_formats = ('%Y-%m-%d %H:%M:%S'))
+	time        = models.DateTimeField(default = timezone.now)
 	classTag    = models.CharField(max_length = 100)
 	keyword     = models.CharField(max_length = 100)
 	numClick    = models.IntegerField(default = 0)
