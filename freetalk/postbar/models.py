@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 import os
-from freetalk.settings import MEDIA_ROOT
+from freetalk.settings import STATIC_ROOT, MEDIA_ROOT
 # Create your models here.
 # type     0: normal user|1: admin |2: superadmin
 # status   0: normal     |1: forbid|2: hidden
@@ -15,7 +15,7 @@ def user_directory_path(instance, filename):
 class TKuser(models.Model):
 	user        = models.OneToOneField(User, on_delete = models.CASCADE)
 	nickname    = models.CharField(max_length = 100)
-	img         = models.ImageField(upload_to = user_directory_path)
+	img         = models.ImageField(upload_to = user_directory_path, default = os.path.join(STATIC_ROOT, 'images', 'mengbi.jpg'))
 	pwdQuestion = models.CharField(max_length = 100)
 	pwdAnswer   = models.CharField(max_length = 100)
 	numPost     = models.IntegerField(default = 0)
@@ -84,8 +84,8 @@ class TKuser(models.Model):
 		q = None
 		p = TKpost.objects.filter(id = postId)
 		p = p[0] if p else None
-		r = TKresponse.objects.filter(id = respId)[0]
-		hostId = r.user.id
+		r = TKresponse.objects.filter(id = respId)
+		hostId = r[0].user.id if r else 0
 		q = TKresponse(respType = respType, content = content, user = self.user, post = p, respId = respId, hostId = hostId)
 		q.save()
 
