@@ -212,10 +212,10 @@ class TKhomepage:
 		return TKpost.objects.filter(classTag__contains = classTag)
 
 	def searchPostByScore():
-		return TKpost.objects.order_by('-score')
+		return TKpost.objects.all().order_by('-score')
 
 	def searchPostByTime():
-		return TKpost.objects.filter.order_by('-time')
+		return TKpost.objects.all().order_by('-time')
 
 	def searchPostByTitle(title):
 		return TKpost.objects.filter(title = title)

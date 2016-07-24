@@ -50,36 +50,33 @@
 		</div>
 	</div>
 	<div class="clear"></div>
-	<form id="new_post" method="post" action="">
-		标题：</br><input id="new_post_title" type="text" name="title"/>
+	<form id="new_post" method="post" action="" >
+		标题：</br><input id="new_post_title" type="text" name="title" onsubmit="checkPost()" />
 		</br></br>
 		内容：</br><textarea id="new_post_content" name="content"></textarea></br>
 		添加图片/附件：
 		<input id="new_post_file" type="file" name="headimg"/></br>
 		<div id="new_post_labels">
 			添加类标：
-			<select class="new_post_label" name="search_label">
-				<option value="label1" selected="selected">类标1</option>
-				<option value="label2">类标2</option>
-				<option value="label3">类标3</option>
-				<option value="label4">类标4</option>
+			<select class="new_post_label" name="tag1">
+			{% for tag in tags %}
+				<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
+			{% endfor %}
 			</select>
-			<select class="new_post_label" name="search_label">
-				<option value="volvo" selected="selected">无</option>
-				<option value="label1">类标1</option>
-				<option value="label2">类标2</option>
-				<option value="label3">类标3</option>
-				<option value="label4">类标4</option>
+			<select class="new_post_label" name="tag2">
+				<option value="无" selected="selected">无</option>
+				{% for tag in tags %}
+					<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
+				{% endfor %}
 			</select>
-			<select class="new_post_label" name="search_label">
-				<option value="volvo" selected="selected">无</option>
-				<option value="label1">类标1</option>
-				<option value="label2">类标2</option>
-				<option value="label3">类标3</option>
-				<option value="label4">类标4</option>
+			<select class="new_post_label" name="tag3">
+				<option value="无" selected="selected">无</option>
+				{% for tag in tags %}
+					<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
+				{% endfor %}
 			</select>
 		</div></br>
-		<input id="new_post_submit" type="submit" value="提 交" />
+		<input type="button" value="提交" id="new_post_submit" onclick="checkPost()" />
 	</form>
 	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="/static/js/homepage.js"></script>

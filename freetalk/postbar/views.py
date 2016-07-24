@@ -201,7 +201,7 @@ def homepage(request):
 		dic = {
 			'user': request.user,
 			'img' : request.user.tkuser.getImgUrl(),
-			'posts': TKpost.objects.all(),
+			'posts': TKhomepage.searchPostByTime(),
 			'tags': TKclassTag.objects.all(),
 		}
 		if request.POST:
@@ -211,6 +211,20 @@ def homepage(request):
 					'res': '注销登录成功，即将跳转到登录界面！'
 				}))
 			elif 'title' in request.POST:
+				tag1 = request.POST['tag1']
+				tag2 = request.POST['tag2']
+				tag3 = request.POST['tag3']
+				tags = tag1
+				if tag2 != '无' and tag2 != tag1:
+					tags += " " + tag2
+				if tag3 != "无" and tag1 != tag3:
+					if tag2 != "无":
+						if tag3 != tag2:
+							tags += tag3
+					else:
+						tags += tag3
+				request.user.tkuser.newPost(request.POST['title'], request.POST['content'], None, None, tags, "")
+				dic['posts'] = TKhomepage.searchPostByTime()
 				return render(request, 'postbar/homepage.html', dic)
 		return render(request, 'postbar/homepage.html', dic)
 	else:
