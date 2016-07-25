@@ -11,7 +11,9 @@
 <div id="container">
 	<div class="post_block">
 		<div class="post_title">
-			{{ post.title }}
+			<div class="post_title_block">
+				<p style="margin:0px;">{{ post.title }}</p>
+			</div>
 			<input class="post_titleo_btn" type="button" value="只看楼主" onclick=""/>
 			<input class="post_titleo_btn" type="button" value="打赏金币" onclick=""/>
 		</div>
@@ -34,8 +36,8 @@
 				<img class="resp_user_img" src="{{ repost.user.tkuser.img.url }}"></br><!--路径/static/images/-->
 			{% else %}
 				<img class="resp_user_img" src="/static/images/mengbi.jpg"></br>
-				用户昵称
 			{% endif %}
+				{{ repost.user.tkuser.nickname }}
 			</div>
 			<div class="respond_content">
 				{{ repost.content }}
@@ -48,12 +50,14 @@
 	<div id="pagenum">
 		第1页 共1页  << 1 >>
 	</div>
-	<div id="new_respond">
+	<form id="new_respond" method="post">
 		回复：</br><textarea id="new_post_content" name="content"></textarea></br>
 		添加图片/附件：
-		<input id="new_post_file" type="file" name="headimg"/>
+		<input id="new_post_file" type="file" name="attachment"/>
 		</br></br>
-		<input id="new_post_submit" type="submit" value="提 交" />
-	</div>
+		<input id="new_post_submit" type="button" value="提 交" onclick="response()" />
+	</form>
+	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="/static/js/post.js"></script>
 </body>
 </html>

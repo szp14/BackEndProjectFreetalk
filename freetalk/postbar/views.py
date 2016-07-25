@@ -198,9 +198,12 @@ def useradmin(request):
 @csrf_exempt
 def homepage(request):
 	if request.user.is_authenticated():
-		postDic = [{'post': p, 'tag1': p.classTag.split()[0], 
-								'tag2': p.classTag.split()[1] if len(p.classTag.split()) > 1 else '无', 
-								'tag3': p.classTag.split()[2] if len(p.classTag.split()) > 2 else '无'} for p in TKhomepage.searchPostByTime()]
+		postDic = [{'post': p, 
+					'tag1': p.classTag.split()[0], 
+					'tag2': p.classTag.split()[1] if len(p.classTag.split()) > 1 else '无', 
+					'tag3': p.classTag.split()[2] if len(p.classTag.split()) > 2 else '无'
+				} for p in TKhomepage.searchPostByTime()
+			]
 		dic = {
 			'user': request.user,
 			'img' : request.user.tkuser.getImgUrl(),
@@ -272,7 +275,12 @@ def showpost(request, postid):
 			'img': post.user.tkuser.getImgUrl(),
 			'post': post,
 			'reposts': post.getResp(),
+			'type': 0,
 		}
+		if request.POST:
+			if 'attachment' in request.POST:
+				request.user.tkuser.newResp(0, request.POST['content'], post.id, -1)
+				return render(request, 'postbar/post.html', dic)
 		return render(request, 'postbar/post.html', dic)
 	else:
 		return HttpResponse("您未登陆或该帖子不存在(可能已经被删除)！")

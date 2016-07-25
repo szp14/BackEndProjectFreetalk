@@ -50,12 +50,14 @@
 	<div id="pagenum">
 		第1页 共1页  << 1 >>
 	</div>
-	<div id="new_respond">
+	<form id="new_respond" method="post">
 		回复：</br><textarea id="new_post_content" name="content"></textarea></br>
 		添加图片/附件：
-		<input id="new_post_file" type="file" name="headimg"/>
+		<input id="new_post_file" type="file" name="attachment"/>
 		</br></br>
-		<input id="new_post_submit" type="submit" value="提 交" />
-	</div>
+		<input id="new_post_submit" type="button" value="提 交" onclick="response" />
+	</form>
+	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="/static/js/post.js"></script>
 </body>
 </html>
