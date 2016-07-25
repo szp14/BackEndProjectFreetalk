@@ -252,7 +252,7 @@ a:hover{
 	height:50px;
 	float:left;
 }
-.post_titleo_btn{
+.post_title_btn{
 	width:60px;
 	height:25px;
 	margin:15px 5px 0px 5px;
@@ -289,14 +289,73 @@ a:hover{
 .respond_content{
 	width:840px;
 	min-height:120px;
-	padding:20px 0px;
-	float:left;
+	padding:20px 20px 20px 0px;
+	float:right;
+}
+.respond_wrap{
+	width:840px;
+	height:30px;
+	float:right;
+	padding-right:20px;
 }
 .respond_date{
-	padding:10px 20px;
 	float:right;
 	font-size:14px;
 	color:#888888;
+}
+.rerespond_list{
+	width:840px;
+	margin:0px 20px 20px 0px;
+	float:right;
+	background:#F7F8FA;
+	border-style:solid;
+	border-width:1px;
+	border-color:#eeeeee;
+}
+.rerespond_item{
+	padding:10px 10px 5px 15px;
+	border-bottom-style:dotted;
+	border-width:1px;
+	border-color:#dddddd;
+}
+.rerespond_user{
+	width:40px;
+	height:40px;
+	margin:0px 10px 10px 0px;
+	border-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+	border-radius:2px;
+	float:left;
+}
+.rerespond_content{
+	min-height:32px;
+}
+.rerespond_date{
+	text-align:right;
+	font-size:14px;
+	color:#888888;
+}
+.new_rerespond{
+	padding:10px 0px 10px 15px;
+}
+.new_reresp_content{
+	width:690px;
+	height:30px;
+	font-size:15px;
+	vertical-align:text-top;
+}
+.new_reresp_btn{
+	width:60px;
+	height:25px;
+	margin:5px 0px 0px 5px;
+	font-size:12px;
+	background:#eeeeee;
+	border-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+	border-radius:5px;
+	cursor:pointer;
 }
 #new_respond{
 	width:940px;
