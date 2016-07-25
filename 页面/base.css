@@ -1,0 +1,450 @@
+body{
+	margin:0px;
+	background:#DCEFFE;
+	font-family:"Microsoft YaHei";
+	font-size:16px;
+	#text-overflow:ellipsis;
+	#white-space:nowrap;
+}
+p{
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+a:link{
+	color:#000000;
+	text-decoration:none;
+}
+a:visited{
+	color:#888888;
+	text-decoration:none;
+}
+a:hover{
+	color:#000000;
+	text-decoration:underline;
+}
+#container{
+    width:1000px;
+    margin:0px auto;
+	background:#ffffff;
+	border-style:none solid none solid;
+	border-width:1px;
+	border-color:#cccccc;
+}
+#homepage_header{
+	height:246px;
+	border-bottom-style:solid;
+	border-width:1px;
+	border-color:#dddddd;
+}
+#menu_block{
+	background:#f5f5f5;
+	height:40px;
+	padding:5px 20px;
+	line-height:40px;
+	border-bottom-style:solid;
+	border-width:1px;
+	border-color:#dddddd;
+}
+.menu_block_label{
+	width:120px;
+	height:25px;
+	margin-right:20px;
+	font-size:15px;
+}
+#menu_block_content{
+	height:20px;
+	width:400px;
+	margin-top:5px;
+	font-size:15px;
+	font-family:"Microsoft YaHei";
+}
+#menu_block_search{
+	width:70px;
+	height:25px;
+	margin-left:20px;
+	color:#ffffff;
+	font-size:15px;
+	background:#3D89F9;
+	border-style:solid;
+	border-width:0px;
+	border-radius:5px;
+	cursor:pointer;
+}
+#user_info{
+	width:200px;
+	padding:10px 0px;
+	float:right;
+	text-align:center;
+	line-height:20px;
+}
+.user_info_img{
+	width:100px;
+	height:100px;
+	border-style:solid;
+	border-width:1px;
+	border-color:#888888;
+	border-radius:5px;
+}
+.user_info_name{
+	font-size:14px;
+}
+.user_info_btn{
+	width:60px;
+	height:25px;
+	margin:8px 0px;
+	font-size:12px;
+	background:#eeeeee;
+	border-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+	border-radius:5px;
+	cursor:pointer;
+}
+#post_list{
+	width:798px;
+	min-height:500px;
+	float:left;
+	border-style:none solid none none;
+	border-width:1px;
+	border-color:#cccccc;
+}
+.post_item{
+	#height:80px;
+	padding:0px 0px 0px 20px;
+	border-bottom-style:dotted;
+	border-width:1px;
+	border-color:#cccccc;
+}
+.post_item_wrap1{
+	width:750px;
+	height:40px;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	line-height:20px;
+}
+.post_item_title{
+	width:600px;
+	font-size:18px;
+	font-weight:bold;
+	float:left;
+}
+.post_item_label{
+	font-size:14px;
+	font-weight:normal;
+}
+.post_item_author{
+	width:100px;
+	float:right;
+	color:#888888;
+	font-size:15px;
+	text-align:right;
+}
+.post_item_wrap2{
+	width:750px;
+	height:50px;
+}
+.post_item_brief{
+	width:570px;
+	height:50px;
+	float:left;
+	font-size:15px;
+}
+.post_item_date{
+	color:#888888;
+	width:160px;
+	height:50px;
+	line-height:50px;
+	float:right;
+	font-size:14px;
+	text-align:right;
+}
+.post_item_wrap3{
+	width:750px;
+	height:40px;
+	font-size:14px;
+}
+.post_item_btn{
+	height:20px;
+	margin-right:10px;
+	font-size:12px;
+	background:#eeeeee;
+	border-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+	border-radius:5px;
+	cursor:pointer;
+}
+.post_item_ctrl{
+	width:120px;
+	height:20px;
+	margin-right:10px;
+}
+#pagenum{
+	padding:10px 30px;
+	height:30px;
+	color:#444444;
+	font-size:14px;
+	line-height:30px;
+}
+#new_post{
+	width:940px;
+	background:#f5f5f5;
+	padding:30px;
+	#margin:20px 0px;
+	border-top-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+}
+#new_post_title{
+	height:25px;
+	width:800px;
+	margin-top:5px;
+	font-size:16px;
+	font-family:"Microsoft YaHei";
+}
+#new_post_content{
+	width:800px;
+	height:200px;
+	margin:5px 0px;
+	font-size:16px;
+	font-family:"Microsoft YaHei";
+}
+#new_post_file{
+	font-size:14px;
+}
+#new_post_labels{
+	margin-top:10px;
+}
+.new_post_label{
+	width:120px;
+	height:25px;
+	margin-right:10px;
+	font-size:15px;
+}
+#new_post_submit{
+	width:80px;
+	height:35px;
+	color:#ffffff;
+	font-size:18px;
+	background:#3D89F9;
+	border-style:solid;
+	border-width:0px;
+	border-radius:5px;
+	cursor:pointer;
+}
+
+
+.post_block{
+}
+.post_title{
+	height:50px;
+	padding:10px 20px;
+	line-height:50px;
+	font-size:30px;
+	border-bottom-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+}
+.post_title_block{
+	width:800px;
+	height:50px;
+	float:left;
+}
+.post_titleo_btn{
+	width:60px;
+	height:25px;
+	margin:15px 5px 0px 5px;
+	font-size:12px;
+	background:#eeeeee;
+	border-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+	border-radius:5px;
+	float:right;
+	cursor:pointer;
+}
+.respond{
+	border-bottom-style:dotted;
+	border-width:1px;
+	border-color:#cccccc;
+}
+.respond_user{
+	padding:15px 0px 30px;
+	width:140px;
+	float:left;
+	text-align:center;
+	font-size:14px;
+}
+.resp_user_img{
+	width:80px;
+	height:80px;
+	margin:20px 0px 10px 0px;
+	border-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+	border-radius:5px;
+}
+.respond_content{
+	width:840px;
+	min-height:120px;
+	padding:20px 0px;
+	float:left;
+}
+.respond_date{
+	padding:10px 20px;
+	float:right;
+	font-size:14px;
+	color:#888888;
+}
+#new_respond{
+	width:940px;
+	padding:30px;
+	background:#f5f5f5;
+	border-top-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+}
+#new_resp_content{
+	width:800px;
+	height:200px;
+}
+
+
+#account_header{
+	background:#ffffff;
+	height:160px;
+}
+.acnt_head_img{
+	margin:20px 0px 20px 20px;
+	width:120px;
+	height:120px;
+	float:left;
+	border-style:solid;
+	border-width:1px;
+	border-color:#bbbbbb;
+	border-radius:5px;
+}
+.acnt_header_content{
+	padding:20px;
+	float:left;
+	font-size:30px;
+}
+#account_block{
+	background:#ffffff;
+	padding:20px;
+}
+.acnt_block_post{
+	padding:10px;
+}
+.acnt_block_item{
+	padding:0px 0px 20px 10px;
+	border-bottom-style:dotted;
+	border-width:1px;
+	border-color:#bbbbbb;
+}
+.acnt_block_name{
+	display:-moz-inline-box;
+	display:inline-block;
+	width:90px;
+	padding-left:10px;
+	text-align:left;
+}
+#admin_header{
+	background:#ffffff;
+	margin-bottom:10px;
+	height:80px;
+	padding-left:30px;
+	line-height:100px;
+	font-size:30px;
+}
+#user_list{
+	background:#ffffff;
+	margin:0 auto;
+	border-top-style:solid;
+	border-width:1px;
+	border-color:#bbbbbb;
+}
+.user_item{
+	height:60px;
+	padding:10px;
+	border-bottom-style:dotted;
+	border-width:1px;
+	border-color:#bbbbbb;
+}
+.user_item_img{
+	width:60px;
+	height:60px;
+	float:left;
+	margin-right:10px;
+}
+.user_item_content{
+	float:left;
+}
+.user_item_name{
+	font-size:20px;
+}
+.user_item_state{
+	padding:5px 10px;
+}
+.user_item_ctrl{
+	float:right;
+	text-align:right;
+	line-height:30px;
+}
+
+#label_list{
+	background:#ffffff;
+	margin:0 auto;
+	border-top-style:solid;
+	border-width:1px;
+	border-color:#bbbbbb;
+}
+.label_item{
+	height:50px;
+	padding:10px;
+	border-bottom-style:dotted;
+	border-width:1px;
+	border-color:#bbbbbb;
+}
+.label_item_content{
+	float:left;
+}
+.label_item_name{
+	font-size:20px;
+	margin-bottom:5px;
+}
+.label_item_info{
+	margin-right:10px;
+}
+.label_item_ctrl{
+	float:right;
+	text-align:right;
+	line-height:30px;
+}
+.label_item_input{
+	width:100px;
+	margin-left:10px;
+}
+.label_add{
+	height:30px;
+	padding:10px;
+	line-height:30px;
+	border-bottom-style:solid;
+	border-width:1px;
+	border-color:#bbbbbb;
+}
+
+
+.clear{
+    clear:both;
+}
+.tag {
+	font-size: 12px;
+    color: red;
+	display:-moz-inline-box;
+	display:inline-block;
+	padding-left:10px;
+	text-align:left;
+}
