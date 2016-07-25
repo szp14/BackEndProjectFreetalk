@@ -330,9 +330,13 @@ a:hover{
 }
 .rerespond_content{
 	min-height:32px;
+	width:760px;
+	float:right;
 }
 .rerespond_date{
+	width:760px;
 	text-align:right;
+	float:right;
 	font-size:14px;
 	color:#888888;
 }
