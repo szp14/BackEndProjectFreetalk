@@ -275,11 +275,19 @@ def showpost(request, postid):
 			'img': post.user.tkuser.getImgUrl(),
 			'post': post,
 			'reposts': post.getResp(),
-			'type': 0,
+			'host': "只看楼主"
 		}
 		if request.POST:
 			if 'attachment' in request.POST:
 				request.user.tkuser.newResp(0, request.POST['content'], post.id, -1)
+				return render(request, 'postbar/post.html', dic)
+			if 'setonly' in request.POST:
+				if request.POST['setonly'] == "只看楼主":
+					dic['reposts'] = post.focusOnHost()
+					dic['host'] = "取消只看楼主"
+				else:
+					dic['reposts'] = post.getResp()
+					dic['host'] = "只看楼主"
 				return render(request, 'postbar/post.html', dic)
 		return render(request, 'postbar/post.html', dic)
 	else:

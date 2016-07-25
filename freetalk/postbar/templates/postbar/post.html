@@ -14,7 +14,9 @@
 			<div class="post_title_block">
 				<p style="margin:0px;">{{ post.title }}</p>
 			</div>
-			<input class="post_titleo_btn" type="button" value="只看楼主" onclick=""/>
+			<form id="host_only" method="post">
+				<input class="post_titleo_btn" type="submit" name="setonly" id="only" value="{{ host }}" />
+			</form>
 			<input class="post_titleo_btn" type="button" value="打赏金币" onclick=""/>
 		</div>
 		<div class="clear"></div>

@@ -8,5 +8,4 @@ function response() {
 		$("#new_respond").submit();
 		alert("回复成功！");
 	}
-
 }
