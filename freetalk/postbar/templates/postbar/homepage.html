@@ -33,8 +33,8 @@
 		<input class="user_info_btn" type="button" value="修改资料" onclick="window.location.href='{% url 'account' %}'"/></br>
 		<input class="user_info_btn" type="button" value="注销登录" onclick="logout()"/></br>
 		{% if user.tkuser.usrType != 0 %}
-			<input class="user_info_btn" type="button" value="管理用户" onclick="window.location.href='{% url 'admin' %}'"/></br>
-			<input class="user_info_btn" type="button" value="管理类标" onclick=""/></br>
+			<input class="user_info_btn" type="button" value="管理用户" onclick="window.location.href='{% url 'useradmin' %}'"/></br>
+			<input class="user_info_btn" type="button" value="管理类标" onclick="window.location.href='{% url 'tagadmin' %}'"/></br>
 		{% endif %}
 	</div>
 	<div id="post_list">

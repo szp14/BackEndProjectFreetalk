@@ -157,7 +157,7 @@ def account(request):
 		return HttpResponse("需要登录，请您进行登录操作！")
 
 @csrf_exempt
-def admin(request):
+def useradmin(request):
 	if request.user.is_authenticated() and request.user.tkuser.usrType != 0:
 		if request.POST:
 			list1 = request.POST["op"].split()
@@ -276,3 +276,10 @@ def showpost(request, postid):
 		return render(request, 'postbar/post.html', dic)
 	else:
 		return HttpResponse("您未登陆或该帖子不存在(可能已经被删除)！")
+
+@csrf_exempt
+def tagadmin(request):
+	dic = {
+		'img': "dfa",
+	}
+	return render(request, 'postbar/label.html', dic)
