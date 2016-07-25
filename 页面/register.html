@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>注册界面</title>
+    <link rel="stylesheet" href="/static/css/log.css"><!--路径-->
+</head>
+
+<body style="background:url(/static/images/log_bg.jpg);background-size:cover;">
+<div id="logcontainer">
+    <div id="logheader">
+        注册
+    </div>
+    <form class="logblock" method="post" action="">
+        {% csrf_token %}
+        <span class="inputname">用户名:</span><input type="text" name="username"/>
+		<span class="tag" id="tap1" style="display: {{show1}}">用户名已存在或用户名为空！</span>
+		</br></br>
+        <span class="inputname">密码:</span><input type="password" name="password"/>
+		<span class="tag" id="tap2" style="display: {{show2}}">密码为空！</span>
+		</br></br>
+        <span class="inputname">重复密码:</span><input type="password" name="repassword"/>
+		<span class="tag" id="tap3" style="display: {{show3}}">两次输入的密码不一致！</span>
+		</br></br>
+        <span class="inputname">昵称:</span><input type="text" name="nickname"/>
+		<span class="tag" id="tap4" style="display: {{show4}}">昵称格式错误或为空！</span>
+		</br></br>
+        <span class="inputname">邮箱:</span><input type="text" name="email"/>
+		<span class="tag" id="tap5" style="display: {{show5}}">邮箱格式错误或为空！</span>
+		</br></br>
+		<span class="inputname">密保问题:</span><input type="text" name="question"/>
+		<span class="tag" id="tap6" style="display: {{show6}}">密保问题不能为空！</span>
+		</br></br>
+		<span class="inputname">密保答案:</span><input type="text" name="answer"/>
+		<span class="tag" id="tap7" style="display: {{show7}}">密保答案不能为空！</span>
+		</br></br>
+        <div id="buttons">
+            <input class="log_button" type="submit" value="注册" />
+        </div>
+    </form>
+	<div id="return_block">
+		<button id="return_button" class="log_button" onclick="window.location.href='{% url 'index' %}'">返回</button>
+	</div>
+</div>
+</body>
+</html>
