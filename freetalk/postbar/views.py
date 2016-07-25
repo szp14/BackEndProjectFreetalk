@@ -198,11 +198,15 @@ def admin(request):
 @csrf_exempt
 def homepage(request):
 	if request.user.is_authenticated():
+		postDic = [{'post': p, 'tag1': p.classTag.split()[0], 
+								'tag2': p.classTag.split()[1] if len(p.classTag.split()) > 1 else '无', 
+								'tag3': p.classTag.split()[2] if len(p.classTag.split()) > 2 else '无'} for p in TKhomepage.searchPostByTime()]
 		dic = {
 			'user': request.user,
 			'img' : request.user.tkuser.getImgUrl(),
-			'posts': TKhomepage.searchPostByTime(),
+			'posts': postDic,
 			'tags': TKclassTag.objects.all(),
+			'list1': json.dumps('传递参数给js'),
 		}
 		if request.POST:
 			if 'logout' in request.POST:
@@ -226,6 +230,36 @@ def homepage(request):
 				request.user.tkuser.newPost(request.POST['title'], request.POST['content'], None, None, tags, "")
 				dic['posts'] = TKhomepage.searchPostByTime()
 				return render(request, 'postbar/homepage.html', dic)
+			elif 'addTag' in request.POST:
+				add1 = request.POST['addTag']
+				del1 = request.POST['delTag']
+				postid = request.POST['id']
+				post = TKhomepage.searchPostByTime()[int(postid) - 1]
+				res = {
+					'tip': '帖子的类标数不能大于三，无法继续增加类标！',
+					'type': 0
+				}
+				if add1 != '无' and del1 == '无' and post.getTagNum() >= 3:
+					res['tip'] = '帖子的类标数不能大于三，无法继续增加类标！'
+					return HttpResponse(json.dumps(res))
+				if add1 == '无' and del1 != '无' and post.getTagNum() <= 1:
+					res['tip'] = '帖子的类标数不能少于一，无法继续删除类标！'
+					return HttpResponse(json.dumps(res))
+				if add1 != '无':
+					post.addTag(add1)
+				if del1 != '无':
+					post.delTag(del1)
+				res['tip'] = '修改类标成功！'
+				res['type'] = 1
+				return HttpResponse(json.dumps(res))
+			elif 'delPost' in request.POST:
+				postid = request.POST['delPost']
+				post = TKhomepage.searchPostByTime()[int(postid) - 1]
+				post.deletePost()
+				res = {
+					'tip': '该帖子已被成功删除！',
+				}
+				return HttpResponse(json.dumps(res))
 		return render(request, 'postbar/homepage.html', dic)
 	else:
 		return HttpResponse("您未登陆，无法访问该网页！")

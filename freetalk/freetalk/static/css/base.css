@@ -110,35 +110,76 @@ a:hover{
 	border-color:#cccccc;
 }
 .post_item{
-	height:60px;
-	padding:20px 0px 20px 20px;
+	#height:80px;
+	padding:0px 0px 0px 20px;
 	border-bottom-style:dotted;
 	border-width:1px;
 	border-color:#cccccc;
 }
+.post_item_wrap1{
+	width:750px;
+	height:40px;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	line-height:20px;
+}
 .post_item_title{
-	width:700px;
-	float:left;
+	width:600px;
 	font-size:18px;
 	font-weight:bold;
+	float:left;
 }
 .post_item_label{
 	font-size:14px;
 	font-weight:normal;
 }
+.post_item_author{
+	width:100px;
+	float:right;
+	color:#888888;
+	font-size:15px;
+	text-align:right;
+}
+.post_item_wrap2{
+	width:750px;
+	height:50px;
+}
 .post_item_brief{
-	width:600px;
+	width:570px;
+	height:50px;
 	float:left;
 	font-size:15px;
 }
 .post_item_date{
 	color:#888888;
-	width:200px;
-	margin-top: -35px;
-	padding-right:20px;
+	width:160px;
+	height:50px;
+	line-height:50px;
 	float:right;
 	font-size:14px;
 	text-align:right;
+}
+.post_item_wrap3{
+	width:750px;
+	height:40px;
+	font-size:14px;
+}
+.post_item_btn{
+	height:20px;
+	margin-right:10px;
+	font-size:12px;
+	background:#eeeeee;
+	border-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+	border-radius:5px;
+	cursor:pointer;
+}
+.post_item_ctrl{
+	width:120px;
+	height:20px;
+	margin-right:10px;
 }
 #pagenum{
 	padding:10px 30px;
@@ -206,6 +247,11 @@ a:hover{
 	border-width:1px;
 	border-color:#cccccc;
 }
+.post_title_block{
+	width:800px;
+	height:50px;
+	float:left;
+}
 .post_titleo_btn{
 	width:60px;
 	height:25px;
@@ -217,6 +263,7 @@ a:hover{
 	border-color:#cccccc;
 	border-radius:5px;
 	float:right;
+	cursor:pointer;
 }
 .respond{
 	border-bottom-style:dotted;
@@ -307,7 +354,7 @@ a:hover{
 #admin_header{
 	background:#ffffff;
 	margin-bottom:10px;
-	height:100px;
+	height:80px;
 	padding-left:30px;
 	line-height:100px;
 	font-size:30px;
@@ -315,7 +362,7 @@ a:hover{
 #user_list{
 	background:#ffffff;
 	margin:0 auto;
-	border-style:solid solid none solid;
+	border-top-style:solid;
 	border-width:1px;
 	border-color:#bbbbbb;
 }
@@ -330,6 +377,7 @@ a:hover{
 	width:60px;
 	height:60px;
 	float:left;
+	margin-right:10px;
 }
 .user_item_content{
 	float:left;
@@ -345,6 +393,42 @@ a:hover{
 	text-align:right;
 	line-height:30px;
 }
+
+#label_list{
+	background:#ffffff;
+	margin:0 auto;
+	border-top-style:solid;
+	border-width:1px;
+	border-color:#bbbbbb;
+}
+.label_item{
+	height:50px;
+	padding:10px;
+	border-bottom-style:dotted;
+	border-width:1px;
+	border-color:#bbbbbb;
+}
+.label_item_content{
+	float:left;
+}
+.label_item_name{
+	font-size:20px;
+	margin-bottom:5px;
+}
+.label_item_info{
+	margin-right:10px;
+}
+.label_item_ctrl{
+	float:right;
+	text-align:right;
+	line-height:30px;
+}
+.label_item_input{
+	width:100px;
+	margin-left:10px;
+}
+
+
 .clear{
     clear:both;
 }

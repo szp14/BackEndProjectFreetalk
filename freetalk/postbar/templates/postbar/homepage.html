@@ -34,16 +34,52 @@
 		<input class="user_info_btn" type="button" value="注销登录" onclick="logout()"/></br>
 		{% if user.tkuser.usrType != 0 %}
 			<input class="user_info_btn" type="button" value="管理用户" onclick="window.location.href='{% url 'admin' %}'"/></br>
+			<input class="user_info_btn" type="button" value="管理类标" onclick=""/></br>
 		{% endif %}
 	</div>
 	<div id="post_list">
-		{% for post in posts %}
+		{% for p in posts %}
 		<div class="post_item">
-			<a class="post_item_title" href="{% url 'post' post.id %}"><span class="post_item_label">【{{ post.classTag }}】</span>{{ post.title }}</a>
-			<div class="post_item_brief"><p>{{ post.content }}</p></div>
-			<div class="post_item_date">{{ post.time|date:"Y-m-d H:i:s" }}</div>
+			<div class="post_item_wrap1">
+				<p class="post_item_title"><a href="{% url 'post' p.post.id %}" target="_blank">
+					<span class="post_item_label">【{{ p.post.classTag }}】</span>{{ p.post.title }}
+				</a></p>
+				<p class="post_item_author">{{ p.post.user.tkuser.nickname }}</p>
+			</div>
+			<div class="clear"></div>
+			<div class="post_item_wrap2">
+				<div class="post_item_brief"><p>{{ p.post.content }}</p></div>
+				<div class="post_item_date">{{ p.post.time|date:"Y-m-d H:i:s" }}</div>
+			</div>
+			<div class="clear"></div>
+			{% if user.tkuser.usrType != 0 %}
+			<div class="post_item_wrap3"><!--wrap3只有管理员可见-->
+				<input class="post_item_btn opPost" id="delPost{{ forloop.counter }}" type="button" value="删除帖子"/>
+				添加类标：
+				<select class="post_item_ctrl" id="addTag{{ forloop.counter }}">
+					<option value="无">无</option>
+					{% for tag in tags %}
+					{% if p.tag1 != tag.classTagName and p.tag2 != tag.classTagName and p.tag3 != tag.classTagName%}
+					<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
+					{% endif %}
+					{% endfor %}
+				</select>
+				删除类标：
+				<select class="post_item_ctrl" id="delTag{{ forloop.counter }}">
+					<option value="无">无</option>
+					<option value="{{ p.tag1 }}">{{ p.tag1 }}</option>
+					{% if p.tag2 != '无' %}
+						<option value="{{ p.tag2 }}">{{ p.tag2 }}</option>
+					{% endif %}
+					{% if p.tag3 != '无' %}
+						<option value="{{ p.tag3 }}">{{ p.tag3 }}</option>
+					{% endif %}
+				</select>
+				<button class="post_item_btn opTag" type="button" id="op{{ forloop.counter }}">修改类标</button>
+			</div>
+			{% endif %}
+			<div class="clear"></div>
 		</div>
-		<div class="clear"></div>
 		{% endfor %}
 		<div id="pagenum">
 			第1页 共1页  <a href=""><<</a> 1 <a href="">>></a>

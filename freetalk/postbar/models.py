@@ -58,13 +58,6 @@ class TKuser(models.Model):
 		q.save()
 		self.numPost = self.numPost + 1
 
-	def deletePost(self, postId):
-		q = TKpost.objects.filter(id = postId)
-		if q:
-			q = q[0]
-			q.delete()
-			q.user.tkuser.numPost = q.user.tkuser.numPost - 1
-
 	def upvotePost(self, postId):
 		q = TKpost.objects.filter(id = postId)
 		if q:
@@ -120,6 +113,39 @@ class TKpost(models.Model):
 
 	def downloadAttach():
 		pass
+
+	def isTagExist(self, tagname):
+		taglist = self.classTag.split()
+		for tag in taglist:
+			if tag == tagname:
+				return True
+		return False
+
+	def addTag(self, tagname):
+		if self.isTagExist(tagname) == False:
+			self.classTag += ' ' + tagname
+			self.save()
+
+	def delTag(self, tagname):
+		taglist = self.classTag.split()
+		for tag in taglist:
+			if tag == tagname:
+				taglist.remove(tagname)
+		if len(taglist) > 0:
+			classTag = taglist[0]
+			for tag in taglist[1:len(taglist)]:
+				classTag += ' ' + tag
+			self.classTag = classTag
+			self.save()
+
+	def deletePost(self):
+		self.user.tkuser.numPost = self.user.tkuser.numPost - 1
+		self.user.tkuser.save()
+		self.delete()
+
+	def getTagNum(self):
+		taglist = self.classTag.split()
+		return len(taglist)
 
 	def getResp(self):
 		return TKresponse.objects.filter(post = self)
