@@ -26,10 +26,13 @@
 			</div>
 			<div class="respond_content">
 				{{ post.content }}
+				</br></br><a href="https://github.com/szp14/BackEndProjectFreetalk">下载附件(12.450MB)</a>
 			</div>
 			<div class="respond_wrap">
 				<div class="respond_date">{{ post.time|date:"Y-m-d H:i:s" }}</div>
-				<div class="respond_date">点赞还没写</div>
+				<input class="respond_btn" type="button" value="点 赞" onclick=""/>
+				<input class="respond_btn" type="button" value="删 除" onclick=""/>
+				<div class="respond_up">收到赞: 450</div>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -49,7 +52,9 @@
 			</div>
 			<div class="respond_wrap">
 				<div class="respond_date">{{ repost.resp.time|date:"Y-m-d H:i:s" }}</div>
-				<div class="respond_date">点赞还没写</div>
+				<input class="respond_btn" type="button" value="点 赞" onclick=""/>
+				<input class="respond_btn" type="button" value="删 除" onclick=""/>
+				<div class="respond_up">收到赞: 450</div>
 			</div>
 			<!--因为我这回复有问题所以楼中楼暂时写在了楼主这层，从这开始是楼层的日期和楼中楼-->
 			<div class="clear"></div>
@@ -61,7 +66,10 @@
 					<div class="rerespond_content">
 					{{ rere.content }}
 					</div>
-					<div class="rerespond_date">{{ rere.time|date:"Y-m-d H:i:s" }}</div>
+					<div class="rerespond_date">
+						<input class="rerespond_btn" type="button" value="删 除" onclick=""/>
+						{{ rere.time|date:"Y-m-d H:i:s" }}
+					</div>
 					<div class="clear"></div>
 				</div>
 				{% endif %}

@@ -40,29 +40,29 @@ a:hover{
 #menu_block{
 	background:#f5f5f5;
 	height:40px;
-	padding:5px 20px;
+	padding:5px 0px 5px 20px;
 	line-height:40px;
 	border-bottom-style:solid;
 	border-width:1px;
 	border-color:#dddddd;
 }
 .menu_block_label{
-	width:120px;
+	width:100px;
 	height:25px;
 	margin-right:20px;
 	font-size:15px;
 }
 #menu_block_content{
 	height:20px;
-	width:400px;
+	width:300px;
 	margin-top:5px;
 	font-size:15px;
 	font-family:"Microsoft YaHei";
 }
-#menu_block_search{
+#menu_block_btn{
 	width:70px;
 	height:25px;
-	margin-left:20px;
+	margin:0px 40px 0px 5px;
 	color:#ffffff;
 	font-size:15px;
 	background:#3D89F9;
@@ -70,6 +70,11 @@ a:hover{
 	border-width:0px;
 	border-radius:5px;
 	cursor:pointer;
+}
+.menu_block_rank{
+	width:100px;
+	height:25px;
+	font-size:15px;
 }
 #user_info{
 	width:200px;
@@ -111,13 +116,13 @@ a:hover{
 }
 .post_item{
 	#height:80px;
-	padding:0px 0px 0px 20px;
+	padding:0px 0px 0px 15px;
 	border-bottom-style:dotted;
 	border-width:1px;
 	border-color:#cccccc;
 }
 .post_item_wrap1{
-	width:750px;
+	width:775px;
 	height:40px;
 	overflow:hidden;
 	white-space:nowrap;
@@ -125,7 +130,7 @@ a:hover{
 	line-height:20px;
 }
 .post_item_title{
-	width:600px;
+	width:500px;
 	font-size:18px;
 	font-weight:bold;
 	float:left;
@@ -135,15 +140,22 @@ a:hover{
 	font-weight:normal;
 }
 .post_item_author{
-	width:100px;
+	width:80px;
 	float:right;
 	color:#888888;
 	font-size:15px;
-	text-align:right;
+}
+.post_item_num{
+	padding-top:3px;
+	width:110px;
+	float:right;
+	color:#888888;
+	font-size:14px;
 }
 .post_item_wrap2{
 	width:750px;
 	height:50px;
+	margin-left:5px;
 }
 .post_item_brief{
 	width:570px;
@@ -248,7 +260,7 @@ a:hover{
 	border-color:#cccccc;
 }
 .post_title_block{
-	width:700px;
+	width:750px;
 	height:50px;
 	float:left;
 }
@@ -303,6 +315,23 @@ a:hover{
 	font-size:14px;
 	color:#888888;
 }
+.respond_btn{
+	height:20px;
+	margin-right:10px;
+	font-size:12px;
+	float:right;
+	background:#eeeeee;
+	border-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+	border-radius:5px;
+	cursor:pointer;
+}
+.respond_up{
+	float:left;
+	font-size:14px;
+	color:#888888;
+}
 .rerespond_list{
 	width:840px;
 	margin:0px 20px 20px 0px;
@@ -338,8 +367,15 @@ a:hover{
 	width:760px;
 	text-align:right;
 	float:right;
-	font-size:14px;
+	font-size:13px;
 	color:#888888;
+}
+.rerespond_btn{
+	height:20px;
+	font-size:12px;
+	background:#F7F8FA;
+	border-width:0px;
+	cursor:pointer;
 }
 .new_rerespond{
 	padding:10px 0px 10px 15px;
@@ -356,10 +392,10 @@ a:hover{
 	height:25px;
 	margin:5px 0px 0px 5px;
 	font-size:12px;
-	background:#eeeeee;
+	color:#ffffff;
+	background:#3D89F9;
 	border-style:solid;
-	border-width:1px;
-	border-color:#cccccc;
+	border-width:0px;
 	border-radius:5px;
 	cursor:pointer;
 }

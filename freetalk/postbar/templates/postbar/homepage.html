@@ -20,7 +20,15 @@
 		</select>
 		内容要求: 
 		<input id="menu_block_content" type="text" name="search_content"/>
-		<input id="menu_block_search" type="button" value="搜 索"/>
+		<input id="menu_block_btn" type="button" value="搜 索"/>
+		排行榜: 
+		<select class="menu_block_rank" name="rank">
+			<option value="click">按点击数</option>
+			<option value="up">按点赞数</option>
+			<option value="respond">按回复数</option>
+			<option value="coin">按金币数</option>
+		</select>
+		<input id="menu_block_btn" type="button" value="排 行"/>
 	</div>
 	<div id="user_info">
 		<h3>个人信息</h3>
@@ -46,6 +54,7 @@
 					<span class="post_item_label">【{{ p.post.classTag }}】</span>{{ p.post.title }}
 				</a></p>
 				<p class="post_item_author">{{ p.post.user.tkuser.nickname }}</p>
+				<p class="post_item_num">回复12 金币2</p>
 			</div>
 			<div class="clear"></div>
 			<div class="post_item_wrap2">
