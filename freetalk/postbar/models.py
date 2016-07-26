@@ -185,7 +185,7 @@ class TKresponse(models.Model):
 	score       = models.IntegerField(default = 0)
 
 	def getResp(self):
-		if respType == 0:
+		if self.respType == 0:
 			return TKresponse.objects.filter(respId = self.id)
 
 	def getBothSides(self):
