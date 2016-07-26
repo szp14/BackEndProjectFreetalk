@@ -151,7 +151,11 @@ class TKpost(models.Model):
 		return TKresponse.objects.filter(post = self)
 
 	def getPostById(postId):
-		return TKpost.objects.filter(id = postId)[0]
+		post = TKpost.objects.filter(id = postId)
+		if post:
+			return post[0]
+		else:
+			return None
 
 	def focusOnHost(self):
 		return TKresponse.objects.filter(user = self.user, post = self, respType = 0)
@@ -175,8 +179,10 @@ class TKresponse(models.Model):
 		q = User.objects.filter(id = self.hostId)
 		return [self.user, q[0]] if q else None
 
+
 class TKclassTag(models.Model):
 	classTagName = models.CharField(max_length = 100)
+
 
 class TKhomepage:
 	def newAdmin():

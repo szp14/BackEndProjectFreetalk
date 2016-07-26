@@ -39,6 +39,7 @@
 	</div>
 	<div id="post_list">
 		{% for p in posts %}
+		{% if p.post.user.tkuser.usrStatus != 2 %}
 		<div class="post_item">
 			<div class="post_item_wrap1">
 				<p class="post_item_title"><a href="{% url 'post' p.post.id %}" target="_blank">
@@ -80,6 +81,7 @@
 			{% endif %}
 			<div class="clear"></div>
 		</div>
+		{% endif %}
 		{% endfor %}
 		<div id="pagenum">
 			第1页 共1页  <a href=""><<</a> 1 <a href="">>></a>
@@ -112,7 +114,11 @@
 				{% endfor %}
 			</select>
 		</div></br>
-		<input type="button" value="提交" id="new_post_submit" onclick="checkPost()" />
+		{% if user.tkuser.usrStatus > 0 %}
+			<p>您处于禁言或屏蔽状态，无法发帖！</p>
+		{% else %}
+			<input type="button" value="提交" id="new_post_submit" onclick="checkPost()" />
+		{% endif %}
 	</form>
 	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="/static/js/homepage.js"></script>

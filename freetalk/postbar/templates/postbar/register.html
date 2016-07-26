@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/css/log.css"><!--路径-->
 </head>
 
-<body>
+<body style="background:url(/static/images/log_bg.jpg);background-size:cover;">
 <div id="logcontainer">
     <div id="logheader">
         注册
@@ -36,11 +36,11 @@
 		<span class="tag" id="tap7" style="display: {{show7}}">密保答案不能为空！</span>
 		</br></br>
         <div id="buttons">
-            <input type="submit" value="注册" />
+            <input class="log_button" type="submit" value="注册" />
         </div>
     </form>
 	<div id="return_block">
-		<button id="return_button" onclick="window.location.href='{% url 'index' %}'">返回</button>
+		<button id="return_button" class="log_button" onclick="window.location.href='{% url 'index' %}'">返回</button>
 	</div>
 </div>
 </body>

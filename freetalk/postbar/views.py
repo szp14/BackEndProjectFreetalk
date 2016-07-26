@@ -209,7 +209,6 @@ def homepage(request):
 			'img' : request.user.tkuser.getImgUrl(),
 			'posts': postDic,
 			'tags': TKclassTag.objects.all(),
-			'list1': json.dumps('传递参数给js'),
 		}
 		if request.POST:
 			if 'logout' in request.POST:
@@ -275,6 +274,7 @@ def showpost(request, postid):
 			'img': post.user.tkuser.getImgUrl(),
 			'post': post,
 			'reposts': post.getResp(),
+			'user': request.user,
 			'host': "只看楼主"
 		}
 		if request.POST:
@@ -295,7 +295,15 @@ def showpost(request, postid):
 
 @csrf_exempt
 def tagadmin(request):
-	dic = {
-		'img': "dfa",
-	}
-	return render(request, 'postbar/label.html', dic)
+	if request.user.is_authenticated() and request.user.tkuser.usrType != 0:
+		dic = {
+			'tags': TKclassTag.objects.all(),
+		}
+		if 'tag' in request.POST:
+			TKhomepage.addClassTag(request.POST['tag'])
+			return HttpResponse(json.dumps({
+					'res': '增加类标成功！'
+				}))
+		return render(request, 'postbar/label.html', dic)
+	else:
+		return HttpResponse("您未登陆或者没有权限访问该网站！")

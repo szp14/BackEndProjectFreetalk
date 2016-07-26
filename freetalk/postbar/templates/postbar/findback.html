@@ -1,4 +1,4 @@
-﻿<!doctype html>
+﻿﻿<!doctype html>
 <html lang="zh-CN">
 
 <head>
@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="/static/css/log.css"><!--路径-->
 </head>
 
-<body>
+<body style="background:url(/static/images/log_bg.jpg);background-size:cover;">
 <div id="logcontainer">
 	<div id="logheader">
 		找回密码
@@ -15,8 +15,8 @@
 	<form class="logblock" method="get" action="">
 		{% csrf_token %}
 		<span class="inputname">用户名:</span><input type="text" name="username" value="{{ content1 }}" />
-		<span class="tag" id="tap1" style="display: {{ show1 }}">用户名不存在，请检查是否按下确认按钮！</span>
-		<input type="submit" value="确认" onclick="check()"/>
+		<input class="log_button" type="submit" value="确认" onclick="check()"/>
+		<span class="tag" id="tap1" style="display: {{ show1 }}">用户名不存在，请按确认按钮检查！</span>
 		</br></br>
 	</form>
 	<form class="logblock" method="post" action="">
@@ -33,8 +33,11 @@
 		<span class="tag" id="tap4" style="display: {{ show4 }}">两次输入的密码不一致，请重新输入！</span>
 		</br></br>
 		<div id="buttons">
-			<input type="submit" value="修改密码" onclick="findback()"/>
+			<input class="log_button" type="submit" value="修改密码" onclick="findback()"/>
 		</div>
 	</form>
+	<div id="return_block">
+		<button id="return_button" class="log_button" onclick="window.location.href='{% url 'index' %}'">返回</button>
+	</div>
 </body>
 </html>

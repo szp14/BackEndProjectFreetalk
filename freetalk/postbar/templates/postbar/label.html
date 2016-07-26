@@ -1,4 +1,4 @@
-﻿<!doctype html>
+﻿﻿<!doctype html>
 <html lang="zh-CN">
 
 <head>
@@ -13,15 +13,16 @@
 		类标管理
 	</div>
 	<div id="label_list">
+		{% for tag in tags %}
 		<div class="label_item">
 			<div class="label_item_content">
-				<div class="label_item_name">类标名</div>
+				<div class="label_item_name">{{ tag.classTagName }}</div>
 				<div>
 					<span class="label_item_info">贴子数：12</span>
 					<span class="label_item_info">回复数：450</span>
 					<span class="label_item_info">金币数：9</span>
 					<span class="label_item_info">各种数你们看着加吧</div>
-			</div>
+				</div>
 			<div class="label_item_ctrl">
 				<input type="button" value="删除类标" class=""/>
 				<input class="label_item_input" type="text" name=""/>
@@ -29,24 +30,16 @@
 			</div>
 		</div>
 		<div class="clear"></div>
-		<div class="label_item">
-			<div class="label_item_content">
-				<div class="label_item_name">类标名</div>
-				<div>
-					<span class="label_item_info">贴子数：12</span>
-					<span class="label_item_info">回复数：450</span>
-					<span class="label_item_info">金币数：9</span>
-					<span class="label_item_info">各种数你们看着加吧</div>
-			</div>
-			<div class="label_item_ctrl">
-				<input type="button" value="删除类标" class=""/>
-				<input class="label_item_input" type="text" name=""/>
-				<input type="button" value="修改类标" class=""/></br>
-			</div>
+		{% endfor %}
+		<div class="label_add">
+			类标名:
+			<input class="label_item_input" type="text" id="addTag"/>
+			<input type="button" value="增加类标" onclick="addTag()" />
 		</div>
 		<div class="clear"></div>
 	</div>
-	<input type="button" value="增加类标" onclick=""/>
-	<input type="button" value="返回主页" onclick=""/></br></br>
+	<input type="button" value="返回主页" onclick="window.location.href='{% url 'homepage' %}'"/></br></br>
+	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="/static/js/label.js"></script>
 </body>
 </html>
