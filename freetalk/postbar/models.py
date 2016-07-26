@@ -57,26 +57,35 @@ class TKuser(models.Model):
 		q = TKpost(title = title, content = content, img = img, attachment = attachment, classTag = classTag, keyword = keyword, user = self.user)
 		q.save()
 		self.numPost = self.numPost + 1
+		self.save()
 
 	def upvotePost(self, postId):
 		q = TKpost.objects.filter(id = postId)
 		if q:
 			q = q[0]
 			q.score = q.score + 1
+			q.save()
 			q.user.tkuser.numScore = q.user.tkuser.numScore + 1
+			q.user.tkuser.save()
 
 	def giveCoinPost(self, postId):
 		q = TKpost.objects.filter(id = postId)
 		if q and self.tkuser.numCoin > 0:
 			q = q[0]
 			q.coin = q.coin + 1
+			q.save()
 			q.user.tkuser.numCoin = q.user.tkuser.numCoin + 1
+			q.user.tkuser.save()
 			self.tkuser.numCoin = self.tkuser.numCoin - 1
+			self.tkuser.save()
+
 
 	def newResp(self, respType, content, postId, respId):
 		q = None
 		p = TKpost.objects.filter(id = postId)
 		p = p[0] if p else None
+		p.numResp = p.numResp + 1
+		p.save()
 		r = TKresponse.objects.filter(id = respId)
 		hostId = r[0].user.id if r else 0
 		q = TKresponse(respType = respType, content = content, user = self.user, post = p, respId = respId, hostId = hostId)
@@ -88,13 +97,16 @@ class TKuser(models.Model):
 			q = q[0]
 			TKresponse.objects.filter(respId = respId).delete()
 			q.delete()
+			q.post.numResp = q.post.numResp - 1
 
-	def upvoteResp():
-		q = TKpost.objects.filter(id = postId)
+	def upvoteResp(self, respId):
+		q = TKresponse.objects.filter(id = respId)
 		if q:
 			q = q[0]
 			q.score = q.score + 1
+			q.save()
 			q.user.tkuser.numScore = q.user.tkuser.numScore + 1
+			q.user.tkuser.save()
 
 
 class TKpost(models.Model):
@@ -111,8 +123,9 @@ class TKpost(models.Model):
 	score       = models.IntegerField(default = 0)
 	coin        = models.IntegerField(default = 0)
 
-	def downloadAttach():
-		pass
+	def clicked(self):
+		self.numClick = self.numClick + 1
+		self.save()
 
 	def isTagExist(self, tagname):
 		taglist = self.classTag.split()
@@ -177,11 +190,42 @@ class TKresponse(models.Model):
 
 	def getBothSides(self):
 		q = User.objects.filter(id = self.hostId)
-		return [self.user, q[0]] if q else None
+		return [self.user.tkuser.nickname, q[0].tkuser.nickname] if q else None
 
 
 class TKclassTag(models.Model):
 	classTagName = models.CharField(max_length = 100)
+
+	def getPostNum(self):
+		return len(TKhomepage.searchPostByClassTag(self.classTagName))
+
+	def getRespNum(self):
+		respNum = 0
+		posts = TKhomepage.searchPostByClassTag(self.classTagName)
+		for post in posts:
+			respNum = respNum + post.numResp
+		return respNum
+
+	def getClickNum(self):
+		click = 0
+		posts = TKhomepage.searchPostByClassTag(self.classTagName)
+		for post in posts:
+			click = click + post.numClick
+		return click
+
+	def getScoreNum(self):
+		scores = 0
+		posts = TKhomepage.searchPostByClassTag(self.classTagName)
+		for post in posts:
+			scores = scores + post.score
+		return scores
+
+	def getCoinNum(self):
+		coins = 0
+		posts = TKhomepage.searchPostByClassTag(self.classTagName)
+		for post in posts:
+			coins = coins + post.coin
+		return coins
 
 
 class TKhomepage:
