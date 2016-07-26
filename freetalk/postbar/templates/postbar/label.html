@@ -16,13 +16,15 @@
 		{% for tag in tags %}
 		<div class="label_item">
 			<div class="label_item_content">
-				<div class="label_item_name">{{ tag.classTagName }}</div>
+				<div class="label_item_name">{{ tag.name }}</div>
 				<div>
-					<span class="label_item_info">贴子数：12</span>
-					<span class="label_item_info">回复数：450</span>
-					<span class="label_item_info">金币数：9</span>
-					<span class="label_item_info">各种数你们看着加吧</div>
+					<span class="label_item_info">贴子数：{{ tag.post }}</span>
+					<span class="label_item_info">回复数：{{ tag.resp }}</span>
+					<span class="label_item_info">金币数：{{ tag.coin }}</span>
+					<span class="label_item_info">点击数：{{ tag.click }}</span>
+					<span class="label_item_info">点赞数：{{ tag.score }}</span>
 				</div>
+			</div>
 			<div class="label_item_ctrl">
 				<input type="button" value="删除类标" class=""/>
 				<input class="label_item_input" type="text" name=""/>

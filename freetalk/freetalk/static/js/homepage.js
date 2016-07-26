@@ -49,7 +49,7 @@ $(".opTag").click(function () {
 				data = JSON.parse(data);
 				alert(data['tip']);
 				if(data['type'] == 1)
-					location.reload();
+					window.location.href = "";
 			}
 		});
 	}
@@ -67,7 +67,7 @@ $(".opPost").click(function () {
 		success: function (data) {
 			data = JSON.parse(data);
 			alert("该帖子已被成功删除！");
-			location.reload();
+			window.location.href = "";
 		}
 	});
 });

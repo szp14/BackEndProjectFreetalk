@@ -230,7 +230,12 @@ def homepage(request):
 					else:
 						tags += " " + tag3
 				request.user.tkuser.newPost(request.POST['title'], request.POST['content'], None, None, tags, "")
-				dic['posts'] = TKhomepage.searchPostByTime()
+				dic['posts'] = [{'post': p, 
+						'tag1': p.classTag.split()[0], 
+						'tag2': p.classTag.split()[1] if len(p.classTag.split()) > 1 else '无', 
+						'tag3': p.classTag.split()[2] if len(p.classTag.split()) > 2 else '无'
+					} for p in TKhomepage.searchPostByTime()
+				]
 				return render(request, 'postbar/homepage.html', dic)
 			elif 'addTag' in request.POST:
 				add1 = request.POST['addTag']
@@ -270,6 +275,7 @@ def homepage(request):
 def showpost(request, postid):
 	post = TKpost.getPostById(postid)
 	if post and request.user.is_authenticated():
+		post.clicked()
 		dic = {
 			'img': post.user.tkuser.getImgUrl(),
 			'post': post,
@@ -296,9 +302,12 @@ def showpost(request, postid):
 @csrf_exempt
 def tagadmin(request):
 	if request.user.is_authenticated() and request.user.tkuser.usrType != 0:
+		
+		tagInfo = [{'name': p.classTagName, 'post': p.getPostNum(), 'resp': p.getRespNum(), 'click': p.getClickNum(), 'score': p.getScoreNum(), 'coin': p.getCoinNum()} for p in TKclassTag.objects.all()]
 		dic = {
-			'tags': TKclassTag.objects.all(),
+			'tags': tagInfo,
 		}
+
 		if 'tag' in request.POST:
 			TKhomepage.addClassTag(request.POST['tag'])
 			return HttpResponse(json.dumps({
