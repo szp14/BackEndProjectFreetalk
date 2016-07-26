@@ -196,6 +196,22 @@ class TKresponse(models.Model):
 class TKclassTag(models.Model):
 	classTagName = models.CharField(max_length = 100)
 
+	def deleteClassTag(self):
+		basicTag = '清华大学'
+		posts = TKhomepage.searchPostByClassTag(self.classTagName)
+		for p in posts:
+			if p.getTagNum() == 1:
+				p.classTag = basicTag
+			else:
+				p.classTag = ' '.join([tag for tag in p.classTag.split() if tag != self.classTagName])
+			p.save()
+
+	def changeClassTag(self, newTag):
+		posts = TKhomepage.searchPostByClassTag(self.classTagName)
+		for p in posts:
+			p.classTag.replace(self.classTagName, newTag)
+			p.save()
+
 	def getPostNum(self):
 		return len(TKhomepage.searchPostByClassTag(self.classTagName))
 
@@ -257,11 +273,6 @@ class TKhomepage:
 		q = TKclassTag(classTagName = newClassTag)
 		q.save()
 
-	def delClassTag(classTag):
-		q = TKclassTag.objects.filter(classTagName = classTag)
-		if q:
-			q = q[0]
-			q.delete()
 
 	def searchUsrByNickname(nickname):
 		q = tkuser.objects.filter(nickname = nickname)
