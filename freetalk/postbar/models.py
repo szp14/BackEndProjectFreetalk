@@ -161,7 +161,7 @@ class TKpost(models.Model):
 		return len(taglist)
 
 	def getResp(self):
-		return TKresponse.objects.filter(post = self)
+		return TKresponse.objects.filter(post = self, respType = 0)
 
 	def getPostById(postId):
 		post = TKpost.objects.filter(id = postId)
