@@ -276,25 +276,31 @@ def showpost(request, postid):
 	post = TKpost.getPostById(postid)
 	if post and request.user.is_authenticated():
 		post.clicked()
+		respDic = [{'resp': p, 'respList': p.getResp()} for p in post.getResp()]
 		dic = {
 			'img': post.user.tkuser.getImgUrl(),
 			'post': post,
-			'reposts': post.getResp(),
+			'reposts': respDic,
 			'user': request.user,
 			'host': "只看楼主"
 		}
 		if request.POST:
-			if 'attachment' in request.POST:
+			if 'content' in request.POST:
 				request.user.tkuser.newResp(0, request.POST['content'], post.id, -1)
 				return render(request, 'postbar/post.html', dic)
 			if 'setonly' in request.POST:
 				if request.POST['setonly'] == "只看楼主":
-					dic['reposts'] = post.focusOnHost()
+					dic['reposts'] = [{'resp': p, 'respList': p.getResp()} for p in post.focusOnHost()]
 					dic['host'] = "取消只看楼主"
 				else:
-					dic['reposts'] = post.getResp()
+					dic['reposts'] = [{'resp': p, 'respList': p.getResp()} for p in post.getResp()]
 					dic['host'] = "只看楼主"
 				return render(request, 'postbar/post.html', dic)
+			if 'recon' in request.POST:
+				request.user.tkuser.newResp(1, request.POST["recon"], post.id, post.getResp()[int(request.POST['id']) - 1].id)
+				return HttpResponse(json.dumps({
+					'res': '回复成功！'
+				}))
 		return render(request, 'postbar/post.html', dic)
 	else:
 		return HttpResponse("您未登陆或该帖子不存在(可能已经被删除)！")
@@ -302,17 +308,37 @@ def showpost(request, postid):
 @csrf_exempt
 def tagadmin(request):
 	if request.user.is_authenticated() and request.user.tkuser.usrType != 0:
-		
 		tagInfo = [{'name': p.classTagName, 'post': p.getPostNum(), 'resp': p.getRespNum(), 'click': p.getClickNum(), 'score': p.getScoreNum(), 'coin': p.getCoinNum()} for p in TKclassTag.objects.all()]
 		dic = {
 			'tags': tagInfo,
 		}
-
 		if 'tag' in request.POST:
-			TKhomepage.addClassTag(request.POST['tag'])
-			return HttpResponse(json.dumps({
+			suc = TKhomepage.addClassTag(request.POST['tag'])
+			if suc == True:
+				data = {
 					'res': '增加类标成功！'
+				}
+			else:
+				data = {
+					'res': '已经存在一个同名的类标，无法增加！'
+				}
+			return HttpResponse(json.dumps(data))
+		if 'deltag' in request.POST:
+			TKclassTag.objects.all()[int(request.POST['deltag']) - 1].deleteClassTag()
+			return HttpResponse(json.dumps({
+					'res': '删除类标成功！'
 				}))
+		if 'chatag' in request.POST:
+			suc = TKclassTag.objects.all()[int(request.POST['chatag']) - 1].modifyClassTag(request.POST['tagname'])
+			if suc == True:
+				data = {
+					'res': '修改类标成功！'
+				}
+			else:
+				data = {
+					'res': '已经存在一个同名的类标，无法修改！'
+				}
+			return HttpResponse(json.dumps(data))
 		return render(request, 'postbar/label.html', dic)
 	else:
 		return HttpResponse("您未登陆或者没有权限访问该网站！")

@@ -205,12 +205,20 @@ class TKclassTag(models.Model):
 			else:
 				p.classTag = ' '.join([tag for tag in p.classTag.split() if tag != self.classTagName])
 			p.save()
+		self.delete()
 
-	def changeClassTag(self, newTag):
+	def modifyClassTag(self, newTag):
+		newTag.strip()
+		if TKclassTag.objects.filter(classTagName = newTag):
+			return  False
 		posts = TKhomepage.searchPostByClassTag(self.classTagName)
 		for p in posts:
-			p.classTag.replace(self.classTagName, newTag)
+			p.classTag = ' '.join([tag for tag in p.classTag.split() if tag != self.classTagName])
+			p.classTag = p.classTag + (newTag if p.classTag == '' else ' ' + newTag)
 			p.save()
+		self.classTagName = newTag
+		self.save()
+		return True
 
 	def getPostNum(self):
 		return len(TKhomepage.searchPostByClassTag(self.classTagName))
@@ -270,8 +278,13 @@ class TKhomepage:
 				os.remove(MEDIA_ROOT + '/upload/' + str(q.id))
 
 	def addClassTag(newClassTag):
-		q = TKclassTag(classTagName = newClassTag)
-		q.save()
+		newClassTag.strip()
+		if TKclassTag.objects.filter(classTagName = newClassTag):
+			return  False
+		else:
+			q = TKclassTag(classTagName = newClassTag)
+			q.save()
+			return True
 
 
 	def searchUsrByNickname(nickname):

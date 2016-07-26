@@ -61,7 +61,7 @@
 					<option value="无">无</option>
 					{% for tag in tags %}
 					{% if p.tag1 != tag.classTagName and p.tag2 != tag.classTagName and p.tag3 != tag.classTagName%}
-					<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
+						<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
 					{% endif %}
 					{% endfor %}
 				</select>
