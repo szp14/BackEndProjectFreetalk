@@ -74,7 +74,38 @@
 			<div class="respond_content">
 				{{ repost.content }}
 			</div>
-			<div class="respond_date">{{ repost.time|date:"Y-m-d H:i:s" }}</div>
+			<div class="respond_wrap">
+				<div class="respond_date">{{ repost.time|date:"Y-m-d H:i:s" }}</div>
+				<div class="respond_date">点赞还没写</div>
+			</div>
+			<!--因为我这回复有问题所以楼中楼暂时写在了楼主这层，从这开始是楼层的日期和楼中楼-->
+			<div class="clear"></div>
+			<div class="rerespond_list">
+				<div class="rerespond_item">
+					<img class="rerespond_user" src="{{ img }}">
+					<div class="rerespond_content">
+					用户1：很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长
+					很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长
+					很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长
+					很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长
+					</div>
+					<div class="rerespond_date">7-26</div>
+					<div class="clear"></div>
+				</div>
+				<div class="rerespond_item">
+					<img class="rerespond_user" src="{{ img }}">
+					<div class="rerespond_content">
+					用户1：很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长
+					</div>
+					<div class="rerespond_date">7-26</div>
+					<div class="clear"></div>
+				</div>
+				<div class="new_rerespond">
+					回复：<textarea class="new_reresp_content" name="rerespond"></textarea>
+					<input class="new_reresp_btn" type="button" value="发 表" class=""/>
+				</div>
+			</div>
+			<!--到这结束-->
 			<div class="clear"></div>
 		</div>
 		{% endfor %}
