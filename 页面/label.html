@@ -1,0 +1,56 @@
+﻿﻿<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<title>管理界面</title>
+	<link rel="stylesheet" href="/static/css/base.css"><!--路径/static/css/-->
+</head>
+
+<body>
+<div id="container">
+	<div id="admin_header">
+		类标管理
+	</div>
+	<div id="label_list">
+		{% for tag in tags %}
+		<div class="label_item">
+			<div class="label_item_content">
+				<div class="label_item_name">{{ tag.name }}</div>
+				<div>
+					<span class="label_item_info">贴子数：{{ tag.post }}</span>
+					<span class="label_item_info">回复数：{{ tag.resp }}</span>
+					<span class="label_item_info">金币数：{{ tag.coin }}</span>
+					<span class="label_item_info">点击数：{{ tag.click }}</span>
+					<span class="label_item_info">点赞数：{{ tag.score }}</span>
+				</div>
+			</div>
+			<div class="label_item_ctrl">
+				<input type="button" value="删除类标" class="optag" id="deltag{{ forloop.counter }}"/>
+				<input class="label_item_input" type="text" id="tagname{{ forloop.counter }}" name=""/>
+				<input type="button" value="修改类标" class="optag" id="chatag{{ forloop.counter }}"/></br>
+			</div>
+		</div>
+		<div class="clear"></div>
+		{% endfor %}
+		<div class="label_add">
+			类标名:
+			<input class="label_item_input" type="text" id="addTag"/>
+			<input type="button" value="增加类标" onclick="addTag()" />
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div id="pagenum">
+		第1页 共1页  <a href=""><<</a> 1 <a href="">>></a>
+		<span style="float:right;">
+			跳到第<input class="pagenum_jump" type="text" name="page" />页
+			<input class="pagenum_jump_btn" type="button" value="GO" onclick=""/>
+		</span>
+	</div>
+	<div id="back2homepage">
+		<input type="button" value="返回主页" onclick="window.location.href='{% url 'homepage' %}'"/></br>
+	</div></br>
+	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="/static/js/label.js"></script>
+</body>
+</html>
