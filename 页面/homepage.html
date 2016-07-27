@@ -1,4 +1,4 @@
-﻿<!doctype html>
+﻿﻿<!doctype html>
 <html lang="zh-CN">
 
 <head>
@@ -54,7 +54,7 @@
 					<span class="post_item_label">【{{ p.post.classTag }}】</span>{{ p.post.title }}
 				</a></p>
 				<p class="post_item_author">{{ p.post.user.tkuser.nickname }}</p>
-				<p class="post_item_num">回复12 金币2</p>
+				<p class="post_item_num">回复{{ p.post.numResp }} 点击数{{ p.post.numClick }}</p>
 			</div>
 			<div class="clear"></div>
 			<div class="post_item_wrap2">
@@ -94,6 +94,10 @@
 		{% endfor %}
 		<div id="pagenum">
 			第1页 共1页  <a href=""><<</a> 1 <a href="">>></a>
+			<span style="float:right;">
+				跳到第<input class="pagenum_jump" type="text" name="page" />页
+				<input class="pagenum_jump_btn" type="button" value="GO" onclick=""/>
+			</span>
 		</div>
 	</div>
 	<div class="clear"></div>
@@ -103,7 +107,8 @@
 		内容：</br>
 		<!--这里的textarea换成了div，submit时要提交div的内容-->
 		<div id="new_post_content" contenteditable="true">
-			文本内容<img class="new_post_img" src="/static/images/mengbi.jpg">
+			<span id="rel_post_content">文本内容</span>
+			<img class="new_post_img" src="/static/images/mengbi.jpg">
 			<img class="new_post_img" src="/static/images/log_bg.jpg"><!--img会自动换行不用管-->
 		</div>
 		添加图片：
@@ -112,18 +117,18 @@
 		<input class="new_post_file" type="file" name="headimg"/></br>
 		<div id="new_post_labels">
 			添加类标：
-			<select class="new_post_label" name="tag1">
+			<select class="new_post_label" id="tag1">
 			{% for tag in tags %}
 				<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
 			{% endfor %}
 			</select>
-			<select class="new_post_label" name="tag2">
+			<select class="new_post_label" id="tag2">
 				<option value="无" selected="selected">无</option>
 				{% for tag in tags %}
 					<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
 				{% endfor %}
 			</select>
-			<select class="new_post_label" name="tag3">
+			<select class="new_post_label" id="tag3">
 				<option value="无" selected="selected">无</option>
 				{% for tag in tags %}
 					<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>

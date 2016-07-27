@@ -52,7 +52,7 @@
 			<span class="tag" id="tap4" style="display: {{ show4 }}">新密保答案不能为空！</span>
 			</br></br>
 			<input type="submit" value="保存修改" onclick=""/>
-			<input type="button" value="返回主页" style="float:bottom;" onclick="window.location.href='../homepage/'"/></br></br>
+			<input type="button" value="返回主页" style="float:bottom;" onclick="window.location.href='{% url 'homepage' 'time' 1 %}'"/></br></br>
 		</form>
 	</div>
 </body>

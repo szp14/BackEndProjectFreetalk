@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
-from postbar.models import TKhomepage, TKuser, TKpost, TKresponse, TKclassTag
+from postbar.models import TKhomepage, TKuser, TKpost, TKresponse, TKclassTag, TKupvoteRelation
 import json
 from django.core.urlresolvers import reverse
 
@@ -20,7 +20,7 @@ def index(request):
 				dic['show2'] = 'inline'
 			else:
 				login(request, user)
-				return HttpResponseRedirect(reverse('homepage'))
+				return HttpResponseRedirect(reverse('homepage', args=('time', 1)))
 		else:
 			dic['show1'] = 'inline'
 	return render(request, 'postbar/index.html', dic)
@@ -143,7 +143,7 @@ def account(request):
 				request.user.tkuser.modifyNickname(name)
 				request.user.email = email
 				request.user.save()
-				return HttpResponseRedirect(reverse('homepage'))
+				return HttpResponseRedirect(reverse('homepage', args=('time', 1)))
 			elif success == 1:
 				request.user.tkuser.modifyNickname(name)
 				request.user.email = email
@@ -151,14 +151,24 @@ def account(request):
 				request.user.tkuser.pwdAnswer = newans
 				request.user.save()
 				request.user.tkuser.save()
-				return HttpResponseRedirect(reverse('homepage'))
+				return HttpResponseRedirect(reverse('homepage', args=('time', 1)))
 		return render(request, 'postbar/account.html', dic)
 	else:
 		return HttpResponse("需要登录，请您进行登录操作！")
 
 @csrf_exempt
-def useradmin(request):
+def useradmin(request, page):
+	page = int(page)
+	pageEveNum = 20
+	TotalNum = len(TKuser.objects.all())
+	if TotalNum % pageEveNum == 0 and TotalNum != 0:
+		pageNum = TotalNum / pageEveNum
+	else:
+		pageNum = TotalNum // pageEveNum + 1
+	if page > pageNum or page < 1:
+		return HttpResponse("该页不存在！")
 	if request.user.is_authenticated() and request.user.tkuser.usrType != 0:
+		userlist = User.objects.all()[pageEveNum * (page - 1) : pageEveNum * page]
 		if request.POST:
 			list1 = request.POST["op"].split()
 			user = TKhomepage.searchUsrByName(list1[1])
@@ -189,26 +199,52 @@ def useradmin(request):
 					dic['res'] = '该用户已成为普通用户！'
 				user.tkuser.modifyPermission(1 - user.tkuser.usrType)
 			return HttpResponse(json.dumps(dic))
-		users = User.objects.all()
-		dic = {'users': users, "type": request.user.tkuser.usrType}
+		dic = {
+			'users': userlist, 
+			"type": request.user.tkuser.usrType,
+			'pagenum': int(pageNum),
+			'page': page,
+		}
 		return render(request, 'postbar/admin.html', dic)
 	else:
 		return HttpResponse("您未登陆或者没有权限访问该网页！")
 	
 @csrf_exempt
-def homepage(request):
+def homepage(request, type, page):
 	if request.user.is_authenticated():
+		page = int(page)
+		pageEveNum = 20
+		TotalNum = len(TKpost.objects.all())
+		if TotalNum % pageEveNum == 0 and TotalNum != 0:
+			pageNum = TotalNum / pageEveNum
+		else:
+			pageNum = TotalNum // pageEveNum + 1
+		if page > pageNum or page < 1:
+			return(HttpResponse("该页面不存在！"))
+		if type == 'time':
+			allpost = TKhomepage.sortPostByTime()
+		elif type == 'click':
+			allpost = TKhomepage.sortPostByClick()
+		elif type == 'up':
+			allpost = TKhomepage.sortPostByScore()
+		elif type == 'respond':
+			allpost = TKhomepage.sortPostByResp()
+		else:
+			allpost = TKhomepage.sortPostByCoin()
+		postlist = allpost[pageEveNum * (page - 1) : pageEveNum * page]
 		postDic = [{'post': p, 
 					'tag1': p.classTag.split()[0], 
 					'tag2': p.classTag.split()[1] if len(p.classTag.split()) > 1 else '无', 
 					'tag3': p.classTag.split()[2] if len(p.classTag.split()) > 2 else '无'
-				} for p in TKhomepage.searchPostByTime()
+				} for p in postlist
 			]
 		dic = {
 			'user': request.user,
 			'img' : request.user.tkuser.getImgUrl(),
 			'posts': postDic,
 			'tags': TKclassTag.objects.all(),
+			'pagenum': int(pageNum),
+			'page': page,
 		}
 		if request.POST:
 			if 'logout' in request.POST:
@@ -237,7 +273,7 @@ def homepage(request):
 				add1 = request.POST['addTag']
 				del1 = request.POST['delTag']
 				postid = request.POST['id']
-				post = TKhomepage.searchPostByTime()[int(postid) - 1]
+				post = postlist[int(postid) - 1]
 				res = {
 					'tip': '帖子的类标数不能大于三，无法继续增加类标！',
 					'type': 0
@@ -257,7 +293,7 @@ def homepage(request):
 				return HttpResponse(json.dumps(res))
 			elif 'delPost' in request.POST:
 				postid = request.POST['delPost']
-				post = TKhomepage.searchPostByTime()[int(postid) - 1]
+				post = postlist[int(postid) - 1]
 				post.deletePost()
 				res = {
 					'tip': '该帖子已被成功删除！',
@@ -268,21 +304,37 @@ def homepage(request):
 		return HttpResponse("您未登陆，无法访问该网页！")
 
 @csrf_exempt
-def showpost(request, postid):
+def showpost(request, postid, page):
 	post = TKpost.getPostById(postid)
+	page = int(page)
+	pageEveNum = 20
+	TotalNum = len(post.getResp())
+	if TotalNum % pageEveNum == 0 and TotalNum != 0:
+		pageNum = TotalNum / pageEveNum
+	else:
+		pageNum = TotalNum // pageEveNum + 1
+	if page > pageNum or page < 1:
+		return HttpResponse("该页不存在！")
 	if post and request.user.is_authenticated():
-		post.clicked()
-		respDic = [{'resp': p, 'respList': p.getResp()} for p in post.getResp()]
+		allrepost = post.getResp()
+		repostlist = allrepost[pageEveNum * (page - 1) : pageEveNum * page]
+		respDic = [{'resp': p, 
+			'respList': p.getResp(), 
+			'upvote': '取消点赞' if TKupvoteRelation.isUpvoted(1, request.user.id, p.id) else '点 赞', 
+			'num': pageEveNum * (page - 1) + i + 1} for i, p in enumerate(repostlist)]
 		dic = {
 			'img': post.user.tkuser.getImgUrl(),
 			'post': post,
 			'reposts': respDic,
 			'user': request.user,
-			'host': "只看楼主"
+			'pagenum': int(pageNum),
+			'page': page,
+			'host': "只看楼主",
+			'upvote': '取消点赞' if TKupvoteRelation.isUpvoted(0, request.user.id, post.id) else '点 赞'
 		}
 		if request.POST:
 			if 'content' in request.POST:
-				request.user.tkuser.newResp(0, request.POST['content'], post.id, -1)
+				request.user.tkuser.newResp(0, request.POST['content'], None, None, post.id, -1)
 				return render(request, 'postbar/post.html', dic)
 			if 'setonly' in request.POST:
 				if request.POST['setonly'] == "只看楼主":
@@ -293,30 +345,80 @@ def showpost(request, postid):
 					dic['host'] = "只看楼主"
 				return render(request, 'postbar/post.html', dic)
 			if 'recon' in request.POST:
-				request.user.tkuser.newResp(1, request.POST["recon"], post.id, post.getResp()[int(request.POST['id']) - 1].id)
+				if len(repostlist[int(request.POST['id']) - 1].getResp()) > 9:
+					return HttpResponse(json.dumps({
+						'res': '该帖子的回复数已经大于等于10，您无法继续回复该帖！'
+					}))
+				request.user.tkuser.newResp(1, request.POST["recon"], None, None, post.id, repostlist[int(request.POST['id']) - 1].id)
 				return HttpResponse(json.dumps({
 					'res': '回复成功！'
 				}))
 			if 'reid' in request.POST:
-				post.getResp()[int(request.POST['reid']) - 1].getResp()[int(request.POST['rereid']) - 1].deleteResp()
+				repostlist[int(request.POST['reid']) - 1].getResp()[int(request.POST['rereid']) - 1].deleteResp()
 				return HttpResponse(json.dumps({
 					'res': '成功删除该回复！'
 				}))
 			if 'delreid' in request.POST:
-				post.getResp()[int(request.POST['delreid']) - 1].deleteResp()
+				repostlist[int(request.POST['delreid']) - 1].deleteResp()
 				return HttpResponse(json.dumps({
 					'res': '成功删除该回复！'
 				}))
+			if 'vote' in request.POST:
+				suc = request.user.tkuser.upvotePost(post.id)
+				if suc:
+					return HttpResponse(json.dumps({
+						'res': '点赞成功！'
+					}))
+				else:
+					request.user.tkuser.downvotePost(post.id)
+					return HttpResponse(json.dumps({
+						'res': '取消点赞成功！'
+					}))
+			if 'upvote' in request.POST:
+				suc = request.user.tkuser.upvoteResp(repostlist[int(request.POST["upvote"]) - 1].id)
+				if suc:
+					return HttpResponse(json.dumps({
+						'res': '点赞成功！'
+					}))
+				else:
+					request.user.tkuser.downvoteRest(post.id)
+					return HttpResponse(json.dumps({
+						'res': '取消点赞成功！'
+					}))
+			if 'coin' in request.POST:
+				coin = int(request.POST['coin'])
+				if coin < 1 or coin > request.user.tkuser.numCoin:
+					return HttpResponse(json.dumps({
+						'res': '金币数不为正数或者超过了用户拥有的金币数！'
+					}))
+				else:
+					request.user.tkuser.giveCoinPost(post.id, coin)
+					return HttpResponse(json.dumps({
+						'res': '赠送金币成功！'
+					}))
 		return render(request, 'postbar/post.html', dic)
 	else:
 		return HttpResponse("您未登陆或该帖子不存在(可能已经被删除)！")
 
 @csrf_exempt
-def tagadmin(request):
+def tagadmin(request, page):
+	page = int(page)
+	pageEveNum = 20
+	TotalNum = len(TKclassTag.objects.all())
+	if TotalNum % pageEveNum == 0 and TotalNum != 0:
+		pageNum = TotalNum / pageEveNum
+	else:
+		pageNum = TotalNum // pageEveNum + 1
+	if page > pageNum or page < 1:
+		return HttpResponse("该页不存在！")
 	if request.user.is_authenticated() and request.user.tkuser.usrType != 0:
-		tagInfo = [{'name': p.classTagName, 'post': p.getPostNum(), 'resp': p.getRespNum(), 'click': p.getClickNum(), 'score': p.getScoreNum(), 'coin': p.getCoinNum()} for p in TKclassTag.objects.all()]
+		alltag = TKclassTag.objects.all()
+		taglist = alltag[pageEveNum * (page - 1) : pageEveNum * page]
+		tagInfo = [{'name': p.classTagName, 'post': p.getPostNum(), 'resp': p.getRespNum(), 'click': p.getClickNum(), 'score': p.getScoreNum(), 'coin': p.getCoinNum()} for p in taglist]
 		dic = {
 			'tags': tagInfo,
+			'pagenum': int(pageNum),
+			'page': page,
 		}
 		if 'tag' in request.POST:
 			suc = TKhomepage.addClassTag(request.POST['tag'])
@@ -330,12 +432,12 @@ def tagadmin(request):
 				}
 			return HttpResponse(json.dumps(data))
 		if 'deltag' in request.POST:
-			TKclassTag.objects.all()[int(request.POST['deltag']) - 1].deleteClassTag()
+			taglist[int(request.POST['deltag']) - 1].deleteClassTag()
 			return HttpResponse(json.dumps({
 					'res': '删除类标成功！'
 				}))
 		if 'chatag' in request.POST:
-			suc = TKclassTag.objects.all()[int(request.POST['chatag']) - 1].modifyClassTag(request.POST['tagname'])
+			suc = taglist[int(request.POST['chatag']) - 1].modifyClassTag(request.POST['tagname'])
 			if suc == True:
 				data = {
 					'res': '修改类标成功！'

@@ -17,7 +17,11 @@
 	{% for user in users %}
 	    {% if user.tkuser.usrType == 0 or type == 2 %}
 		<div class="user_item">
+			{% if user.tkuser.img %}
 				<img class="user_item_img" src="{{ user.tkuser.img.url }}">
+			{% else %}
+				<img class="user_item_img" src="/static/images/mengbi.jpg">
+			{% endif %}
 			<div class="user_item_content">
 				<div class="user_item_name">{{ user.username }}（{{ user.tkuser.nickname }}）</div>
 			{% if user.tkuser.usrStatus == 0 %}
@@ -55,14 +59,14 @@
 	{% endfor %}
 	</div>
 	<div id="pagenum">
-		<span id="nowpage">共{{ pagenum }}页</span>  <button type="button" class="pagechange" id="prepage"><<</button> {{ page }} <button type="button" class="pagechange" id="nextpage">>></button> 
+		第1页 共1页  <a href=""><<</a> 1 <a href="">>></a>
 		<span style="float:right;">
-			跳到第<input class="pagenum_jump" type="text" id="page" />页
-		<input class="pagenum_jump_btn" type="button" value="GO" id="turnpage" />
+			跳到第<input class="pagenum_jump" type="text" name="page" />页
+			<input class="pagenum_jump_btn" type="button" value="GO" onclick=""/>
 		</span>
 	</div>
 	<div id="back2homepage">
-		<input type="button" value="返回主页" onclick="window.location.href='{% url 'homepage' 'time' 1 %}'"/></br>
+		<input type="button" value="返回主页" onclick="window.location.href='../homepage/'"/></br>
 	</div></br>
 	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="/static/js/admin.js"></script>

@@ -1,6 +1,6 @@
 ﻿
 function response() {
-	var content = $("#new_post_content").val();
+	var content = $("#new_post_content").text();
 	var content1 = $.trim(content);
 	var post_data = {
 		'content': content
@@ -34,7 +34,8 @@ $(".rere").click(function() {
 			type: "POST",
 			data: post_data,
 			success: function (data) {
-				alert("回复成功！");
+				data = JSON.parse(data);
+				alert(data['res']);
 				location.reload();
 			}
 		});
@@ -72,4 +73,90 @@ $(".delre").click(function() {
 			location.reload();
 		}
 	});
+});
+
+$(".upvote").click(function() {
+	var id = $(this).attr("id").substr(4);
+	var post_data = {
+		'upvote': id,
+	};
+	$.ajax({
+		type: "POST",
+		data: post_data,
+		success: function (data) {
+			data = JSON.parse(data);
+			location.reload();
+		}
+	});
+});
+
+$("#vote").click(function() {
+	var post_data = {
+		'vote': true,
+	};
+	$.ajax({
+		type: "POST",
+		data: post_data,
+		success: function (data) {
+			data = JSON.parse(data);
+			location.reload();
+		}
+	});
+});
+
+$("#givecoin").click(function() {
+	coin = $("#coin").val();
+	if($.isNumeric(coin)) {
+		coin = parseInt(coin);
+		var post_data = {
+			'coin': coin,
+		};
+		$.ajax({
+			type: "POST",
+			data: post_data,
+			success: function (data) {
+				data = JSON.parse(data);
+				alert(data['res']);
+			}
+		});
+	}
+	else 
+		alert("没有输入纯数字！")
+});
+var href = window.location.href;
+var pos1 = href.indexOf('post/');
+href = href.substr(pos1 + 5);
+var pos2 = href.indexOf('/');
+var loc = parseInt(href.substring(pos2 + 1, href.length - 1));
+var total = parseInt($("#nowpage").text().substr(1, 1));
+
+$("#prepage").click(function() {
+	if(loc == 1)
+		alert("已经是第一页了，无法继续向前翻页！")
+	else {
+		window.location.href = "../" + (loc - 1);
+	}
+});
+
+$("#nextpage").click(function() {
+	if(loc == total)
+		alert("已经是最后一页了，无法继续向后翻页！")
+	else {
+		window.location.href = "../" + (loc + 1);
+	}
+});
+
+$("#turnpage").click(function() {
+	var page = $("#page").val()
+	if($.isNumeric(page)) {
+		page = parseInt(page);
+		if(page < 1 || page > total)
+			alert("输入的页数超出范围，请重新输入！");
+		else {
+			window.location.href = "../" + page;
+			alert("跳转成功！");
+		}
+	}
+	else 
+		alert("没有输入纯数字！")
 });

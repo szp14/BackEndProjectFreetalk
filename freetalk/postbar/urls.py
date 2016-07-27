@@ -8,8 +8,8 @@ urlpatterns = [
     url(r'^register/', views.register, name = 'register'),
     url(r'^findback/', views.findback, name = 'findback'),
     url(r'^account/', views.account, name = 'account'),
-    url(r'^useradmin/', views.useradmin, name = 'useradmin'),
-    url(r'^homepage/', views.homepage, name = 'homepage'),
-    url(r'^post/(\d+)/$', views.showpost, name='post'),
-    url(r'^tagadmin/', views.tagadmin, name = 'tagadmin'),
+    url(r'^useradmin/(\d+)/$', views.useradmin, name = 'useradmin'),
+    url(r'^homepage/(\w+)/(\d+)/$', views.homepage, name = 'homepage'),
+    url(r'^post/(\d+)/(\d+)/$', views.showpost, name='post'),
+    url(r'^tagadmin/(\d+)/$', views.tagadmin, name = 'tagadmin'),
 ]

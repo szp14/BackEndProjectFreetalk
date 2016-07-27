@@ -17,6 +17,43 @@ $(".op").click(function (){
 	});
 });
 
+var href = window.location.href;
+var pos1 = href.indexOf('useradmin/');
+href = href.substr(pos1 + 9);
+var pos2 = href.indexOf('/');
+var loc = parseInt(href.substring(0, pos2));
+var total = parseInt($("#nowpage").text().substr(1, 1));
+
+$("#prepage").click(function() {
+	if(loc == 1)
+		alert("已经是第一页了，无法继续向前翻页！")
+	else {
+		window.location.href = "../" + (loc - 1);
+	}
+});
+
+$("#nextpage").click(function() {
+	if(loc == total)
+		alert("已经是最后一页了，无法继续向后翻页！")
+	else {
+		window.location.href = "../" + (loc + 1);
+	}
+});
+
+$("#turnpage").click(function() {
+	var page = $("#page").val()
+	if($.isNumeric(page)) {
+		page = parseInt(page);
+		if(page < 1 || page > total)
+			alert("输入的页数超出范围，请重新输入！");
+		else {
+			window.location.href = "../" + page;
+			alert("跳转成功！");
+		}
+	}
+	else 
+		alert("没有输入纯数字！")
+});
 
 
 

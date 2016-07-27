@@ -17,7 +17,9 @@
 			<form id="host_only" method="post">
 				<input class="post_title_btn" type="submit" name="setonly" id="only" value="{{ host }}" />
 			</form>
-			<input class="post_title_btn" type="button" value="打赏金币" onclick=""/>
+			<img src="/static/images/coin.png">
+			<input class="post_coin_num" type="text" id="coin" value="1"/>
+			<input class="post_title_btn" id="givecoin" type="button" value="打赏金币" />
 		</div>
 		<div class="respond">
 			<div class="respond_user">
@@ -30,8 +32,8 @@
 				</br></br><a href="https://github.com/szp14/BackEndProjectFreetalk">下载附件(12.450MB)</a>
 			</div>
 			<div class="respond_wrap">
-				<div class="respond_date">{{ post.time|date:"Y-m-d H:i:s" }}</div>
-				<input class="respond_btn" type="button" value="点 赞" onclick=""/>
+				<div class="respond_date">楼主  {{ post.time|date:"Y-m-d H:i:s" }}</div>
+				<input class="respond_btn" id="vote" type="button" value="{{ upvote }}" onclick=""/>
 				<div class="respond_up">收到赞: {{ post.score }}</div>
 			</div>
 			<div class="clear"></div>
@@ -47,8 +49,8 @@
 				{{ repost.resp.content }}
 			</div>
 			<div class="respond_wrap">
-				<div class="respond_date">{{ repost.resp.time|date:"Y-m-d H:i:s" }}</div>
-				<input class="respond_btn" type="button" value="点 赞" onclick=""/>
+				<div class="respond_date">第{{ repost.num }}楼  {{ repost.resp.time|date:"Y-m-d H:i:s" }}</div>
+				<input class="respond_btn upvote" id="vote{{ forloop.counter }}" type="button" value="{{ repost.upvote }}" onclick=""/>
 				{% if repost.resp.user == user or user == post.user %}
 					<input class="respond_btn delre" type="button" id="delre{{ forloop.counter }}" value="删 除" onclick=""/>
 				{% endif %}
@@ -62,7 +64,7 @@
 				<div class="rerespond_item">
 					<img class="rerespond_user" src="{{ rere.user.tkuser.img.url }}">
 					<div class="rerespond_content">
-					{{ rere.content }}
+					{{ rere.user.tkuser.nickname}}：{{ rere.content }}
 					</div>
 					<div class="rerespond_date">
 					{% if repost.resp.user == user or user == post.user or user == rere.user%}
@@ -91,7 +93,12 @@
 		{% endfor %}
 	</div>
 	<div id="pagenum">
-		第1页 共1页  << 1 >>
+		<span id="nowpage">共{{ pagenum }}页</span>  <button type="button" class="pagechange" id="prepage"><<</button> {{ page }} <button type="button" class="pagechange" id="nextpage">>></button> 
+		<span style="float:right;">
+			跳到第<input class="pagenum_jump" type="text" id="page" />页
+		<input class="pagenum_jump_btn" type="button" value="GO" id="turnpage" />
+		</span>
+		<div class="clear"></div>
 	</div>
 	<form id="new_respond" method="post">
 		回复：</br>
@@ -109,6 +116,5 @@
 	</form>
 	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="/static/js/post.js"></script>
-	<script type="text/javascript" src="/static/js/homepage.js"></script>
 </body>
 </html>

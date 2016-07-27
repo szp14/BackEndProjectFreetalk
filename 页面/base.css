@@ -147,7 +147,7 @@ a:hover{
 }
 .post_item_num{
 	padding-top:3px;
-	width:110px;
+	width:180px;
 	float:right;
 	color:#888888;
 	font-size:14px;
@@ -199,6 +199,21 @@ a:hover{
 	color:#444444;
 	font-size:14px;
 	line-height:30px;
+}
+.pagenum_jump{
+	width:30px;
+	font-size:14px;
+	font-family:"Microsoft YaHei";
+}
+.pagenum_jump_btn{
+	height:20px;
+	font-size:12px;
+	background:#eeeeee;
+	border-style:solid;
+	border-width:1px;
+	border-color:#cccccc;
+	border-radius:5px;
+	cursor:pointer;
 }
 #new_post{
 	width:940px;
@@ -268,14 +283,22 @@ a:hover{
 	border-color:#cccccc;
 }
 .post_title_block{
-	width:750px;
+	width:690px;
 	height:50px;
+	margin-right:15px;
 	float:left;
+}
+.post_coin_num{
+	position:relative;
+	top:-5px;
+	width:30px;
+	font-size:14px;
+	font-family:"Microsoft YaHei";
 }
 .post_title_btn{
 	width:80px;
 	height:25px;
-	margin:15px 5px 0px 5px;
+	margin:15px 10px 0px 0px;
 	font-size:12px;
 	background:#eeeeee;
 	border-style:solid;
@@ -377,6 +400,13 @@ a:hover{
 	float:right;
 	font-size:13px;
 	color:#888888;
+}
+#rerespond_pagenum{
+	padding:5px 20px;
+	height:30px;
+	color:#444444;
+	font-size:14px;
+	line-height:30px;
 }
 .rerespond_btn{
 	height:20px;
@@ -501,6 +531,10 @@ a:hover{
 	float:right;
 	text-align:right;
 	line-height:30px;
+}
+#back2homepage{
+	margin:0px auto;
+	text-align:center;
 }
 
 #label_list{

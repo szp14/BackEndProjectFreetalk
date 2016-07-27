@@ -20,15 +20,16 @@
 		</select>
 		内容要求: 
 		<input id="menu_block_content" type="text" name="search_content"/>
-		<input id="menu_block_btn" type="button" value="搜 索"/>
+		<input class="menu_block_btn" id="searchbtm" type="button" value="搜 索"/>
 		排行榜: 
-		<select class="menu_block_rank" name="rank">
+		<select class="menu_block_rank" name="rank" id="sort">
+			<option value="time">按时间</option>
 			<option value="click">按点击数</option>
 			<option value="up">按点赞数</option>
 			<option value="respond">按回复数</option>
 			<option value="coin">按金币数</option>
 		</select>
-		<input id="menu_block_btn" type="button" value="排 行"/>
+		<button id="sortbtn" class="menu_block_btn">排 行</button>
 	</div>
 	<div id="user_info">
 		<h3>个人信息</h3>
@@ -37,12 +38,11 @@
 		<span class="user_info_name">用户名: {{ user.username }}</span></br>
 		<span class="user_info_name">邮箱: {{ user.email }}</span></br>
 		<span class="user_info_name">金币数: {{ user.tkuser.numCoin }}</span></br></br>
-		
 		<input class="user_info_btn" type="button" value="修改资料" onclick="window.location.href='{% url 'account' %}'"/></br>
 		<input class="user_info_btn" type="button" value="注销登录" onclick="logout()"/></br>
 		{% if user.tkuser.usrType != 0 %}
-			<input class="user_info_btn" type="button" value="管理用户" onclick="window.location.href='{% url 'useradmin' %}'"/></br>
-			<input class="user_info_btn" type="button" value="管理类标" onclick="window.location.href='{% url 'tagadmin' %}'"/></br>
+			<input class="user_info_btn" type="button" value="管理用户" onclick="window.location.href='{% url 'useradmin' 1 %}'"/></br>
+			<input class="user_info_btn" type="button" value="管理类标" onclick="window.location.href='{% url 'tagadmin' 1 %}'"/></br>
 		{% endif %}
 	</div>
 	<div id="post_list">
@@ -50,11 +50,11 @@
 		{% if p.post.user.tkuser.usrStatus != 2 %}
 		<div class="post_item">
 			<div class="post_item_wrap1">
-				<p class="post_item_title"><a href="{% url 'post' p.post.id %}" target="_blank">
+				<p class="post_item_title"><a class="postlick" id="post{{ forloop.counter }}" href="{% url 'post' p.post.id 1 %}" target="_blank">
 					<span class="post_item_label">【{{ p.post.classTag }}】</span>{{ p.post.title }}
 				</a></p>
 				<p class="post_item_author">{{ p.post.user.tkuser.nickname }}</p>
-				<p class="post_item_num">回复{{ p.post.numResp }} 点击数{{ p.post.numClick }}</p>
+				<p class="post_item_num">回复{{ p.post.numResp }} 点击数{{ p.post.numClick }} 金币数{{ p.post.coin }} 点赞数{{ p.post.score }}</p>
 			</div>
 			<div class="clear"></div>
 			<div class="post_item_wrap2">
@@ -93,7 +93,11 @@
 		{% endif %}
 		{% endfor %}
 		<div id="pagenum">
-			第1页 共1页  <a href=""><<</a> 1 <a href="">>></a>
+			<span id="nowpage">共{{ pagenum }}页</span>  <button type="button" class="pagechange" id="prepage"><<</button> {{ page }} <button type="button" class="pagechange" id="nextpage">>></button> 
+			<span style="float:right;">
+				跳到第<input class="pagenum_jump" type="text" id="page" />页
+				<input class="pagenum_jump_btn" type="button" value="GO" id="turnpage" />
+			</span>
 		</div>
 	</div>
 	<div class="clear"></div>

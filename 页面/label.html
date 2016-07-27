@@ -41,14 +41,14 @@
 		<div class="clear"></div>
 	</div>
 	<div id="pagenum">
-		<span id="nowpage">共{{ pagenum }}页</span>  <button type="button" class="pagechange" id="prepage"><<</button> {{ page }} <button type="button" class="pagechange" id="nextpage">>></button> 
+		第1页 共1页  <a href=""><<</a> 1 <a href="">>></a>
 		<span style="float:right;">
-			跳到第<input class="pagenum_jump" type="text" id="page" />页
-		<input class="pagenum_jump_btn" type="button" value="GO" id="turnpage" />
+			跳到第<input class="pagenum_jump" type="text" name="page" />页
+			<input class="pagenum_jump_btn" type="button" value="GO" onclick=""/>
 		</span>
 	</div>
 	<div id="back2homepage">
-		<input type="button" value="返回主页" onclick="window.location.href='{% url 'homepage' 'time' 1 %}'"/></br>
+		<input type="button" value="返回主页" onclick="window.location.href='{% url 'homepage' %}'"/></br>
 	</div></br>
 	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="/static/js/label.js"></script>

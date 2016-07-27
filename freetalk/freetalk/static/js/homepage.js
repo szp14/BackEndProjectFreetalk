@@ -1,5 +1,4 @@
 ﻿﻿
-
 function logout() {
 	var post_data = {
 		'logout': true
@@ -10,7 +9,7 @@ function logout() {
 		success: function (data) {
 			data = JSON.parse(data);
 			alert(data['res']);
-			window.location.href = '../';
+			window.location.href = '../../../';
 		}
 	});
 }
@@ -21,6 +20,8 @@ function checkPost() {
 	if (title1 == '') {
 		alert("标题不能为空！");
 	}
+	else if(title.length > 20)
+		alert("标题长度不能大于二十！");
 	else if (content1 == '') {
 		alert("内容不能为空！");
 	}
@@ -43,6 +44,10 @@ function checkPost() {
 		});
 	}
 }
+
+$(".postlick").click(function(){
+	//alert($(this).attr("id").substr(4));
+});
 
 $(".opTag").click(function () {
 	var cliid = $(this).attr("id");
@@ -94,4 +99,50 @@ function addImg(value){
 	o.src = "/static/images/mengbi.jpg";//这里需要先上传图片再拿到上传图片的地址
 	txt.appendChild(o);
 }
+
+$("#sortbtn").click(function() {
+	alert("排序成功！")
+	window.location.href = "../../" + $("#sort").val() + "/1/";
+});
+
+var href = window.location.href;
+var pos1 = href.indexOf('homepage/');
+href = href.substr(pos1 + 9);
+var pos2 = href.indexOf('/');
+var loc = parseInt(href.substring(pos2 + 1, href.length - 1));
+var type = href.substring(0, pos2);
+var total = parseInt($("#nowpage").text().substr(1, 1));
+
+$("#prepage").click(function() {
+	if(loc == 1)
+		alert("已经是第一页了，无法继续向前翻页！")
+	else {
+		window.location.href = "../../" + type + '/' + (loc - 1);
+	}
+});
+
+$("#nextpage").click(function() {
+	if(loc == total)
+		alert("已经是最后一页了，无法继续向后翻页！")
+	else {
+		window.location.href = "../../" + type + '/' + (loc + 1);
+	}
+});
+
+$("#turnpage").click(function() {
+	var page = $("#page").val()
+	if($.isNumeric(page)) {
+		page = parseInt(page);
+		if(page < 1 || page > total)
+			alert("输入的页数超出范围，请重新输入！");
+		else {
+			window.location.href = "../../" + type + '/' + page;
+			alert("跳转成功！");
+		}
+	}
+	else 
+		alert("没有输入纯数字！")
+});
+
+
 
