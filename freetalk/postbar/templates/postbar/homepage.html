@@ -1,4 +1,4 @@
-﻿<!doctype html>
+﻿﻿<!doctype html>
 <html lang="zh-CN">
 
 <head>
@@ -54,7 +54,7 @@
 					<span class="post_item_label">【{{ p.post.classTag }}】</span>{{ p.post.title }}
 				</a></p>
 				<p class="post_item_author">{{ p.post.user.tkuser.nickname }}</p>
-				<p class="post_item_num">回复12 金币2</p>
+				<p class="post_item_num">回复{{ p.post.numResp }} 点击数{{ p.post.numClick }}</p>
 			</div>
 			<div class="clear"></div>
 			<div class="post_item_wrap2">
@@ -100,23 +100,31 @@
 	<form id="new_post" method="post" action="" >
 		标题：</br><input id="new_post_title" type="text" name="title" onsubmit="checkPost()" />
 		</br></br>
-		内容：</br><textarea id="new_post_content" name="content"></textarea></br>
-		添加图片/附件：
-		<input id="new_post_file" type="file" name="headimg"/></br>
+		内容：</br>
+		<!--这里的textarea换成了div，submit时要提交div的内容-->
+		<div id="new_post_content" contenteditable="true">
+			<p id="rel_post_content">文本内容</p>
+			<img class="new_post_img" src="/static/images/mengbi.jpg">
+			<img class="new_post_img" src="/static/images/log_bg.jpg"><!--img会自动换行不用管-->
+		</div>
+		添加图片：
+		<input class="new_post_file" type="file" onchange="addImg(this.value)" /></br>
+		添加附件：
+		<input class="new_post_file" type="file" name="headimg"/></br>
 		<div id="new_post_labels">
 			添加类标：
-			<select class="new_post_label" name="tag1">
+			<select class="new_post_label" id="tag1">
 			{% for tag in tags %}
 				<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
 			{% endfor %}
 			</select>
-			<select class="new_post_label" name="tag2">
+			<select class="new_post_label" id="tag2">
 				<option value="无" selected="selected">无</option>
 				{% for tag in tags %}
 					<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
 				{% endfor %}
 			</select>
-			<select class="new_post_label" name="tag3">
+			<select class="new_post_label" id="tag3">
 				<option value="无" selected="selected">无</option>
 				{% for tag in tags %}
 					<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>

@@ -15,7 +15,7 @@ def user_directory_path(instance, filename):
 class TKuser(models.Model):
 	user        = models.OneToOneField(User, on_delete = models.CASCADE)
 	nickname    = models.CharField(max_length = 100)
-	img         = models.ImageField(upload_to = user_directory_path)
+	img         = models.ImageField(upload_to = user_directory_path, default = '/static/images/mengbi.jpg')
 	pwdQuestion = models.CharField(max_length = 100)
 	pwdAnswer   = models.CharField(max_length = 100)
 	numPost     = models.IntegerField(default = 0)
@@ -25,10 +25,7 @@ class TKuser(models.Model):
 	usrType     = models.SmallIntegerField(default = 0)
 
 	def getImgUrl(self):
-		if self.img:
-			return self.img.url
-		else:
-			return '/static/images/mengbi.jpg'
+		return self.img.url
 
 	def modifyPwd(self, newPwd):
 		self.user.set_password(newPwd)
@@ -90,14 +87,6 @@ class TKuser(models.Model):
 		hostId = r[0].user.id if r else 0
 		q = TKresponse(respType = respType, content = content, user = self.user, post = p, respId = respId, hostId = hostId)
 		q.save()
-
-	def deleteResp(self, respId):
-		q = TKresponse.objects.filter(id = respId)
-		if q:
-			q = q[0]
-			TKresponse.objects.filter(respId = respId).delete()
-			q.delete()
-			q.post.numResp = q.post.numResp - 1
 
 	def upvoteResp(self, respId):
 		q = TKresponse.objects.filter(id = respId)
@@ -192,6 +181,12 @@ class TKresponse(models.Model):
 		q = User.objects.filter(id = self.hostId)
 		return [self.user.tkuser.nickname, q[0].tkuser.nickname] if q else None
 
+	def deleteResp(self):
+		q = TKresponse.objects.filter(respId = self.id)
+		self.post.numResp = self.post.numResp - 1 - len(q)
+		q.delete()
+		self.post.save()
+		self.delete()
 
 class TKclassTag(models.Model):
 	classTagName = models.CharField(max_length = 100)
@@ -276,6 +271,7 @@ class TKhomepage:
 			q = q[0]
 			if os.path.isfile(MEDIA_ROOT + '/upload/' + str(q.id)) == True:
 				os.remove(MEDIA_ROOT + '/upload/' + str(q.id))
+			q.delete()
 
 	def addClassTag(newClassTag):
 		newClassTag.strip()
@@ -285,7 +281,6 @@ class TKhomepage:
 			q = TKclassTag(classTagName = newClassTag)
 			q.save()
 			return True
-
 
 	def searchUsrByNickname(nickname):
 		q = tkuser.objects.filter(nickname = nickname)

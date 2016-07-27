@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 
 function logout() {
 	var post_data = {
@@ -16,7 +16,7 @@ function logout() {
 }
 
 function checkPost() {
-	var title = $("#new_post_title").val(), content = $("#new_post_content").val();
+	var title = $("#new_post_title").val(), content = $("#rel_post_content").text();
 	var title1 = $.trim(title), content1 = $.trim(content);
 	if (title1 == '') {
 		alert("标题不能为空！");
@@ -25,8 +25,22 @@ function checkPost() {
 		alert("内容不能为空！");
 	}
 	else {
-		$("#new_post").submit();
-		alert("发帖成功！");
+		var post_data = {
+			'title': title,
+			'content': content,
+			'tag1': $("#tag1").val(),
+			'tag2': $("#tag2").val(),
+			'tag3': $("#tag3").val(),
+		};
+		$.ajax({
+			type: "POST",
+			data: post_data,
+			success: function (data) {
+				data = JSON.parse(data);
+				alert(data['res']);
+				location.reload();
+			}
+		});
 	}
 }
 
@@ -72,5 +86,12 @@ $(".opPost").click(function () {
 	});
 });
 
-
+function addImg(value){
+	alert(value);//调试用
+	var txt = document.getElementById("new_post_content")
+	o = document.createElement("IMG");
+	o.className = "new_post_img";
+	o.src = "/static/images/mengbi.jpg";//这里需要先上传图片再拿到上传图片的地址
+	txt.appendChild(o);
+}
 

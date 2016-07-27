@@ -230,13 +230,9 @@ def homepage(request):
 					else:
 						tags += " " + tag3
 				request.user.tkuser.newPost(request.POST['title'], request.POST['content'], None, None, tags, "")
-				dic['posts'] = [{'post': p, 
-						'tag1': p.classTag.split()[0], 
-						'tag2': p.classTag.split()[1] if len(p.classTag.split()) > 1 else '无', 
-						'tag3': p.classTag.split()[2] if len(p.classTag.split()) > 2 else '无'
-					} for p in TKhomepage.searchPostByTime()
-				]
-				return render(request, 'postbar/homepage.html', dic)
+				return HttpResponse(json.dumps({
+					'res': '发帖成功！'
+				}))
 			elif 'addTag' in request.POST:
 				add1 = request.POST['addTag']
 				del1 = request.POST['delTag']
@@ -300,6 +296,16 @@ def showpost(request, postid):
 				request.user.tkuser.newResp(1, request.POST["recon"], post.id, post.getResp()[int(request.POST['id']) - 1].id)
 				return HttpResponse(json.dumps({
 					'res': '回复成功！'
+				}))
+			if 'reid' in request.POST:
+				post.getResp()[int(request.POST['reid']) - 1].getResp()[int(request.POST['rereid']) - 1].deleteResp()
+				return HttpResponse(json.dumps({
+					'res': '成功删除该回复！'
+				}))
+			if 'delreid' in request.POST:
+				post.getResp()[int(request.POST['delreid']) - 1].deleteResp()
+				return HttpResponse(json.dumps({
+					'res': '成功删除该回复！'
 				}))
 		return render(request, 'postbar/post.html', dic)
 	else:

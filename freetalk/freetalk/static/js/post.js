@@ -39,4 +39,37 @@ $(".rere").click(function() {
 			}
 		});
 	}
-})
+});
+
+$(".rerespond_btn").click(function() {
+	var rereid = $(this).attr("class").substr(19), reid = $(this).parent().parent().parent().attr("id").substr(3);
+	var post_data = {
+		'rereid': rereid,
+		'reid': reid
+	};
+	$.ajax({
+		type: "POST",
+		data: post_data,
+		success: function (data) {
+			data = JSON.parse(data);
+			alert(data['res']);
+			location.reload();
+		}
+	});
+});
+
+$(".delre").click(function() {
+	var delreid = $(this).attr("id").substr(5);
+	var post_data = {
+		'delreid': delreid,
+	};
+	$.ajax({
+		type: "POST",
+		data: post_data,
+		success: function (data) {
+			data = JSON.parse(data);
+			alert(data['res']);
+			location.reload();
+		}
+	});
+});

@@ -26,13 +26,13 @@
 			</div>
 			<div class="respond_content">
 				{{ post.content }}
+				<img class="new_post_img" src="/static/images/mengbi.jpg">
 				</br></br><a href="https://github.com/szp14/BackEndProjectFreetalk">下载附件(12.450MB)</a>
 			</div>
 			<div class="respond_wrap">
 				<div class="respond_date">{{ post.time|date:"Y-m-d H:i:s" }}</div>
 				<input class="respond_btn" type="button" value="点 赞" onclick=""/>
-				<input class="respond_btn" type="button" value="删 除" onclick=""/>
-				<div class="respond_up">收到赞: 450</div>
+				<div class="respond_up">收到赞: {{ post.score }}</div>
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -40,12 +40,8 @@
 		{% if repost.resp.user.tkuser.usrStatus != 2 %}
 		<div class="respond">
 			<div class="respond_user">
-			{% if repost.resp.user.tkuser.img %}
-				<img class="resp_user_img" src="{{ repost.resp.user.tkuser.img.url }}"></br><!--路径/static/images/-->
-			{% else %}
-				<img class="resp_user_img" src="/static/images/mengbi.jpg"></br>
-			{% endif %}
-				{{ repost.resp.user.tkuser.nickname }}
+			<img class="resp_user_img" src="{{ repost.resp.user.tkuser.img.url }}"></br><!--路径/static/images/-->
+			{{ repost.resp.user.tkuser.nickname }}
 			</div>
 			<div class="respond_content">
 				{{ repost.resp.content }}
@@ -53,21 +49,25 @@
 			<div class="respond_wrap">
 				<div class="respond_date">{{ repost.resp.time|date:"Y-m-d H:i:s" }}</div>
 				<input class="respond_btn" type="button" value="点 赞" onclick=""/>
-				<input class="respond_btn" type="button" value="删 除" onclick=""/>
-				<div class="respond_up">收到赞: 450</div>
+				{% if repost.resp.user == user or user == post.user %}
+					<input class="respond_btn delre" type="button" id="delre{{ forloop.counter }}" value="删 除" onclick=""/>
+				{% endif %}
+				<div class="respond_up">收到赞: {{ repost.resp.score }}</div>
 			</div>
 			<!--因为我这回复有问题所以楼中楼暂时写在了楼主这层，从这开始是楼层的日期和楼中楼-->
 			<div class="clear"></div>
-			<div class="rerespond_list">
+			<div class="rerespond_list" id="res{{ forloop.counter }}">
 				{% for rere in repost.respList %}
 				{% if rere.user.tkuser.usrStatus != 2 %}
 				<div class="rerespond_item">
-					<img class="rerespond_user" src="{{ img }}">
+					<img class="rerespond_user" src="{{ rere.user.tkuser.img.url }}">
 					<div class="rerespond_content">
 					{{ rere.content }}
 					</div>
 					<div class="rerespond_date">
-						<input class="rerespond_btn" type="button" value="删 除" onclick=""/>
+					{% if repost.resp.user == user or user == post.user or user == rere.user%}
+						<input class="rerespond_btn reres{{ forloop.counter }}" type="button" value="删 除"/>
+					{% endif %}
 						{{ rere.time|date:"Y-m-d H:i:s" }}
 					</div>
 					<div class="clear"></div>
@@ -94,10 +94,13 @@
 		第1页 共1页  << 1 >>
 	</div>
 	<form id="new_respond" method="post">
-		回复：</br><textarea id="new_post_content" name="content"></textarea></br>
-		添加图片/附件：
-		<input id="new_post_file" type="file" name="attachment"/>
-		</br></br>
+		回复：</br>
+		<!--这里的textarea换成了div，submit时要提交div的内容-->
+		<div id="new_post_content" contenteditable="true"></div>
+		添加图片：
+		<input class="new_post_file" type="file" onchange="addImg(this.value)" /></br>
+		添加附件：
+		<input class="new_post_file" type="file" name="headimg"/></br></br>
 		{% if user.tkuser.usrStatus > 0 %}
 			<p>您处于禁言或屏蔽状态，无法回复！</p>
 		{% else %}
@@ -106,5 +109,6 @@
 	</form>
 	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="/static/js/post.js"></script>
+	<script type="text/javascript" src="/static/js/homepage.js"></script>
 </body>
 </html>
