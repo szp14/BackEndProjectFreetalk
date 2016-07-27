@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="utf-8">
+	<title>帖子</title>
+	<link rel="stylesheet" href="/static/css/base.css"><!--路径/static/css/-->
+</head>
+
+<body>
+<div id="container">
+	<div class="post_block">
+		<div class="post_title">
+			<div class="post_title_block">
+				<p style="margin:0px;">{{ post.title }}</p>
+			</div>
+			<form id="host_only" method="post">
+				<input class="post_title_btn" type="submit" name="setonly" id="only" value="{{ host }}" />
+			</form>
+			<input class="post_title_btn" type="button" value="打赏金币" onclick=""/>
+		</div>
+		<div class="respond">
+			<div class="respond_user">
+				<img class="resp_user_img" src="{{ img }}"></br><!--路径/static/images/-->
+				{{ post.user.tkuser.nickname }}
+			</div>
+			<div class="respond_content">
+				{{ post.content }}
+				<img class="new_post_img" src="/static/images/mengbi.jpg">
+				</br></br><a href="https://github.com/szp14/BackEndProjectFreetalk">下载附件(12.450MB)</a>
+			</div>
+			<div class="respond_wrap">
+				<div class="respond_date">{{ post.time|date:"Y-m-d H:i:s" }}</div>
+				<input class="respond_btn" type="button" value="点 赞" onclick=""/>
+				<input class="respond_btn" type="button" value="删 除" onclick=""/>
+				<div class="respond_up">收到赞: 450</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		{% for repost in reposts %}
+		{% if repost.resp.user.tkuser.usrStatus != 2 %}
+		<div class="respond">
+			<div class="respond_user">
+			<img class="resp_user_img" src="{{ repost.resp.user.tkuser.img.url }}"></br><!--路径/static/images/-->
+			{{ repost.resp.user.tkuser.nickname }}
+			</div>
+			<div class="respond_content">
+				{{ repost.resp.content }}
+			</div>
+			<div class="respond_wrap">
+				<div class="respond_date">{{ repost.resp.time|date:"Y-m-d H:i:s" }}</div>
+				<input class="respond_btn" type="button" value="点 赞" onclick=""/>
+				{% if repost.resp.user == user or user == post.user %}
+					<input class="respond_btn delre" type="button" id="delre{{ forloop.counter }}" value="删 除" onclick=""/>
+				{% endif %}
+				<div class="respond_up">收到赞: {{ repost.resp.score }}</div>
+			</div>
+			<!--因为我这回复有问题所以楼中楼暂时写在了楼主这层，从这开始是楼层的日期和楼中楼-->
+			<div class="clear"></div>
+			<div class="rerespond_list">
+				{% for rere in repost.respList %}
+				{% if rere.user.tkuser.usrStatus != 2 %}
+				<div class="rerespond_item">
+					<img class="rerespond_user" src="{{ img }}">
+					<div class="rerespond_content">
+					{{ rere.content }}
+					</div>
+					<div class="rerespond_date">
+					{% if repost.resp.user == user or user == post.user or user == rere.user%}
+						<input class="rerespond_btn reres{{ forloop.counter }}" type="button" value="删 除"/>
+					{% endif %}
+						{{ rere.time|date:"Y-m-d H:i:s" }}
+					</div>
+					<div class="clear"></div>
+				</div>
+				{% endif %}
+				{% endfor %}
+				<div class="new_rerespond">
+					{% if user.tkuser.usrStatus > 0 %}
+						<p>您处于禁言或屏蔽状态，无法回复！</p>
+					{% else %}
+						回复：<textarea class="new_reresp_content" id="recon{{ forloop.counter }}" name="rerespond"></textarea>
+							<input class="new_reresp_btn rere" type="button" id="rere{{ forloop.counter }}" value="发 表" />
+					{% endif %}
+					
+				</div>
+			</div>
+			<!--到这结束-->
+			<div class="clear"></div>
+		</div>
+		{% endif %}
+		{% endfor %}
+	</div>
+	<div id="pagenum">
+		第1页 共1页  << 1 >>
+	</div>
+	<form id="new_respond" method="post">
+		回复：</br>
+		<!--这里的textarea换成了div，submit时要提交div的内容-->
+		<div id="new_post_content" contenteditable="true"></div>
+		添加图片：
+		<input class="new_post_file" type="file" onchange="addImg(this.value)" /></br>
+		添加附件：
+		<input class="new_post_file" type="file" name="headimg"/></br></br>
+		{% if user.tkuser.usrStatus > 0 %}
+			<p>您处于禁言或屏蔽状态，无法回复！</p>
+		{% else %}
+			<input id="new_post_submit" type="button" value="提 交" onclick="response()" />
+		{% endif %}
+	</form>
+	<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="/static/js/post.js"></script>
+	<script type="text/javascript" src="/static/js/homepage.js"></script>
+</body>
+</html>
