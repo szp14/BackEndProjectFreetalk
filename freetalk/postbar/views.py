@@ -378,6 +378,7 @@ def showpost(request, postid, page):
 				return HttpResponseRedirect(reverse('post', args=(postid, 1)))
 			if 'setonly' in request.POST:
 				if request.POST['setonly'] == "只看楼主":
+					repostlist = [r for r in repostlist if r.user == post.user]
 					dic['reposts'] = respDic = [{'resp': p, 
 						'respList': p.getResp(), 
 						'upvote': '取消点赞' if TKupvoteRelation.isUpvoted(1, request.user.id, p.id) else '点 赞', 
