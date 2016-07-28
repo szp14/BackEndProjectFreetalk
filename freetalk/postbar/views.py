@@ -7,6 +7,7 @@ from postbar.models import TKhomepage, TKuser, TKpost, TKresponse, TKclassTag, T
 import json
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+import re
 
 @csrf_exempt
 def index(request):
@@ -66,6 +67,14 @@ def register(request):
 			if email == '':
 				dic['show5'] = 'inline'
 				tip = True
+			else:
+				if '@' in email and '.com' in email:
+					isMatch = True
+				else:
+					isMatch = False
+				if isMatch == False:
+					dic['show5'] = 'inline'
+					tip = True
 			if question == '':
 				dic['show6'] = 'inline'
 				tip = True
