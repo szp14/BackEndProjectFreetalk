@@ -324,7 +324,8 @@ def homepage(request, type, page):
 				img = [request.FILES.get('img')] if request.FILES.get('img') else None
 				attachment = request.FILES.get('attachment') if request.FILES.get('attachment') else None
 				newpost = request.user.tkuser.newPost(request.POST['title'], request.POST['content'], img, attachment, tags, "")
-				request.user.tkuser.highlightPost(newpost, 10)
+				if high:
+					request.user.tkuser.highlightPost(newpost, 10)
 				if type == 'time':
 					allpost = TKhomepage.sortPostByTime()
 				elif type == 'click':
