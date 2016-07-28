@@ -27,4 +27,22 @@
 		</div>
 	</form>
 </body>
+<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript">
+	var coin = {{ coin | safe }};
+	if(coin == 'yes') {
+		alert("您今天第一次登录，系统赠送您2金币！");
+		var post_data = {
+			'login': true
+		};
+		$.ajax({
+			type: "POST",
+			data: post_data,
+			success: function (data) {
+				data = JSON.parse(data);
+				window.location.href = "/postbar/homepage/time/1/";
+			}
+		});
+	}
+</script>
 </html>

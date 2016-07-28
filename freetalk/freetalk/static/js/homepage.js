@@ -17,6 +17,9 @@ function logout() {
 function checkPost() {
 	var title = $("#new_post_title").val(), content = $("#new_post_content").val();
 	var title1 = $.trim(title), content1 = $.trim(content);
+	//var check = $("#highlight").attr("checked");
+	//alert(check);
+	//return;
 	if (title1 == '') {
 		alert("标题不能为空！");
 	}

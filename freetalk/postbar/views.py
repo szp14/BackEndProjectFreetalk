@@ -6,11 +6,16 @@ from django.http import HttpResponse, HttpResponseRedirect
 from postbar.models import TKhomepage, TKuser, TKpost, TKresponse, TKclassTag, TKupvoteRelation, TKpostImage
 import json
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 @csrf_exempt
 def index(request):
-	dic = {'show1': 'none', 'show2': 'none'}
+	dic = {'show1': 'none', 'show2': 'none', 'coin': json.dumps('no')}
 	if request.POST:
+		if 'login' in request.POST:
+			return HttpResponse(json.dumps({
+					'res': '登录成功'
+				}))
 		name = request.POST['name1']
 		password = request.POST['word1']
 		q = User.objects.filter(username = name)
@@ -19,8 +24,16 @@ def index(request):
 			if user == None:
 				dic['show2'] = 'inline'
 			else:
-				login(request, user)
-				return HttpResponseRedirect(reverse('homepage', args=('time', 1)))
+				timeNow = timezone.now()
+				if user.last_login == None or timeNow.year != user.last_login.year or timeNow.month != user.last_login.month or timeNow.day != user.last_login.day:
+					user.tkuser.numCoin = user.tkuser.numCoin + 2
+					user.tkuser.save()
+					dic['coin'] = json.dumps("yes")
+					login(request, user)
+					return render(request, 'postbar/index.html', dic)
+				else:
+					login(request, user)
+					return HttpResponseRedirect(reverse('homepage', args=('time', 1)))
 		else:
 			dic['show1'] = 'inline'
 	return render(request, 'postbar/index.html', dic)
@@ -295,6 +308,7 @@ def homepage(request, type, page):
 				}
 				return HttpResponse(json.dumps(res))
 			elif 'title' in request.POST:
+				high = request.POST.getlist("highlight")
 				tag1 = request.POST['tag1']
 				tag2 = request.POST['tag2']
 				tag3 = request.POST['tag3']
@@ -309,7 +323,8 @@ def homepage(request, type, page):
 						tags += " " + tag3
 				img = [request.FILES.get('img')] if request.FILES.get('img') else None
 				attachment = request.FILES.get('attachment') if request.FILES.get('attachment') else None
-				request.user.tkuser.newPost(request.POST['title'], request.POST['content'], img, attachment, tags, "")
+				newpost = request.user.tkuser.newPost(request.POST['title'], request.POST['content'], img, attachment, tags, "")
+				request.user.tkuser.highlightPost(newpost, 10)
 				if type == 'time':
 					allpost = TKhomepage.sortPostByTime()
 				elif type == 'click':

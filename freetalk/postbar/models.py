@@ -68,6 +68,7 @@ class TKuser(models.Model):
 			for img in imgList:
 				p = TKpostImage(img = img, post = q)
 				p.save()
+		return q
 
 	def upvotePost(self, postId):
 		if TKupvoteRelation.isUpvoted(0, self.id, postId):

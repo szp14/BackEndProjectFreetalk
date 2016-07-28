@@ -57,8 +57,14 @@
 		{% if p.post.user.tkuser.usrStatus != 2 %}
 		<div class="post_item">
 			<div class="post_item_wrap1">
-				<p class="post_item_title"><a class="postlick" id="post{{ forloop.counter }}" href="{% url 'post' p.post.id 1 %}" target="_blank">
-					<span class="post_item_label">【{{ p.post.classTag }}】</span>{{ p.post.title }}
+				<p class="post_item_title">
+					<a class="postlick" id="post{{ forloop.counter }}" href="{% url 'post' p.post.id 1 %}" target="_blank">
+					<span class="post_item_label">【{{ p.post.classTag }}】</span>
+					{% if p.post.highlight == 1%}
+						<span style="color:#ff0000">{{ p.post.title }}</span><!--不高亮的直接去掉style就行-->
+					{% else %}
+						<span>{{ p.post.title }}</span>
+					{% endif %}
 				</a></p>
 				<p class="post_item_author">{{ p.post.user.tkuser.nickname }}</p>
 				<p class="post_item_num">回复{{ p.post.numResp }} 点击数{{ p.post.numClick }} 金币数{{ p.post.coin }} 点赞数{{ p.post.score }}</p>
@@ -137,7 +143,11 @@
 					<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
 				{% endfor %}
 			</select>
-		</div></br>
+			{% if user.tkuser.numCoin >= 10 %}
+		    	</br>使用高亮(10金币)：<input type="checkbox" id="highlight" name="highlight"/>
+		    {% endif %}
+		</div>
+		</br>
 		{% if user.tkuser.usrStatus > 0 %}
 			<p>您处于禁言或屏蔽状态，无法发帖！</p>
 		{% else %}
