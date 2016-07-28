@@ -378,10 +378,20 @@ def showpost(request, postid, page):
 				return HttpResponseRedirect(reverse('post', args=(postid, 1)))
 			if 'setonly' in request.POST:
 				if request.POST['setonly'] == "只看楼主":
-					dic['reposts'] = [{'resp': p, 'respList': p.getResp()} for p in post.focusOnHost()]
+					dic['reposts'] = respDic = [{'resp': p, 
+						'respList': p.getResp(), 
+						'upvote': '取消点赞' if TKupvoteRelation.isUpvoted(1, request.user.id, p.id) else '点 赞', 
+						'num': pageEveNum * (page - 1) + i + 1,
+						'imglist': p.getImgList(),
+					} for i, p in enumerate(repostlist)]
 					dic['host'] = "取消只看楼主"
 				else:
-					dic['reposts'] = [{'resp': p, 'respList': p.getResp()} for p in post.getResp()]
+					dic['reposts'] = respDic = [{'resp': p, 
+						'respList': p.getResp(), 
+						'upvote': '取消点赞' if TKupvoteRelation.isUpvoted(1, request.user.id, p.id) else '点 赞', 
+						'num': pageEveNum * (page - 1) + i + 1,
+						'imglist': p.getImgList(),
+					} for i, p in enumerate(repostlist)]
 					dic['host'] = "只看楼主"
 				return render(request, 'postbar/post.html', dic)
 			if 'recon' in request.POST:
@@ -421,7 +431,7 @@ def showpost(request, postid, page):
 						'res': '点赞成功！'
 					}))
 				else:
-					request.user.tkuser.downvoteRest(post.id)
+					request.user.tkuser.downvoteResp(post.id)
 					return HttpResponse(json.dumps({
 						'res': '取消点赞成功！'
 					}))
