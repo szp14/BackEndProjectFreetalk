@@ -431,7 +431,7 @@ def showpost(request, postid, page):
 						'res': '点赞成功！'
 					}))
 				else:
-					request.user.tkuser.downvoteResp(post.id)
+					request.user.tkuser.downvoteResp(repostlist[int(request.POST["upvote"]) - 1].id)
 					return HttpResponse(json.dumps({
 						'res': '取消点赞成功！'
 					}))
