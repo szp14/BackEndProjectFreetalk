@@ -17,9 +17,11 @@
 			<form id="host_only" method="post">
 				<input class="post_title_btn" type="submit" name="setonly" id="only" value="{{ host }}" />
 			</form>
-			<img src="/static/images/coin.png">
-			<input class="post_coin_num" type="text" id="coin" value="1"/>
-			<input class="post_title_btn" id="givecoin" type="button" value="打赏金币" />
+			{% if user != post.user %}
+				<img src="/static/images/coin.png">
+				<input class="post_coin_num" type="text" id="coin" value="1"/>
+				<input class="post_title_btn" id="givecoin" type="button" value="打赏金币" />
+			{% endif %}
 		</div>
 		<div class="respond">
 			<div class="respond_user">
@@ -39,7 +41,9 @@
 			</div>
 			<div class="respond_wrap">
 				<div class="respond_date">楼主  {{ post.time|date:"Y-m-d H:i:s" }}</div>
-				<input class="respond_btn" id="vote" type="button" value="{{ upvote }}" onclick=""/>
+				{% if user != post.user %}
+					<input class="respond_btn" id="vote" type="button" value="{{ upvote }}" onclick=""/>
+				{% endif %}
 				<div class="respond_up">收到赞: {{ post.score }}</div>
 			</div>
 			<div class="clear"></div>
@@ -64,7 +68,9 @@
 			</div>
 			<div class="respond_wrap">
 				<div class="respond_date">第{{ repost.num }}楼  {{ repost.resp.time|date:"Y-m-d H:i:s" }}</div>
-				<input class="respond_btn upvote" id="vote{{ forloop.counter }}" type="button" value="{{ repost.upvote }}" onclick=""/>
+				{% if repost.resp.user != user %}
+					<input class="respond_btn upvote" id="vote{{ forloop.counter }}" type="button" value="{{ repost.upvote }}" onclick=""/>
+				{% endif %}
 				{% if repost.resp.user == user or user == post.user %}
 					<input class="respond_btn delre" type="button" id="delre{{ forloop.counter }}" value="删 除" onclick=""/>
 				{% endif %}
