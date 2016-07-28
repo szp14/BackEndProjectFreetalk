@@ -109,6 +109,14 @@ class TKuser(models.Model):
 		else:
 			return False
 
+	def highlightPost(self, post, numCoin):
+		if self.numCoin < numCoin:
+			return False
+		self.numCoin = self.numCoin - numCoin
+		post.highlight = 1
+		post.save()
+		self.save()
+
 	def newResp(self, respType, content, imgList, attachment, postId, respId):
 		q = None
 		p = TKpost.objects.filter(id = postId)
@@ -162,6 +170,7 @@ class TKpost(models.Model):
 	numResp     = models.IntegerField(default = 0)
 	score       = models.IntegerField(default = 0)
 	coin        = models.IntegerField(default = 0)
+	highlight   = models.SmallIntegerField(default = 0)
 
 	def getImgList(self):
 		return TKpostImage.objects.filter(post = self)
@@ -367,7 +376,7 @@ class TKhomepage:
 		q.is_staff = True
 		q.is_superuser = True
 		q.save()
-		u = TKuser(nickname = 'admin', pwdQuestion = 'Are you admin?', pwdAnswer = 'Maybe', user = q)
+		u = TKuser(nickname = 'admin', pwdQuestion = 'Are you admin?', pwdAnswer = 'Maybe', user = q, numCoin = 100000)
 		u.usrType = 2
 		u.save()
 		TKhomepage.addClassTag('清华大学')
