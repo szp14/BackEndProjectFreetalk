@@ -86,22 +86,6 @@ $(".opTag").click(function () {
 	}
 });
 
-$(".opPost").click(function () {
-	var cliid = $(this).attr("id");
-	cliid = cliid.substring(7);
-	var op = {
-		'delPost': cliid,
-	}
-	$.ajax({
-		type: "POST",
-		data: op,
-		success: function (data) {
-			data = JSON.parse(data);
-			alert("该帖子已被成功删除！");
-			window.location.href = "";
-		}
-	});
-});
 
 $("#sortbtn").click(function() {
 	window.location.href = "../../" + $("#sort").val() + "/1/";
@@ -114,6 +98,23 @@ var pos2 = href.indexOf('/');
 var loc = parseInt(href.substring(pos2 + 1, href.length - 1));
 var type = href.substring(0, pos2);
 var total = parseInt($("#nowpage").text().substr(1, 1));
+
+$(".opPost").click(function () {
+	var cliid = $(this).attr("id");
+	cliid = cliid.substring(7);
+	var op = {
+		'delPost': cliid,
+	}
+	$.ajax({
+		type: "POST",
+		data: op,
+		success: function (data) {
+			data = JSON.parse(data);
+			alert("该帖子已被成功删除！");
+			window.location.href = "../../" + type + '/' + 1;
+		}
+	});
+});
 
 $("#prepage").click(function() {
 	if(loc == 1)

@@ -20,6 +20,13 @@ function addTag() {
 	}
 }
 
+var href = window.location.href;
+var pos1 = href.indexOf('tagadmin/');
+href = href.substr(pos1 + 9);
+var pos2 = href.indexOf('/');
+var loc = parseInt(href.substring(0, pos2));
+var total = parseInt($("#nowpage").text().substr(1, 1));
+
 $(".optag").click(function() {
 	var type = $(this).val(), id = $(this).attr("id").substr(6);
 	var post_data;
@@ -33,7 +40,7 @@ $(".optag").click(function() {
 			success: function (data) {
 				data = JSON.parse(data);
 				alert(data["res"]);
-				location.reload();
+				window.location.href = "../" + 1;
 			}
 		});
 	}
@@ -58,13 +65,6 @@ $(".optag").click(function() {
 		}
 	}
 });
-
-var href = window.location.href;
-var pos1 = href.indexOf('tagadmin/');
-href = href.substr(pos1 + 9);
-var pos2 = href.indexOf('/');
-var loc = parseInt(href.substring(0, pos2));
-var total = parseInt($("#nowpage").text().substr(1, 1));
 
 $("#prepage").click(function() {
 	if(loc == 1)

@@ -59,22 +59,6 @@ $(".rerespond_btn").click(function() {
 	});
 });
 
-$(".delre").click(function() {
-	var delreid = $(this).attr("id").substr(5);
-	var post_data = {
-		'delreid': delreid,
-	};
-	$.ajax({
-		type: "POST",
-		data: post_data,
-		success: function (data) {
-			data = JSON.parse(data);
-			alert(data['res']);
-			location.reload();
-		}
-	});
-});
-
 $(".upvote").click(function() {
 	var id = $(this).attr("id").substr(4);
 	var post_data = {
@@ -129,6 +113,22 @@ href = href.substr(pos1 + 5);
 var pos2 = href.indexOf('/');
 var loc = parseInt(href.substring(pos2 + 1, href.length - 1));
 var total = parseInt($("#nowpage").text().substr(1, 1));
+
+$(".delre").click(function() {
+	var delreid = $(this).attr("id").substr(5);
+	var post_data = {
+		'delreid': delreid,
+	};
+	$.ajax({
+		type: "POST",
+		data: post_data,
+		success: function (data) {
+			data = JSON.parse(data);
+			alert(data['res']);
+			window.location.href = "../" + 1;
+		}
+	});
+});
 
 $("#prepage").click(function() {
 	if(loc == 1)

@@ -1,4 +1,11 @@
+﻿
 
+var href = window.location.href;
+var pos1 = href.indexOf('useradmin/');
+href = href.substr(pos1 + 10);
+var pos2 = href.indexOf('/');
+var loc = parseInt(href.substring(0, pos2));
+var total = parseInt($("#nowpage").text().substr(1, 1));
 
 $(".op").click(function (){
 	var name1 = $(this).attr("class");
@@ -12,17 +19,13 @@ $(".op").click(function (){
 		success: function (data) {
 			data = JSON.parse(data);
 			alert(data['res']);
-			location.reload();
+			if(data['res'] == '该用户已被成功删除！')
+				window.location.href = "../" + 1;
+			else
+				location.reload();
 		}
 	});
 });
-
-var href = window.location.href;
-var pos1 = href.indexOf('useradmin/');
-href = href.substr(pos1 + 10);
-var pos2 = href.indexOf('/');
-var loc = parseInt(href.substring(0, pos2));
-var total = parseInt($("#nowpage").text().substr(1, 1));
 
 $("#prepage").click(function() {
 	if(loc == 1)
