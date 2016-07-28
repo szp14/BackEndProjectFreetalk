@@ -14,16 +14,10 @@ def user_directory_path(instance, filename):
 	return 'upload/' + str(instance.user.id)
 
 def postImgPath(instance, filename):
-	return 'upload/0' + str(instance.user.id)
-
-def postAttPath(instance, filename):
-	return 'upload/00' + str(instance.user.id)
+	return 'upload/0' + str(instance.id)
 
 def respImgPath(instance, filename):
-	return 'upload/000' + str(instance.user.id)
-
-def respAttPath(instance, filename):
-	return 'upload/0000' + str(instance.user.id)
+	return 'upload/000' + str(instance.id)
 
 
 
@@ -159,7 +153,7 @@ class TKuser(models.Model):
 class TKpost(models.Model):
 	title       = models.CharField(max_length = 100)
 	content     = models.CharField(max_length = 1000)
-	attachment  = models.FileField(upload_to = postAttPath, null = True)
+	attachment  = models.FileField(upload_to = 'upload', null = True)
 	user        = models.ForeignKey(User, on_delete = models.CASCADE)
 	time        = models.DateTimeField(default = timezone.now)
 	classTag    = models.CharField(max_length = 100)
@@ -222,13 +216,12 @@ class TKpost(models.Model):
 	def focusOnHost(self):
 		return TKresponse.objects.filter(user = self.user, post = self, respType = 0)
 
-
 class TKresponse(models.Model):
 	respType    = models.SmallIntegerField(default = 0)
 	content     = models.CharField(max_length = 400)
 	user        = models.ForeignKey(User, on_delete = models.CASCADE)
 	post        = models.ForeignKey(TKpost, on_delete = models.CASCADE)
-	attachment  = models.FileField(upload_to = respAttPath, null = True)
+	attachment  = models.FileField(upload_to = 'upload', null = True)
 	respId      = models.IntegerField()
 	hostId      = models.IntegerField()
 	time        = models.DateTimeField(default = timezone.now)
@@ -450,7 +443,7 @@ class TKhomepage:
 		return TKpost.objects.all().order_by('-numResp')
 
 	def searchPostByTitle(title):
-		return TKpost.objects.filter(title = title)
+		return TKpost.objects.filter(title__contains = title)
 
 	def searchPostByContent(content):
 		return TKpost.objects.filter(content__contains = content)

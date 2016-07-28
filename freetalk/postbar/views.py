@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
-from postbar.models import TKhomepage, TKuser, TKpost, TKresponse, TKclassTag, TKupvoteRelation
+from postbar.models import TKhomepage, TKuser, TKpost, TKresponse, TKclassTag, TKupvoteRelation, TKpostImage
 import json
 from django.core.urlresolvers import reverse
 
@@ -214,13 +214,6 @@ def homepage(request, type, page):
 	if request.user.is_authenticated():
 		page = int(page)
 		pageEveNum = 20
-		TotalNum = len(TKpost.objects.all())
-		if TotalNum % pageEveNum == 0 and TotalNum != 0:
-			pageNum = TotalNum / pageEveNum
-		else:
-			pageNum = TotalNum // pageEveNum + 1
-		if page > pageNum or page < 1:
-			return(HttpResponse("该页面不存在！"))
 		if type == 'time':
 			allpost = TKhomepage.sortPostByTime()
 		elif type == 'click':
@@ -229,8 +222,27 @@ def homepage(request, type, page):
 			allpost = TKhomepage.sortPostByScore()
 		elif type == 'respond':
 			allpost = TKhomepage.sortPostByResp()
-		else:
+		elif type == 'coin':
 			allpost = TKhomepage.sortPostByCoin()
+		else:
+			wordlist = type.split()
+			if wordlist[0] != '无':
+				allpost = set(TKhomepage.searchPostByClassTag(wordlist[0]))
+			else:
+				allpost = set(TKhomepage.sortPostByTime())
+			if len(wordlist) > 1:
+				for word in wordlist[1: len(wordlist)]:
+					list1 = set(TKhomepage.searchPostByTitle(word))
+					list2 = set(TKhomepage.searchPostByContent(word))
+					allpost = (list1 | list2) & allpost
+			allpost = list(allpost)
+		TotalNum = len(allpost)
+		if TotalNum % pageEveNum == 0 and TotalNum != 0:
+			pageNum = TotalNum / pageEveNum
+		else:
+			pageNum = TotalNum // pageEveNum + 1
+		if page > pageNum or page < 1:
+			return(HttpResponse("该页面不存在！"))
 		postlist = allpost[pageEveNum * (page - 1) : pageEveNum * page]
 		postDic = [{'post': p, 
 					'tag1': p.classTag.split()[0], 
@@ -251,23 +263,6 @@ def homepage(request, type, page):
 				logout(request)
 				return HttpResponse(json.dumps({
 					'res': '注销登录成功，即将跳转到登录界面！'
-				}))
-			elif 'title' in request.POST:
-				tag1 = request.POST['tag1']
-				tag2 = request.POST['tag2']
-				tag3 = request.POST['tag3']
-				tags = tag1
-				if tag2 != '无' and tag2 != tag1:
-					tags += " " + tag2
-				if tag3 != "无" and tag1 != tag3:
-					if tag2 != "无":
-						if tag3 != tag2:
-							tags += " " + tag3
-					else:
-						tags += " " + tag3
-				request.user.tkuser.newPost(request.POST['title'], request.POST['content'], None, None, tags, "")
-				return HttpResponse(json.dumps({
-					'res': '发帖成功！'
 				}))
 			elif 'addTag' in request.POST:
 				add1 = request.POST['addTag']
@@ -299,6 +294,44 @@ def homepage(request, type, page):
 					'tip': '该帖子已被成功删除！',
 				}
 				return HttpResponse(json.dumps(res))
+			elif 'title' in request.POST:
+				tag1 = request.POST['tag1']
+				tag2 = request.POST['tag2']
+				tag3 = request.POST['tag3']
+				tags = tag1
+				if tag2 != '无' and tag2 != tag1:
+					tags += " " + tag2
+				if tag3 != "无" and tag1 != tag3:
+					if tag2 != "无":
+						if tag3 != tag2:
+							tags += " " + tag3
+					else:
+						tags += " " + tag3
+				request.user.tkuser.newPost(request.POST['title'], request.POST['content'], [request.FILES.get('img')], request.FILES.get('attachment'), tags, "")
+				if type == 'time':
+					allpost = TKhomepage.sortPostByTime()
+				elif type == 'click':
+					allpost = TKhomepage.sortPostByClick()
+				elif type == 'up':
+					allpost = TKhomepage.sortPostByScore()
+				elif type == 'respond':
+					allpost = TKhomepage.sortPostByResp()
+				else:
+					allpost = TKhomepage.sortPostByCoin()
+				postlist = allpost[pageEveNum * (page - 1) : pageEveNum * page]
+				dic["posts"] = [{'post': p, 
+						'tag1': p.classTag.split()[0], 
+						'tag2': p.classTag.split()[1] if len(p.classTag.split()) > 1 else '无', 
+						'tag3': p.classTag.split()[2] if len(p.classTag.split()) > 2 else '无'
+					} for p in postlist
+				]
+				return HttpResponseRedirect(reverse('homepage', args=('time', 1)))
+			elif 'postid' in request.POST:
+				postid = int(request.POST['postid'])
+				postlist[postid - 1].clicked()
+				return HttpResponse(json.dumps({
+					'res': '点击成功'
+				}))
 		return render(request, 'postbar/homepage.html', dic)
 	else:
 		return HttpResponse("您未登陆，无法访问该网页！")
@@ -321,10 +354,13 @@ def showpost(request, postid, page):
 		respDic = [{'resp': p, 
 			'respList': p.getResp(), 
 			'upvote': '取消点赞' if TKupvoteRelation.isUpvoted(1, request.user.id, p.id) else '点 赞', 
-			'num': pageEveNum * (page - 1) + i + 1} for i, p in enumerate(repostlist)]
+			'num': pageEveNum * (page - 1) + i + 1,
+			'imglist': p.getImgList(),
+		} for i, p in enumerate(repostlist)]
 		dic = {
 			'img': post.user.tkuser.getImgUrl(),
 			'post': post,
+			'imglist': post.getImgList(),
 			'reposts': respDic,
 			'user': request.user,
 			'pagenum': int(pageNum),
@@ -334,8 +370,8 @@ def showpost(request, postid, page):
 		}
 		if request.POST:
 			if 'content' in request.POST:
-				request.user.tkuser.newResp(0, request.POST['content'], None, None, post.id, -1)
-				return render(request, 'postbar/post.html', dic)
+				request.user.tkuser.newResp(0, request.POST['content'], [request.FILES.get("img")], request.FILES.get('attachment'), post.id, -1)
+				return HttpResponseRedirect(reverse('post', args=(postid, 1)))
 			if 'setonly' in request.POST:
 				if request.POST['setonly'] == "只看楼主":
 					dic['reposts'] = [{'resp': p, 'respList': p.getResp()} for p in post.focusOnHost()]

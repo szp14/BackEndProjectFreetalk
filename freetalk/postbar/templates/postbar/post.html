@@ -28,8 +28,14 @@
 			</div>
 			<div class="respond_content">
 				{{ post.content }}
-				<img class="new_post_img" src="/static/images/mengbi.jpg">
-				</br></br><a href="https://github.com/szp14/BackEndProjectFreetalk">下载附件(12.450MB)</a>
+				{% if imglist %}
+					{% for image in imglist %}
+						<img class="new_post_img" src="{{ image.img.url }}">
+					{% endfor %}
+				{% endif %}
+				{% if post.attachment %}
+					</br></br><a href="{{ post.attachment.url }}">下载附件</a>
+				{% endif %}
 			</div>
 			<div class="respond_wrap">
 				<div class="respond_date">楼主  {{ post.time|date:"Y-m-d H:i:s" }}</div>
@@ -47,6 +53,14 @@
 			</div>
 			<div class="respond_content">
 				{{ repost.resp.content }}
+				{% if repost.imglist %}
+					{% for image in repost.imglist %}
+						<img class="new_post_img" src="{{ image.img.url }}">
+					{% endfor %}
+				{% endif %}
+				{% if repost.resp.attachment %}
+					</br></br><a href="{{ repost.resp.attachment.url }}">下载附件</a>
+				{% endif %}
 			</div>
 			<div class="respond_wrap">
 				<div class="respond_date">第{{ repost.num }}楼  {{ repost.resp.time|date:"Y-m-d H:i:s" }}</div>
@@ -100,14 +114,13 @@
 		</span>
 		<div class="clear"></div>
 	</div>
-	<form id="new_respond" method="post">
+	<form id="new_respond" method="post" enctype="multipart/form-data">
 		回复：</br>
-		<!--这里的textarea换成了div，submit时要提交div的内容-->
-		<div id="new_post_content" contenteditable="true"></div>
+		<textarea name='content' id="new_post_content"></textarea></br>
 		添加图片：
-		<input class="new_post_file" type="file" onchange="addImg(this.value)" /></br>
+		<input class="new_post_file" type="file" id="img" name="img" /></br>
 		添加附件：
-		<input class="new_post_file" type="file" name="headimg"/></br></br>
+		<input class="new_post_file" type="file" name="attachment"/></br></br>
 		{% if user.tkuser.usrStatus > 0 %}
 			<p>您处于禁言或屏蔽状态，无法回复！</p>
 		{% else %}

@@ -1,21 +1,21 @@
 ﻿
 function response() {
-	var content = $("#new_post_content").text();
+	var content = $("#new_post_content").val();
 	var content1 = $.trim(content);
-	var post_data = {
-		'content': content
-	};
 	if(content1 == "")
 		alert("回复内容不能为空！");
 	else {
-		$.ajax({
-			type: "POST",
-			data: post_data,
-			success: function (data) {
-				alert("回复成功！");
-				location.reload();
-			}
-		});
+		var img = $("#img").val();
+		if (img != "") {
+			var list1 = img.split(".");
+			var type = list1[1];
+			if (type == "gif" || type == "GIF" || type == "jpg" || type == "JPG" || type == "png" || type == "PNG")
+				$("#new_respond").submit();
+			else
+				alert("图片格式错误，只能为gif、jpg和png三种格式！");
+		}
+		else
+			$("#new_respond").submit();
 	}
 }
 

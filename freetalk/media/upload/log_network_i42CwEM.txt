@@ -1,0 +1,85 @@
+[2015-09-20 19:16:20.825] <ERROR> [network] CWebParser::GetVLUpdateConfig(100) begin get GetVLUpdateConfig
+[2015-09-20 19:16:20.870] <ERROR> [network] CHttpPacketStreamer::GetPacketInfo(126) receive trucked data end
+[2015-09-20 19:16:29.635] <ERROR> [network] CWebParser::GetVLFolderData(183) begin get GetVLFolderData
+[2015-09-20 19:16:29.638] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:29.639] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:29.640] <DEBUG> [network] CXHttpConnection::OnClosed(441) [reconnect]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E5%BD%B1&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=2;must&has_item_link=1 0 10049
+[2015-09-20 19:16:29.642] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:29.643] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:29.644] <DEBUG> [network] CXHttpConnection::HandlePacket(474) [ConnectionFinal]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E5%BD%B1&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=2;must&has_item_link=1 decode error
+[2015-09-20 19:16:29.644] <ERROR> [network] CTcpConnection::OnClosed(99) Connect failed iError code is 10049
+
+[2015-09-20 19:16:31.645] <ERROR> [network] CWebParser::GetVLFolderData(183) begin get GetVLFolderData
+[2015-09-20 19:16:31.647] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:31.649] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:31.649] <DEBUG> [network] CXHttpConnection::OnClosed(441) [reconnect]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E5%BD%B1&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=1;must&has_item_link=1 0 10049
+[2015-09-20 19:16:31.651] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:31.653] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:31.654] <DEBUG> [network] CXHttpConnection::HandlePacket(474) [ConnectionFinal]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E5%BD%B1&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=1;must&has_item_link=1 decode error
+[2015-09-20 19:16:31.654] <ERROR> [network] CTcpConnection::OnClosed(99) Connect failed iError code is 10049
+
+[2015-09-20 19:16:33.659] <ERROR> [network] CWebParser::GetVLFolderData(183) begin get GetVLFolderData
+[2015-09-20 19:16:33.661] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:33.663] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:33.663] <DEBUG> [network] CXHttpConnection::OnClosed(441) [reconnect]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=200&ctgname=%E7%94%B5%E8%A7%86%E5%89%A7&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=15;must&has_item_link=1 0 10049
+[2015-09-20 19:16:33.666] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:33.668] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:33.668] <DEBUG> [network] CXHttpConnection::HandlePacket(474) [ConnectionFinal]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=200&ctgname=%E7%94%B5%E8%A7%86%E5%89%A7&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=15;must&has_item_link=1 decode error
+[2015-09-20 19:16:33.669] <ERROR> [network] CTcpConnection::OnClosed(99) Connect failed iError code is 10049
+
+[2015-09-20 19:16:35.673] <ERROR> [network] CWebParser::GetVLFolderData(183) begin get GetVLFolderData
+[2015-09-20 19:16:35.675] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:35.677] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:35.677] <DEBUG> [network] CXHttpConnection::OnClosed(441) [reconnect]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E8%A7%86%E5%89%A7&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=18;must&has_item_link=1 0 10049
+[2015-09-20 19:16:35.679] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:35.681] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-20 19:16:35.681] <DEBUG> [network] CXHttpConnection::HandlePacket(474) [ConnectionFinal]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E8%A7%86%E5%89%A7&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=18;must&has_item_link=1 decode error
+[2015-09-20 19:16:35.681] <ERROR> [network] CTcpConnection::OnClosed(99) Connect failed iError code is 10049
+
+[2015-09-28 17:58:14.553] <ERROR> [network] CWebParser::GetVLUpdateConfig(100) begin get GetVLUpdateConfig
+[2015-09-28 17:58:14.774] <ERROR> [network] CHttpPacketStreamer::GetPacketInfo(126) receive trucked data end
+[2015-09-28 17:58:22.721] <ERROR> [network] CWebParser::GetVLFolderData(183) begin get GetVLFolderData
+[2015-09-28 17:58:22.722] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:22.723] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:22.724] <DEBUG> [network] CXHttpConnection::OnClosed(441) [reconnect]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E5%BD%B1&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=2;must&has_item_link=1 0 10049
+[2015-09-28 17:58:22.725] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:22.726] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:22.726] <DEBUG> [network] CXHttpConnection::HandlePacket(474) [ConnectionFinal]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E5%BD%B1&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=2;must&has_item_link=1 decode error
+[2015-09-28 17:58:22.726] <ERROR> [network] CTcpConnection::OnClosed(99) Connect failed iError code is 10049
+
+[2015-09-28 17:58:24.734] <ERROR> [network] CWebParser::GetVLFolderData(183) begin get GetVLFolderData
+[2015-09-28 17:58:24.736] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:24.737] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:24.737] <DEBUG> [network] CXHttpConnection::OnClosed(441) [reconnect]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E5%BD%B1&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=1;must&has_item_link=1 0 10049
+[2015-09-28 17:58:24.739] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:24.740] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:24.740] <DEBUG> [network] CXHttpConnection::HandlePacket(474) [ConnectionFinal]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E5%BD%B1&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=1;must&has_item_link=1 decode error
+[2015-09-28 17:58:24.740] <ERROR> [network] CTcpConnection::OnClosed(99) Connect failed iError code is 10049
+
+[2015-09-28 17:58:26.746] <ERROR> [network] CWebParser::GetVLFolderData(183) begin get GetVLFolderData
+[2015-09-28 17:58:26.747] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:26.749] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:26.749] <DEBUG> [network] CXHttpConnection::OnClosed(441) [reconnect]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=200&ctgname=%E7%94%B5%E8%A7%86%E5%89%A7&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=15;must&has_item_link=1 0 10049
+[2015-09-28 17:58:26.750] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:26.751] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:26.752] <DEBUG> [network] CXHttpConnection::HandlePacket(474) [ConnectionFinal]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=200&ctgname=%E7%94%B5%E8%A7%86%E5%89%A7&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=15;must&has_item_link=1 decode error
+[2015-09-28 17:58:26.752] <ERROR> [network] CTcpConnection::OnClosed(99) Connect failed iError code is 10049
+
+[2015-09-28 17:58:28.759] <ERROR> [network] CWebParser::GetVLFolderData(183) begin get GetVLFolderData
+[2015-09-28 17:58:28.761] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:28.762] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:28.763] <DEBUG> [network] CXHttpConnection::OnClosed(441) [reconnect]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E8%A7%86%E5%89%A7&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=18;must&has_item_link=1 0 10049
+[2015-09-28 17:58:28.765] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:28.766] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:28.767] <DEBUG> [network] CXHttpConnection::HandlePacket(474) [ConnectionFinal]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E8%A7%86%E5%89%A7&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=18;must&has_item_link=1 decode error
+[2015-09-28 17:58:28.767] <ERROR> [network] CTcpConnection::OnClosed(99) Connect failed iError code is 10049
+
+[2015-09-28 17:58:30.773] <ERROR> [network] CWebParser::GetVLFolderData(183) begin get GetVLFolderData
+[2015-09-28 17:58:30.774] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:30.775] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:30.776] <DEBUG> [network] CXHttpConnection::OnClosed(441) [reconnect]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E8%A7%86%E5%89%A7&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=17;must&has_item_link=1 0 10049
+[2015-09-28 17:58:30.777] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:30.778] <ERROR> [network] SocketAddress::StringToIP(293) gethostbyname error: 11001, search.video.qiyi.domain
+[2015-09-28 17:58:30.778] <DEBUG> [network] CXHttpConnection::HandlePacket(474) [ConnectionFinal]:search.video.qiyi.domain/qiso3/?if=pc&type=list&pos=1&pageNum=1&pageSize=100&ctgname=%E7%94%B5%E8%A7%86%E5%89%A7&mode=10&site=iqiyi&p=11&p1=114&source_type=1&platform=1&three_category_id=17;must&has_item_link=1 decode error
+[2015-09-28 17:58:30.778] <ERROR> [network] CTcpConnection::OnClosed(99) Connect failed iError code is 10049
+

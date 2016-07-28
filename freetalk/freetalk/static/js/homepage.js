@@ -15,7 +15,7 @@ function logout() {
 }
 
 function checkPost() {
-	var title = $("#new_post_title").val(), content = $("#rel_post_content").text();
+	var title = $("#new_post_title").val(), content = $("#new_post_content").val();
 	var title1 = $.trim(title), content1 = $.trim(content);
 	if (title1 == '') {
 		alert("标题不能为空！");
@@ -26,27 +26,39 @@ function checkPost() {
 		alert("内容不能为空！");
 	}
 	else {
-		var post_data = {
-			'title': title,
-			'content': content,
-			'tag1': $("#tag1").val(),
-			'tag2': $("#tag2").val(),
-			'tag3': $("#tag3").val(),
-		};
-		$.ajax({
-			type: "POST",
-			data: post_data,
-			success: function (data) {
-				data = JSON.parse(data);
-				alert(data['res']);
-				location.reload();
-			}
-		});
+		var img = $("#img").val();
+		if (img != "") {
+			var list1 = img.split(".");
+			var type = list1[1];
+			if (type == "gif" || type == "GIF" || type == "jpg" || type == "JPG" || type == "png" || type == "PNG")
+				$("#new_post").submit();
+			else
+				alert("图片格式错误，只能为gif、jpg和png三种格式！");
+		}
+		else
+			$("#new_post").submit();
 	}
 }
 
+$("#searchbtn").click(function() {
+	var sertag = $("#search_label").val(), sercon = $("#menu_block_content").val();
+	if(sertag == "无" && sercon == '')
+		alert("您未输入实际的搜索内容，请重新输入！");
+	else {
+		con = sertag + " " + sercon;
+		window.location.href = "../../" + con + "/1/";
+	}
+});
+
 $(".postlick").click(function(){
-	//alert($(this).attr("id").substr(4));
+	var id = $(this).attr("id").substr(4);
+	var post_data = {
+		'postid': id,
+	};
+	$.ajax({
+		type: "POST",
+		data: post_data,
+	});
 });
 
 $(".opTag").click(function () {
@@ -91,17 +103,7 @@ $(".opPost").click(function () {
 	});
 });
 
-function addImg(value){
-	alert(value);//调试用
-	var txt = document.getElementById("new_post_content")
-	o = document.createElement("IMG");
-	o.className = "new_post_img";
-	o.src = "/static/images/mengbi.jpg";//这里需要先上传图片再拿到上传图片的地址
-	txt.appendChild(o);
-}
-
 $("#sortbtn").click(function() {
-	alert("排序成功！")
 	window.location.href = "../../" + $("#sort").val() + "/1/";
 });
 

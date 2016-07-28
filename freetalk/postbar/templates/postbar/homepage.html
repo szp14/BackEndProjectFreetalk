@@ -12,15 +12,15 @@
 	<div id="homepage_header" style="background-image:url(/static/images/hp_header.jpg)"></div>
 	<div id="menu_block">
 		类标要求: 
-		<select class="menu_block_label" name="search_label">
+		<select class="menu_block_label" id="search_label">
 			<option value="无">无</option>
 			{% for tag in tags %}
 			<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
 			{% endfor %}
 		</select>
 		内容要求: 
-		<input id="menu_block_content" type="text" name="search_content"/>
-		<input class="menu_block_btn" id="searchbtm" type="button" value="搜 索"/>
+		<input id="menu_block_content" type="text"/>
+		<input class="menu_block_btn" id="searchbtn" type="button" value="搜 索"/>
 		排行榜: 
 		<select class="menu_block_rank" name="rank" id="sort">
 			<option value="time">按时间</option>
@@ -101,34 +101,30 @@
 		</div>
 	</div>
 	<div class="clear"></div>
-	<form id="new_post" method="post" action="" >
-		标题：</br><input id="new_post_title" type="text" name="title" onsubmit="checkPost()" />
+	<form id="new_post" method="post" action="" enctype="multipart/form-data">
+		标题：</br><input id="new_post_title" type="text" name="title" />
 		</br></br>
 		内容：</br>
 		<!--这里的textarea换成了div，submit时要提交div的内容-->
-		<div id="new_post_content" contenteditable="true">
-			<p id="rel_post_content">文本内容</p>
-			<img class="new_post_img" src="/static/images/mengbi.jpg">
-			<img class="new_post_img" src="/static/images/log_bg.jpg"><!--img会自动换行不用管-->
-		</div>
+		<textarea id="new_post_content" name="content"></textarea></br>
 		添加图片：
-		<input class="new_post_file" type="file" onchange="addImg(this.value)" /></br>
+		<input class="new_post_file" type="file" id="img" name="img"/></br>
 		添加附件：
-		<input class="new_post_file" type="file" name="headimg"/></br>
+		<input class="new_post_file" type="file" id="attachment" name="attachment"/></br>
 		<div id="new_post_labels">
 			添加类标：
-			<select class="new_post_label" id="tag1">
+			<select class="new_post_label" name="tag1">
 			{% for tag in tags %}
 				<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
 			{% endfor %}
 			</select>
-			<select class="new_post_label" id="tag2">
+			<select class="new_post_label" name="tag2">
 				<option value="无" selected="selected">无</option>
 				{% for tag in tags %}
 					<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
 				{% endfor %}
 			</select>
-			<select class="new_post_label" id="tag3">
+			<select class="new_post_label" name="tag3">
 				<option value="无" selected="selected">无</option>
 				{% for tag in tags %}
 					<option value="{{ tag.classTagName }}">{{ tag.classTagName }}</option>
