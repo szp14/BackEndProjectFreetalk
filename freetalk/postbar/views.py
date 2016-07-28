@@ -307,7 +307,7 @@ def homepage(request, type, page):
 							tags += " " + tag3
 					else:
 						tags += " " + tag3
-				img = request.FILES.get('img') if request.FILES.get('img') else None
+				img = [request.FILES.get('img')] if request.FILES.get('img') else None
 				attachment = request.FILES.get('attachment') if request.FILES.get('attachment') else None
 				request.user.tkuser.newPost(request.POST['title'], request.POST['content'], img, attachment, tags, "")
 				if type == 'time':
@@ -372,7 +372,7 @@ def showpost(request, postid, page):
 		}
 		if request.POST:
 			if 'content' in request.POST:
-				img = request.FILES.get('img') if request.FILES.get('img') else None
+				img = [request.FILES.get('img')] if request.FILES.get('img') else None
 				attachment = request.FILES.get('attachment') if request.FILES.get('attachment') else None
 				request.user.tkuser.newResp(0, request.POST['content'], img, attachment, post.id, -1)
 				return HttpResponseRedirect(reverse('post', args=(postid, 1)))
