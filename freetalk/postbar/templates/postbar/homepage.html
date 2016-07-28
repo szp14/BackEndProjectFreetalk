@@ -37,7 +37,14 @@
 		<span class="user_info_name">昵称: {{ user.tkuser.nickname }}</span></br>
 		<span class="user_info_name">用户名: {{ user.username }}</span></br>
 		<span class="user_info_name">邮箱: {{ user.email }}</span></br>
-		<span class="user_info_name">金币数: {{ user.tkuser.numCoin }}</span></br></br>
+		<span class="user_info_name">金币数: {{ user.tkuser.numCoin }}</span></br>
+		{% if user.tkuser.usrStatus == 0 %}
+			<span class="user_info_name">状态: 正常</span></br></br>
+		{% elif user.tkuser.usrStatus == 1 %}
+			<span class="user_info_name">状态: 禁言</span></br></br>
+		{% elif user.tkuser.usrStatus == 2 %}
+			<span class="user_info_name">状态: 屏蔽</span></br></br>
+		{% endif %}
 		<input class="user_info_btn" type="button" value="修改资料" onclick="window.location.href='{% url 'account' %}'"/></br>
 		<input class="user_info_btn" type="button" value="注销登录" onclick="logout()"/></br>
 		{% if user.tkuser.usrType != 0 %}
