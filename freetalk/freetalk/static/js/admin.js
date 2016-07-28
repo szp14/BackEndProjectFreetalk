@@ -1,4 +1,4 @@
-﻿
+
 
 $(".op").click(function (){
 	var name1 = $(this).attr("class");
@@ -19,7 +19,7 @@ $(".op").click(function (){
 
 var href = window.location.href;
 var pos1 = href.indexOf('useradmin/');
-href = href.substr(pos1 + 9);
+href = href.substr(pos1 + 10);
 var pos2 = href.indexOf('/');
 var loc = parseInt(href.substring(0, pos2));
 var total = parseInt($("#nowpage").text().substr(1, 1));
@@ -41,7 +41,7 @@ $("#nextpage").click(function() {
 });
 
 $("#turnpage").click(function() {
-	var page = $("#page").val()
+	var page = $("#page").val();
 	if($.isNumeric(page)) {
 		page = parseInt(page);
 		if(page < 1 || page > total)
