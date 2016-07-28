@@ -130,7 +130,7 @@ a:hover{
 	line-height:20px;
 }
 .post_item_title{
-	width:400px;
+	width:430px;
 	font-size:18px;
 	font-weight:bold;
 	float:left;
@@ -147,7 +147,7 @@ a:hover{
 }
 .post_item_num{
 	padding-top:3px;
-	width:250px;
+	width:220px;
 	float:right;
 	color:#888888;
 	font-size:14px;
