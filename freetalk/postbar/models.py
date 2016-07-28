@@ -277,6 +277,7 @@ class TKclassTag(models.Model):
 		self.delete()
 
 	def modifyClassTag(self, newTag):
+		newTag = newTag.strip()
 		if TKclassTag.objects.filter(classTagName = newTag):
 			return False
 		posts = TKhomepage.searchPostByClassTag(self.classTagName)
@@ -402,6 +403,7 @@ class TKhomepage:
 			q.delete()
 
 	def addClassTag(newClassTag):
+		newClassTag = newClassTag.strip()
 		if(TKclassTag.objects.filter(classTagName = newClassTag)):
 			return False
 		q = TKclassTag(classTagName = newClassTag)
